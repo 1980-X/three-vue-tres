@@ -6,8 +6,12 @@ export class DataSource {
   private timer: any = null
   private listeners: any[] = []
   private hasFetched = false
+  private lastData: any
+  private fetching = false
+  private stopped = false
 
   start() {
+    this.stopped = false
     const interval = this.config.interval ?? 5000
 
     // interval = 0 → 只执行一次
@@ -25,6 +29,8 @@ export class DataSource {
   }
 
   stop() {
+    this.stopped = true
+    this.listeners = []
     if (this.timer) {
       clearInterval(this.timer)
       this.timer = null
@@ -32,22 +38,33 @@ export class DataSource {
   }
 
   subscribe(cb: any) {
-    this.listeners.push(cb)    // 如果是单次模式，并且还没请求过
-    if (this.config.interval === 0 && !this.hasFetched) {
-      this.fetch()
+    this.listeners.push(cb)
+    if (this.config.interval === 0) {
+      if (this.hasFetched) {
+        this.notify(cb, this.lastData)
+      } else {
+        this.fetch()
+      }
+    }
+    return () => {
+      cb.active = false
+      this.listeners = this.listeners.filter(listener => listener !== cb)
+    }
+  }
+
+  private notify(cb: any, data: any) {
+    if (this.stopped || cb.active === false) return
+    try {
+      cb.fun(data)
+    } catch (err) {
+      console.error('[DataBinding Error]', err)
     }
   }
 
   private async fetch() {
+    if (this.stopped || this.fetching || !this.listeners.some(cb => cb.active !== false)) return
+    this.fetching = true
     try {
-      // 如果没有有效监听者，不请求
-      if (
-        this.listeners.length === 0 ||
-        this.listeners.every(cb => cb.active === false)
-      ) {
-        return
-      }
-
       const res = await fetch(this.config.url, {
         method: this.config.method || 'GET',
         headers: this.config.headers,
@@ -57,15 +74,15 @@ export class DataSource {
       })
 
       const data = await res.json()
+      if (this.stopped) return
       this.hasFetched = true
+      this.lastData = data
 
-      this.listeners.forEach(cb => {
-        if (cb.active !== false) {
-          cb.fun(data)
-        }
-      })
+      this.listeners.forEach(cb => this.notify(cb, data))
     } catch (err) {
       console.error('[DataSource Error]', err)
+    } finally {
+      this.fetching = false
     }
   }
 }

@@ -1,53 +1,65 @@
 import { DataRuntime } from './DataRuntime'
+import { createComponentBindingApi } from './componentBindingApi'
 import { useSeek } from 'PLS/basic'
-import { watch, nextTick } from 'vue'
-
-let runtime: DataRuntime | null = null
-let dataSourceInitialized = false
+import { nextTick, onBeforeUnmount, unref } from 'vue'
+import type { TvTBindingConfig, TvTDataSourceConfig } from './types'
 
 export const useWebDataRuntime = () => {
+	const runtime = new DataRuntime()
+	const componentInstances = new Map<string, any>()
+	let scene: any = null
+	let bindings: TvTBindingConfig[] = []
+	let refreshQueued = false
 
-	// 1️⃣ 获取单例 runtime
-	if (!runtime) {
-		runtime = new DataRuntime()
-	}
-
-	// 2️⃣ 初始化数据源（只执行一次）
-	const initializeDataSources = (dataSources: any[]) => {
-		if (dataSourceInitialized) return
-
-		dataSources.forEach((ds: any) => {
-			runtime!.registerDataSource(ds)
+	const refreshBindings = () => {
+		// 同一轮组件加载只查找一次场景，等节点实际挂载后再绑定。
+		if (refreshQueued) return
+		refreshQueued = true
+		nextTick(() => {
+			refreshQueued = false
+			if (!scene) return
+			bindings.forEach(binding => {
+				const target = useSeek().seek(scene, 'uuid', binding.objectId)
+				if (target) {
+					runtime.bind(binding, target, componentInstances.get(binding.objectId)?.bindingApi ?? null)
+				} else {
+					runtime.unbind(binding.id)
+				}
+			})
 		})
-
-		dataSourceInitialized = true
 	}
 
-	// 3️⃣ 绑定场景对象
-	const bindScenes = (bindings: any[], hasAllFinished: any) => {
-		watch(hasAllFinished, (newVal) => {
-			if (newVal) {
-				nextTick(() => {
-					setTimeout(() => {
-						const scene = window.globalTvtuseTres?.scene
-						bindings.forEach(b => {
-							let target: any = null
-							target = useSeek().seek(scene, 'uuid', b.objectId)
-							if (!target) {
-								console.warn('绑定数据源目标对象未找到:', b.objectId)
-							} else {
-								runtime!.bind(b, target)
-							}
-						})
-					}, 1500)
-				})
-			}
-		}, { immediate: true })
+	const setScene = (context: any) => {
+		scene = unref(context.scene)
+		refreshBindings()
+	}
+	const setComponentInstance = (uuid: string, instance: any, properties: Record<string, any>) => {
+		const current = componentInstances.get(uuid)
+		if (!instance) {
+			componentInstances.delete(uuid)
+		} else if (current?.instance !== instance || current.properties !== properties) {
+			componentInstances.set(uuid, {
+				instance,
+				properties,
+				bindingApi: createComponentBindingApi(instance, properties),
+			})
+		}
+		refreshBindings()
+	}
+	const initializeDataSources = (dataSources: TvTDataSourceConfig[]) => {
+		dataSources.forEach(ds => runtime.registerDataSource(ds))
+	}
+	const bindScenes = (configs: TvTBindingConfig[]) => {
+		bindings = configs
+		refreshBindings()
 	}
 
-	return {
-		runtime,
-		initializeDataSources,
-		bindScenes
-	}
+	onBeforeUnmount(() => {
+		scene = null
+		bindings = []
+		componentInstances.clear()
+		runtime.destroy()
+	})
+
+	return { runtime, initializeDataSources, bindScenes, setScene, setComponentInstance, refreshBindings }
 }

@@ -16,11 +16,16 @@ export class DataRuntime {
 		ds.start()
 	}
 
-	bind(bindingConfig: TvTBindingConfig, target: any) {
-		this.bindingManager.bind(bindingConfig, target)
+	bind(bindingConfig: TvTBindingConfig, target: any, objPlus: any = null) {
+		this.bindingManager.bind(bindingConfig, target, objPlus)
+	}
+
+	unbind(id: string) {
+		this.bindingManager.unbind(id)
 	}
 
 	destroy() {
+		this.bindingManager.clear()
 		this.dataSources.forEach(ds => ds.stop())
 		this.dataSources.clear()
 	}

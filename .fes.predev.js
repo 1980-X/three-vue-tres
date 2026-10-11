@@ -14,10 +14,14 @@ import fg from 'fast-glob'
 import javascriptObfuscator from 'vite-plugin-javascript-obfuscator'
 
 const PLUGIN_SOURCE_GLOB = '**/*.{vue,js,ts,jsx,tsx}'
-const pluginPredevEntries = fg.sync('src/plugins/*/predev.config.json').flatMap((configFile) => {
-    const { sources = [] } = JSON.parse(readFileSync(configFile, 'utf8'))
-    return sources.map((source) => posix.join(posix.dirname(configFile), source, PLUGIN_SOURCE_GLOB))
-})
+const pluginPredevConfigs = fg.sync('src/plugins/*/predev.config.json').map((configFile) => ({
+    ...JSON.parse(readFileSync(configFile, 'utf8')),
+    directory: posix.dirname(configFile),
+}))
+const pluginPredevEntries = pluginPredevConfigs.flatMap(({ directory, sources = [] }) =>
+    sources.map((source) => posix.join(directory, source, PLUGIN_SOURCE_GLOB)),
+)
+const pluginPredevIncludes = [...new Set(pluginPredevConfigs.flatMap(({ optimizeDeps }) => optimizeDeps?.include || []))]
 
 function scanPluginSources(entries) {
     return {
@@ -157,6 +161,8 @@ export default defineBuildConfig({
     viteOption: {
         optimizeDeps: {
             entries: ['index.html', 'src/plugins/**/pages/**/*.vue', ...pluginPredevEntries],
+            // 懒加载组件的依赖在启动时预打包，避免导入场景后触发所有标签页重载。
+            include: pluginPredevIncludes,
         },
         plugins: [
             console.log('正在加载 TvT.js...'),
