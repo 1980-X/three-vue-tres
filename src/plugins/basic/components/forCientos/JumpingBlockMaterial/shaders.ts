@@ -52,36 +52,42 @@ float jbLinearBlackWhiteBlackGradient(float positionValue) {
 
 vec3 jbThreeStopPalette(float value, vec3 colorA, vec3 colorB, vec3 colorC) {
     float t = fract(value);
+    vec3 colorValue = colorC;
 
     if (t <= 0.14) {
-        return colorA;
+        colorValue = colorA;
+    }
+    else if (t <= 0.506) {
+        colorValue = mix(colorA, colorB, clamp((t - 0.14) / (0.506 - 0.14), 0.0, 1.0));
+    }
+    else if (t <= 0.985) {
+        colorValue = mix(colorB, colorC, clamp((t - 0.506) / (0.985 - 0.506), 0.0, 1.0));
     }
 
-    if (t <= 0.506) {
-        return mix(colorA, colorB, clamp((t - 0.14) / (0.506 - 0.14), 0.0, 1.0));
-    }
-
-    if (t <= 0.985) {
-        return mix(colorB, colorC, clamp((t - 0.506) / (0.985 - 0.506), 0.0, 1.0));
-    }
-
-    return colorC;
+    return colorValue;
 }
 
 vec3 jbPaletteByScheme(float value, float schemeValue) {
+    vec3 colorA = vec3(0.3451, 0.9725, 1.0);
+    vec3 colorB = vec3(0.7333, 0.4078, 1.0);
+    vec3 colorC = vec3(1.0);
+
     if (schemeValue < 0.5) {
-        return jbThreeStopPalette(value, vec3(0.0078, 1.0, 0.8157), vec3(1.0, 0.0392, 1.0), vec3(1.0));
+        colorA = vec3(0.0078, 1.0, 0.8157);
+        colorB = vec3(1.0, 0.0392, 1.0);
+    }
+    else if (schemeValue < 1.5) {
+        colorA = vec3(0.0196, 0.9608, 0.8314);
+        colorB = vec3(0.2627, 0.4706, 1.0);
+        colorC = vec3(0.9608, 1.0, 0.6549);
+    }
+    else if (schemeValue < 2.5) {
+        colorA = vec3(0.1686, 0.8275, 1.0);
+        colorB = vec3(1.0, 0.2196, 0.7529);
+        colorC = vec3(1.0, 0.8902, 0.3059);
     }
 
-    if (schemeValue < 1.5) {
-        return jbThreeStopPalette(value, vec3(0.0196, 0.9608, 0.8314), vec3(0.2627, 0.4706, 1.0), vec3(0.9608, 1.0, 0.6549));
-    }
-
-    if (schemeValue < 2.5) {
-        return jbThreeStopPalette(value, vec3(0.1686, 0.8275, 1.0), vec3(1.0, 0.2196, 0.7529), vec3(1.0, 0.8902, 0.3059));
-    }
-
-    return jbThreeStopPalette(value, vec3(0.3451, 0.9725, 1.0), vec3(0.7333, 0.4078, 1.0), vec3(1.0));
+    return jbThreeStopPalette(value, colorA, colorB, colorC);
 }
 `
 

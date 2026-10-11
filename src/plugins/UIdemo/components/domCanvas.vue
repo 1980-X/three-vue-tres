@@ -158,6 +158,7 @@ onBeforeUnmount(() => {
   disposed = true
   revision++
   off()
+  mesh.removeFromParent()
   rasterizer.dispose()
   capture.dispose()
   contentTexture?.dispose()
@@ -168,6 +169,5 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <!-- 编辑器导出的 Object3D 属性与三维指针事件直接绑定到面板网格。 -->
   <primitive v-bind="$attrs" :object="mesh" :dispose="null" />
 </template>
