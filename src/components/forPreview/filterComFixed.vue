@@ -127,9 +127,14 @@ onMounted(() => {
     .catalog-search { max-width: none; }
     .catalog-status-filters { order: 3; flex-basis: 100%; }
 }
-@media (max-width: 540px) {
-    .catalog-search { flex-basis: 120px; min-width: 0; }
-    .catalog-toolbar-actions { gap: 8px; }
+@media (max-width: 768px) {
+    .filterFixed { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 6px; padding: 8px 0; }
+    .catalog-search { grid-column: 2; grid-row: 1; min-width: 0; height: 40px; gap: 5px; padding: 0 8px; box-sizing: border-box; }
+    .filterFixed:not(:has(.catalog-directory-trigger)) .catalog-search { grid-column: 1 / 3; }
+    .catalog-search input { font-size: 16px; }
+    .catalog-toolbar-actions { grid-column: 3; grid-row: 1; gap: 4px; margin-left: 0; }
+    .catalog-status-filters { grid-column: 1 / 3; grid-row: 2; gap: 2px; padding-top: 2px; }
+    .catalog-status-filters label { padding: 6px 10px; line-height: 20px; }
 }
 @media (prefers-reduced-motion: reduce) { .catalog-status-filters label, .catalog-community-links a { transition: none; } }
 </style>

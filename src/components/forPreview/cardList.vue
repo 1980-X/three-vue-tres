@@ -34,7 +34,7 @@
                 </video>
                 <oneImageQr v-else-if="onePreview.type === 'img'" :onePreview="onePreview" :onePlugin="sourcePlugin(onePreview)" />
                 <div
-                    class="w-full h-48 text-3 text-left mb-2"
+                    class="catalog-text-preview w-full h-48 text-3 text-left mb-2"
                     style="background-color: rgb(55 56 61); overflow: hidden; border-radius: 10px"
                     v-else-if="onePreview.type === 'text'"
                 >
@@ -56,6 +56,19 @@
                 </div>
                 <details v-if="catalogMode && sourcePlugin(onePreview).intro" class="catalog-card-details">
                     <summary>说明与文档</summary><div v-html="sourcePlugin(onePreview).intro"></div>
+                </details>
+                <details v-if="catalogMode" class="catalog-card-mobile-info">
+                    <summary>更多信息</summary>
+                    <div>
+                        <p v-if="sourcePlugin(onePreview).author">作者：{{ sourcePlugin(onePreview).author }}</p>
+                        <p v-if="sourcePlugin(onePreview).tvtstore">{{ isLocalPlugin(sourcePlugin(onePreview)) ? '本地插件' : sourcePlugin(onePreview).tvtstore === 'FREE' ? '免费插件' : '市场插件' }}</p>
+                        <div v-if="onePreview.type === 'text'" v-html="onePreview.src"></div>
+                        <div v-if="sourcePlugin(onePreview).intro" v-html="sourcePlugin(onePreview).intro"></div>
+                        <p v-if="sourcePagePath(onePreview)">{{ sourcePageLabel(onePreview) }}</p>
+                        <a v-if="sourceUrl(onePreview)" :href="sourceUrl(onePreview)" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
+                        <a v-if="onePreview.catalog?.promptUrl" :href="onePreview.catalog.promptUrl" target="_blank" rel="noopener noreferrer">Prompt ↗</a>
+                        <a v-if="onePreview.catalog?.studioUrl" :href="onePreview.catalog.studioUrl" target="_blank" rel="noopener noreferrer">Studio ↗</a>
+                    </div>
                 </details>
                 <div class="catalog-card-actions">
                     <span v-if="sourcePagePath(onePreview) || sourceUrl(onePreview)" class="catalog-card-code">
@@ -318,6 +331,31 @@ const isEditor = (plugin: any, value: any) => {
 .catalog-card > .tag-sheared { z-index: 1; width: auto; height: auto; right: 20px; top: 20px; margin: 0; padding: 2px 8px; font-size: 11px; line-height: 1.5; border-radius: 5px; transform: none; }
 .catalog-card .catalog-editor-guide { position: absolute; top: 20px; left: 20px; z-index: 1; background: var(--catalog-surface); color: var(--catalog-accent); border-color: var(--catalog-border); box-shadow: none; }
 .catalog-card .catalog-editor-guide .editor-guide-trigger__icon { color: inherit; }
+.catalog-card-mobile-info { display: none; }
+@media (max-width: 768px) {
+    .catalog-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-items: start; }
+    .catalog-card :deep(.fes-card) { border-radius: 10px; }
+    .catalog-card :deep(.fes-card__body) { padding: 8px; }
+    .catalog-card :deep(.preview-thumbnail), .catalog-card video { aspect-ratio: 16 / 10; border-radius: 6px; }
+    .catalog-card .catalog-text-preview { height: auto; aspect-ratio: 16 / 10; margin-bottom: 0; font-size: 11px; }
+    .catalog-card-heading { align-items: start; gap: 4px; margin: 8px 0 0; }
+    .catalog-card-title { flex-basis: 100%; font-size: 13px; line-height: 1.4; }
+    .catalog-card-origin { max-width: 100%; padding: 1px 5px; font-size: 10px; }
+    .catalog-card-meta, .catalog-card-details, .catalog-card-code, .catalog-card-actions > a, .catalog-card-actions :deep(.mobile-preview-trigger) { display: none; }
+    .catalog-card-mobile-info { display: block; margin-top: 4px; color: var(--catalog-muted); font-size: 11px; line-height: 18px; overflow-wrap: anywhere; }
+    .catalog-card-mobile-info summary { width: fit-content; padding: 5px 0; cursor: pointer; }
+    .catalog-card-mobile-info > div { max-height: 220px; overflow: auto; padding: 6px 0; line-height: 1.6; }
+    .catalog-card-mobile-info p { margin: 0 0 6px; }
+    .catalog-card-mobile-info :deep(a) { display: inline-block; margin: 4px 8px 4px 0; color: var(--catalog-accent); }
+    .catalog-card-mobile-info :deep(img) { max-width: 100%; height: auto; }
+    .catalog-card .catalog-card-actions { margin-top: auto; padding: 4px 0 0; }
+    .catalog-demo-button { justify-content: center; width: 100%; min-height: 36px; margin: 0; padding: 6px; font-size: 12px; }
+    .catalog-card > .tag-sheared { top: 12px; right: 12px; padding: 1px 5px; font-size: 9px; }
+    .catalog-card .catalog-editor-guide { top: 12px; left: 12px; gap: 3px; padding: 4px 6px; font-size: 10px; }
+}
+@media (min-width: 600px) and (max-width: 768px) {
+    .catalog-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 @media (hover: hover) and (pointer: fine) {
     .catalog-card:hover { transform: translateY(-3px) scale(1.008); }
     .catalog-card:hover :deep(.preview-thumbnail img) { transform: scale(1.055); }

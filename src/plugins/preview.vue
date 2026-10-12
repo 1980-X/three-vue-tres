@@ -1,7 +1,9 @@
 <template>
-    <div class="catalog-layout" :data-theme="theme" @keydown.esc="showTopMenu = false">
-        <aside v-if="!isSinglePlugin" class="catalog-sidebar" aria-label="内容目录">
+    <div class="catalog-layout" :data-theme="theme" @keydown.esc="closeMenus">
+        <button v-if="showCatalog" class="catalog-backdrop" type="button" tabindex="-1" aria-label="关闭分类目录" @click="closeCatalog" />
+        <aside v-if="!isSinglePlugin" id="catalog-directory" ref="directoryRef" class="catalog-sidebar" :class="{ 'is-open': showCatalog }" :role="showCatalog ? 'dialog' : undefined" :aria-modal="showCatalog || undefined" aria-label="内容目录" tabindex="-1" @keydown.tab="trapDirectoryFocus">
             <div class="catalog-brand"><LayersOutline /><strong>探索内容</strong><span>EXPLORE</span></div>
+            <div class="catalog-mobile-heading"><strong>浏览分类</strong><button type="button" aria-label="关闭分类目录" @click="closeCatalog"><CloseOutline /></button></div>
             <div class="catalog-sidebar-content">
                 <button type="button" class="catalog-all" :class="{ active: !activeSection }" :aria-current="!activeSection ? 'page' : undefined" @click="selectSection('')">
                     <GridOutline /><span class="catalog-menu-label">全部内容</span><span class="catalog-count">{{ matchingEntries.length }}</span>
@@ -25,9 +27,10 @@
                 </section>
             </div>
         </aside>
-        <main id="right-page-list-id" ref="contentRef" class="right-page-list">
+        <main id="right-page-list-id" ref="contentRef" class="right-page-list" :inert="showCatalog">
             <filterComFixed>
                 <template #leading>
+                    <button v-if="!isSinglePlugin" ref="directoryTriggerRef" type="button" class="catalog-directory-trigger" :aria-expanded="showCatalog" aria-controls="catalog-directory" @click="openCatalog"><GridOutline /><span>分类</span></button>
                     <button v-if="layoutConfigMenus.length" type="button" class="catalog-nav-trigger" aria-label="顶部导航" :aria-expanded="showTopMenu" aria-controls="catalog-top-navigation" @click="showTopMenu = !showTopMenu"><MenuOutline /></button>
                 </template>
                 <template #actions>
@@ -71,9 +74,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, provide, watch } from 'vue'
+import { ref, computed, nextTick, onBeforeUnmount, provide, watch } from 'vue'
 import { defineRouteMeta, useRoute, useRouter } from '@fesjs/fes'
-import { ArrowUpOutline, ChevronDownOutline, FolderOutline, GridOutline, LayersOutline, MenuOutline, MoonOutline, SunnyOutline } from '@vicons/ionicons5'
+import { ArrowUpOutline, ChevronDownOutline, CloseOutline, FolderOutline, GridOutline, LayersOutline, MenuOutline, MoonOutline, SunnyOutline } from '@vicons/ionicons5'
 import { getPluginsConfig, getOnlinePluginConfig } from '../common/utils'
 import { useForPreviewStore } from '@/stores/forPreview'
 import cardList from '../components/forPreview/cardList.vue'
@@ -85,6 +88,41 @@ const singlePluginName = process.env.FES_APP_PLSNAME
 const isSinglePlugin = singlePluginName !== undefined
 const layoutConfigMenus = window.layoutConfig?.menus || []
 const showTopMenu = ref(false)
+const showCatalog = ref(false)
+const directoryRef = ref<HTMLElement | null>(null)
+const directoryTriggerRef = ref<HTMLButtonElement | null>(null)
+const openCatalog = async () => {
+    showTopMenu.value = false
+    showCatalog.value = true
+    await nextTick()
+    directoryRef.value?.focus()
+}
+const closeCatalog = () => {
+    if (!showCatalog.value) return
+    showCatalog.value = false
+    nextTick(() => directoryTriggerRef.value?.focus())
+}
+const closeMenus = () => {
+    closeCatalog()
+    showTopMenu.value = false
+}
+const trapDirectoryFocus = (event: KeyboardEvent) => {
+    if (!showCatalog.value) return
+    const buttons = Array.from(directoryRef.value?.querySelectorAll<HTMLButtonElement>('button') || []).filter((button) => button.getClientRects().length)
+    const first = buttons[0]
+    const last = buttons[buttons.length - 1]
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === directoryRef.value)) {
+        event.preventDefault()
+        last?.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first?.focus()
+    }
+}
+const mobileLayout = window.matchMedia('(max-width: 768px)')
+const onLayoutChange = () => closeMenus()
+mobileLayout.addEventListener('change', onLayoutChange)
+onBeforeUnmount(() => mobileLayout.removeEventListener('change', onLayoutChange))
 const collapsedGroups = ref<string[]>([])
 const toggleGroup = (id: string) => {
     collapsedGroups.value = collapsedGroups.value.includes(id) ? collapsedGroups.value.filter((group) => group !== id) : [...collapsedGroups.value, id]
@@ -103,6 +141,7 @@ const singlePlugin = computed(() => singlePluginName === undefined ? undefined :
 const { menuSetup } = useForPreviewStore()
 const filterFixedInputValue = ref('')
 const menuSetupFilter = ref<string[]>([])
+watch([filterFixedInputValue, menuSetupFilter], () => contentRef.value?.scrollTo({ top: 0 }), { deep: true })
 provide('filterFixedInputValue', filterFixedInputValue)
 provide('menuSetupFilter', menuSetupFilter)
 const entries = computed(() => createCatalog(pluginsConfig.value, menuSetup.value))
@@ -125,6 +164,7 @@ const menuGroups = computed(() => groupCatalog(matchingEntries.value).filter((gr
 const visibleEntries = computed(() => isSinglePlugin ? matchingEntries.value : matchingEntries.value.filter((item) => !activeSection.value || item.section === activeSection.value))
 const visibleGroups = computed(() => isSinglePlugin ? [] : groupCatalog(visibleEntries.value).filter((group) => group.count))
 const selectSection = (id: string) => {
+    closeMenus()
     activeSection.value = id
     router.replace({ hash: id ? '#' + id : '' })
     contentRef.value?.scrollTo({ top: 0 })
@@ -297,6 +337,7 @@ body:has(.catalog-layout) .fes-sub-menu-popper {
 .catalog-theme-switch button { display: flex; align-items: center; gap: 5px; padding: 5px 8px; border: 0; border-radius: 6px; background: transparent; color: var(--catalog-muted); font-size: 12px; }
 .catalog-theme-switch button[aria-pressed='true'] { background: var(--catalog-surface); color: var(--catalog-text); box-shadow: 0 1px 3px #00000012; }
 .catalog-theme-switch svg { width: 15px; height: 15px; }
+.catalog-directory-trigger, .catalog-mobile-heading, .catalog-backdrop { display: none; }
 .mobile-navigation { display: none; }
 @media (max-width: 1100px) {
     .catalog-layout { gap: 18px; padding: 12px 14px 0; }
@@ -317,18 +358,35 @@ body:has(.catalog-layout) .fes-sub-menu-popper {
     .mobile-navigation a { padding: 7px 8px; border-radius: 6px; color: var(--catalog-text); font-size: 13px; text-decoration: none; }
     .mobile-navigation a:hover { background: var(--catalog-hover); }
 }
-@media (max-width: 540px) {
-    .catalog-layout { flex-direction: column; gap: 10px; padding: 10px 10px 0; }
-    .catalog-sidebar { flex: 0 0 auto; max-height: 190px; margin-bottom: 0; }
+@media (max-width: 768px) {
+    .catalog-layout { gap: 0; padding: 0 12px; }
+    .right-page-list { padding-right: 0; padding-bottom: env(safe-area-inset-bottom); }
+    .catalog-sidebar { display: none; position: fixed; inset: auto 0 0; z-index: 50; max-height: calc(85dvh - env(safe-area-inset-top)); margin: 0; padding-bottom: env(safe-area-inset-bottom); border-radius: 18px 18px 0 0; box-shadow: var(--catalog-shadow); }
+    .catalog-sidebar.is-open { display: flex; }
+    .catalog-backdrop { display: block; position: fixed; inset: 0; z-index: 40; border: 0; background: #0009; }
     .catalog-brand { display: none; }
-    .catalog-sidebar-content { padding: 8px; }
-    .catalog-menu-group { margin-top: 8px; }
-    .catalog-group-items { display: flex; flex-wrap: wrap; gap: 2px 4px; }
-    .catalog-group-items button { width: auto; gap: 10px; }
-    .catalog-heading { align-items: center; padding: 24px 4px; }
-    .catalog-heading h1 { font-size: 25px; }
+    .catalog-mobile-heading { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--catalog-border); font-size: 16px; }
+    .catalog-mobile-heading button { width: 40px; height: 40px; justify-content: center; padding: 0; }
+    .catalog-sidebar-content { padding: 8px 12px 20px; }
+    .catalog-sidebar button { min-height: 44px; }
+    .catalog-menu-group { margin-top: 14px; }
+    .catalog-group-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; margin: 0; padding: 0; border: 0; }
+    .catalog-group-items button { gap: 6px; font-size: 12px; }
+    .catalog-directory-trigger { display: inline-flex; grid-column: 1; grid-row: 1; align-items: center; justify-content: center; gap: 5px; flex-shrink: 0; height: 40px; padding: 0 9px; border: 1px solid var(--catalog-border); border-radius: 8px; background: var(--catalog-surface); color: var(--catalog-text); font-size: 12px; }
+    .catalog-nav-trigger { grid-column: 3; grid-row: 2; justify-self: end; width: 36px; height: 36px; }
+    .catalog-theme-switch { padding: 2px; }
+    .catalog-theme-switch button { min-height: 32px; padding: 5px 7px; }
+    .catalog-theme-switch span { display: none; }
+    .mobile-navigation { grid-column: 1 / -1; grid-row: 3; }
+    .catalog-heading { align-items: center; gap: 8px; padding: 12px 0; }
+    .catalog-heading h1 { margin: 0; font-size: 22px; letter-spacing: -.5px; }
+    .catalog-eyebrow, .catalog-heading p { display: none; }
     .catalog-result-count { padding: 5px 7px; font-size: 11px; }
-    .toTop { bottom: 16px; right: 16px; }
+    .catalog-section { margin: 0 0 24px; }
+    .catalog-section-title { gap: 6px; margin-bottom: 10px; padding-bottom: 8px; }
+    .catalog-section-title > span:first-child { display: none; }
+    .catalog-section-title h2 { font-size: 14px; }
+    .toTop { bottom: max(12px, env(safe-area-inset-bottom)); right: 12px; width: 32px; height: 32px; border-radius: 50%; opacity: .85; }
 }
 @media (prefers-reduced-motion: reduce) {
     .catalog-sidebar button, .catalog-chevron { transition: none; }
