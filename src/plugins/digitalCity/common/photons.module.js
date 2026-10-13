@@ -141,6 +141,7 @@ class ParticleStateArray {
         const tempPos = new THREE$1.Vector3()
 
         return function(outBox = new THREE$1.Box3(), positionTransform = null) {
+            outBox.makeEmpty()
             const min = outBox.min
             const max = outBox.max
             for (let i = 0; i < this.activeParticleCount; i++) {
@@ -158,12 +159,12 @@ class ParticleStateArray {
                 const upperY = pos.y + maxExtent
                 const lowerZ = pos.z - maxExtent
                 const upperZ = pos.z + maxExtent
-                if (i == 0 || pos.x < min.x) min.x = lowerX
-                if (i == 0 || pos.x > max.x) max.x = upperX
-                if (i == 0 || pos.y < min.y) min.y = lowerY
-                if (i == 0 || pos.y > max.y) max.y = upperY
-                if (i == 0 || pos.z < min.z) min.z = lowerZ
-                if (i == 0 || pos.z > max.z) max.z = upperZ
+                min.x = Math.min(min.x, lowerX)
+                max.x = Math.max(max.x, upperX)
+                min.y = Math.min(min.y, lowerY)
+                max.y = Math.max(max.y, upperY)
+                min.z = Math.min(min.z, lowerZ)
+                max.z = Math.max(max.z, upperZ)
             }
             return outBox
         }
@@ -599,7 +600,7 @@ class ParticleSystem {
 
         return function() {
             let positionTransform = null
-            if (this.transformInitialDirectionInWorldSpace) {
+            if (this.simulateInWorldSpace && this.transformInitialDirectionInWorldSpace) {
                 positionTransform = tempMatrix4
                 positionTransform.copy(this.owner.matrixWorld).invert()
             }
@@ -1296,9 +1297,6 @@ class AnimatedSpriteRenderer extends Renderer {
     }
 
     updateMeshBounds = function() {
-
-        const tempCenter = new THREE$1.Vector3()
-
         return function() {
 
             const geometry = this.particleStateArray.getGeometry()
@@ -1309,15 +1307,7 @@ class AnimatedSpriteRenderer extends Renderer {
                 if (!geometry.boundingSphere) {
                     geometry.boundingSphere = new THREE$1.Sphere()
                 }
-                tempCenter.x = (this.boundingBox.min.x + this.boundingBox.max.x) / 2.0
-                tempCenter.y = (this.boundingBox.min.y + this.boundingBox.max.y) / 2.0
-                tempCenter.z = (this.boundingBox.min.z + this.boundingBox.max.z) / 2.0
-                const extentX = this.boundingBox.max.x - tempCenter.x
-                const extentY = this.boundingBox.max.y - tempCenter.y
-                const extentZ = this.boundingBox.max.z - tempCenter.z
-                const maxExtent = Math.max(Math.max(extentX, extentY), extentZ)
-                geometry.boundingSphere.center.copy(tempCenter)
-                geometry.boundingSphere.radius = Math.sqrt(2 * maxExtent * maxExtent)
+                this.boundingBox.getBoundingSphere(geometry.boundingSphere)
             } else {
                 if (!geometry.boundingSphere) geometry.boundingSphere = new THREE$1.Sphere()
                 geometry.boundingSphere.copy(this.boundingSphere)
@@ -1330,7 +1320,7 @@ class AnimatedSpriteRenderer extends Renderer {
         if (super.init(particleCount)) {
             this.particleStateArray = new ParticleStateAttributeArray()
             this.particleStateArray.init(particleCount, this.instanced)
-            this.material = this.createMaterial(null, null, null, true, false)
+            this.material = this.createMaterial(null, null, null, true, true)
             this.material.blending = this.blending
             this.mesh = new THREE$1.Mesh(this.particleStateArray.getGeometry(), this.material)
             this.mesh.frustumCulled = true
@@ -1507,6 +1497,7 @@ class AnimatedSpriteRenderer extends Renderer {
                 '   int firstSequenceElement = int(sequenceElementF); \n',
                 '   int secondSequenceElement = clamp(firstSequenceElement + 1, sequenceStart, sequenceStart + sequenceLength - 1); \n',
                 '   getUV(firstSequenceElement, sequenceNumber, atlasFrames, uv1); \n',
+                '   uv2 = uv1; \n',
                 '   if (interpolateAtlasFrames == 1 && firstSequenceElement != secondSequenceElement) { \n ',
                 '       getUV(secondSequenceElement, sequenceNumber, atlasFrames, uv2); \n',
                 '   } \n',
@@ -1515,6 +1506,10 @@ class AnimatedSpriteRenderer extends Renderer {
 
                 '   float rotMag = rotation; \n',
                 '   mat2 rotMat = mat2(cos(rotMag), -sin(rotMag), sin(rotMag), cos(rotMag)) * mat2(size.x, 0.0, 0.0, size.y);\n',
+                '   if (simulateInWorldSpace != 1) {\n',
+                '       vec2 modelScale = vec2(length(modelMatrix[0].xyz), length(modelMatrix[1].xyz));\n',
+                '       rotMat = mat2(modelScale.x, 0.0, 0.0, modelScale.y) * rotMat;\n',
+                '   }\n',
 
                 '   float rightSide; \n',
                 '   float upperSide; \n',
@@ -2616,7 +2611,7 @@ class FlickerLight extends Component {
         if (elapsedTimeSinceLastPositionFlicker > flickerPositionIntervalLength) {
             this.lastPositionFlickerTime = time
 
-            const deltaTime = time - this.lastUpdateTime
+            const deltaTime = Math.min(time - this.lastUpdateTime, 0.1)
             this.positionAdjuster.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5)
             this.positionAdjuster.multiplyScalar(deltaTime)
 

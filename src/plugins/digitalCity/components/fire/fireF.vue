@@ -7,31 +7,44 @@
  * @LastEditTime: 2026-01-28 09:54:44
 -->
 <template>
-    <TresGroup />
+    <primitive v-bind="$attrs" :object="root" :dispose="null"
+        :position="normalizeVec3(props.position)" :rotation="normalizeVec3(props.rotation)"
+        :scale="normalizeVec3(props.scale, [1, 1, 1])" :renderOrder="props.renderOrder" />
 </template>
 
 <script lang="ts" setup>
 import * as THREE from 'three'
-import { useLoop, useTres } from '@tresjs/core'
+import { useLoop } from '@tresjs/core'
 import * as Photons from '../../common/photons.module.js'
-import { watch, onUnmounted, computed, useAttrs } from 'vue'
+import { watch, onBeforeUnmount } from 'vue'
+
+defineOptions({ inheritAttrs: false })
 
 type Vec3Array = [number, number, number]
 type Vec3Object = { x: number; y: number; z: number }
 type Vec3 = Vec3Array | Vec3Object
 
 const props = withDefaults(defineProps<{
+    position?: Vec3 | number
+    rotation?: Vec3 | number
+    scale?: Vec3 | number
+    renderOrder?: number
     hasPointLight?: boolean
     flickerLightIntensity?: number
     flickerLightIntensityFlux?: number
     flickerLightColor?: string
-    isEditor?: boolean
+    lightDistance?: number
+    lightDecay?: number
+    lightCastShadow?: boolean
 }>(), {
+    renderOrder: 2000,
     hasPointLight: true,
     flickerLightIntensity: 2,
     flickerLightIntensityFlux: 0.4,
-    flickerLightColor: "#f5d26b",
-    isEditor: false
+    flickerLightColor: '#f5d26b',
+    lightDistance: 0,
+    lightDecay: 1,
+    lightCastShadow: false,
 })
 
 function normalizeVec3(
@@ -42,45 +55,25 @@ function normalizeVec3(
         return [value, value, value]
     }
 
-    if (Array.isArray(value)) {
-        const [x = 0, y = 0, z = 0] = value
-        return [x, y, z]
-    }
-
-    if (value && typeof value === 'object') {
-        const { x = 0, y = 0, z = 0 } = value
-        return [x, y, z]
-    }
-
-    return defaultValue
+    if (!value) return defaultValue
+    return Array.isArray(value)
+        ? [value[0] ?? defaultValue[0], value[1] ?? defaultValue[1], value[2] ?? defaultValue[2]]
+        : [value.x ?? defaultValue[0], value.y ?? defaultValue[1], value.z ?? defaultValue[2]]
 }
-const attrs = useAttrs() as any
-const normalizedPosition = computed(() => {
-    if (attrs.position) {
-        return new THREE.Vector3(...normalizeVec3(attrs.position))
-    }
-    return new THREE.Vector3(0, 0, 0)
-})
-
-const normalizedScale = computed(() => {
-    if (attrs.scale) {
-        return normalizeVec3(attrs.scale)[0]
-    }
-    return 1
-})
-
-const PhotonsManager = new Photons.Manager()
-const jsonTypeStore = new Photons.JSONTypeStore()
-jsonTypeStore.addNamespace('THREE', THREE)
-jsonTypeStore.addNamespace('Photons', Photons)
-
-const { renderer, camera, scene } = useTres()
-const setupEmbers = (scale: number, position: THREE.Vector3) => {
+const root = new THREE.Group()
+const textures = new Set<THREE.Texture>()
+const textureLoader = new THREE.TextureLoader()
+const loadTexture = (path: string) => {
+    const texture = textureLoader.load(path)
+    textures.add(texture)
+    return texture
+}
+const setupEmbers = () => {
     const embersRoot = new THREE.Object3D()
-    embersRoot.position.copy(position)
+    const scale = 1
 
     const texturePath = './plugins/digitalCity/image/fireF/ember.png'
-    const embersTexture = new THREE.TextureLoader().load(texturePath)
+    const embersTexture = loadTexture(texturePath)
     const embersAtlas = new Photons.Atlas(embersTexture, texturePath)
     embersAtlas.addFrameSet(1, 0.0, 0.0, 1.0, 1.0)
     const embersRenderer = new Photons.AnimatedSpriteRenderer(true, embersAtlas, true, 1)
@@ -145,17 +138,17 @@ const setupEmbers = (scale: number, position: THREE.Vector3) => {
 
     embersParticleSystem.addParticleStateOperator(new Photons.AccelerationOperator(acceleratorOperatorGenerator))
 
-    embersParticleSystem.setSimulateInWorldSpace(true)
+    embersParticleSystem.setSimulateInWorldSpace(false)
     embersParticleSystem.start()
 
     return embersParticleSystem
 }
-const setupBaseFlame = (scale: number, position: THREE.Vector3) => {
+const setupBaseFlame = () => {
     const baseFlameRoot = new THREE.Object3D()
-    baseFlameRoot.position.copy(position)
+    const scale = 1
 
     const texturePath = './plugins/digitalCity/image/fireF/base_flame.png'
-    const baseFlameTexture = new THREE.TextureLoader().load(texturePath)
+    const baseFlameTexture = loadTexture(texturePath)
     const baseFlameAtlas = new Photons.Atlas(baseFlameTexture, texturePath)
     baseFlameAtlas.addFrameSet(18, 0.0, 0.0, 128.0 / 1024.0, 128.0 / 512.0)
     const baseFlameRenderer = new Photons.AnimatedSpriteRenderer(true, baseFlameAtlas, true)
@@ -230,17 +223,17 @@ const setupBaseFlame = (scale: number, position: THREE.Vector3) => {
         ),
     )
 
-    baseFlameParticleSystem.setSimulateInWorldSpace(true)
+    baseFlameParticleSystem.setSimulateInWorldSpace(false)
     baseFlameParticleSystem.start()
 
     return baseFlameParticleSystem
 }
-const setupBrightFLame = (scale: number, position: THREE.Vector3) => {
+const setupBrightFLame = () => {
     const brightFlameRoot = new THREE.Object3D()
-    brightFlameRoot.position.copy(position)
+    const scale = 1
 
     const texturePath = './plugins/digitalCity/image/fireF/bright_flame.png'
-    const brightFlameTexture = new THREE.TextureLoader().load(texturePath)
+    const brightFlameTexture = loadTexture(texturePath)
     const brightFlameAtlas = new Photons.Atlas(brightFlameTexture, texturePath)
     brightFlameAtlas.addFrameSet(16, 0.0, 0.0, 212.0 / 1024.0, 256.0 / 1024.0)
     const brightFlameRenderer = new Photons.AnimatedSpriteRenderer(true, brightFlameAtlas, true)
@@ -311,115 +304,120 @@ const setupBrightFLame = (scale: number, position: THREE.Vector3) => {
         ),
     )
 
-    brightFlameParticleSystem.setSimulateInWorldSpace(true)
+    brightFlameParticleSystem.setSimulateInWorldSpace(false)
 
     brightFlameParticleSystem.start()
     return brightFlameParticleSystem
 }
-let lightParent = null as any
-let flickerLight = null as any
-const setupLights = (position: THREE.Vector3) => {
-    lightParent = new THREE.Object3D()
-    if (window.globalTvtExtendMeshScenes) {
-        window.globalTvtExtendMeshScenes.add(lightParent)
-    } else {
-        scene.value.add(lightParent)
-    }
-    lightParent.position.copy(position)
-
-    const flickerLightShadows = {
-        mapSize: 1024,
-        cameraNear: 0.1,
-        cameraFar: 5000,
-        bias: 0.000009,
-        edgeRadius: 3,
-    } as any
-    flickerLight = new Photons.FlickerLight(lightParent, props.flickerLightIntensity, props.flickerLightIntensityFlux, new THREE.Color().set(props.flickerLightColor), 0, 1.0, flickerLightShadows)
-    return flickerLight
-}
-
-const initFire = () => {
-    const flamePosition1 = new THREE.Vector3(...normalizedPosition.value)
-    PhotonsManager.addParticleSystem(setupEmbers(normalizedScale.value, flamePosition1))
-    PhotonsManager.addParticleSystem(setupBaseFlame(normalizedScale.value, flamePosition1))
-    PhotonsManager.addParticleSystem(setupBrightFLame(normalizedScale.value, flamePosition1))
-    if (props.hasPointLight)
-        PhotonsManager.addComponent(setupLights(flamePosition1))
-}
-initFire()
-const clearFire = () => {
-    for (const system of PhotonsManager.particleSystems) {
-        system.particleSystemRenderer.dispose()
-    }
-    PhotonsManager.particleSystems = []
-    if (lightParent) {
-        if (window.globalTvtExtendMeshScenes) {
-            window.globalTvtExtendMeshScenes.remove(lightParent)
-        } else {
-            scene.value.remove(lightParent)
-        }
-        flickerLight = null
-    }
-}
-onUnmounted(() => {
-    clearFire()
+const particleSystems = [setupEmbers(), setupBaseFlame(), setupBrightFLame()]
+particleSystems.forEach((system, index) => {
+    root.add(system.owner)
+    // 保持原先余烬、底焰、亮焰的合成顺序，避免动态包围球引起透明层排序跳变。
+    system.particleSystemRenderer.mesh.renderOrder = index
+    // 粒子位置由着色器计算，普通 Mesh.raycast 无法命中真实火焰。
+    system.particleSystemRenderer.mesh.raycast = () => {}
 })
-watch(
-    () => props.hasPointLight,
-    (newVal) => {
-        if (newVal) {
-            if (!flickerLight) {
-                PhotonsManager.addComponent(setupLights(new THREE.Vector3(...normalizedPosition.value)))
-            }
-        } else {
-            if (flickerLight) {
-                flickerLight.dispose()
-                if (window.globalTvtExtendMeshScenes) {
-                    window.globalTvtExtendMeshScenes.remove(lightParent)
-                } else {
-                    scene.value.remove(lightParent)
-                }
-                flickerLight = null
-                PhotonsManager.componentContainer.components = []
-            }
+
+const isVisible = () => {
+    let object: THREE.Object3D | null = root
+    while (object) {
+        if (!object.visible) return false
+        object = object.parent
+    }
+    return true
+}
+const bounds = new THREE.Box3()
+const worldScale = new THREE.Vector3()
+const particleCenter = new THREE.Vector3()
+const hitPoint = new THREE.Vector3()
+root.raycast = (raycaster, intersects) => {
+    if (!isVisible()) return
+    root.updateWorldMatrix(true, false)
+    worldScale.setFromMatrixScale(root.matrixWorld)
+    bounds.makeEmpty()
+    // 贴片始终朝向相机，按世界坐标包围，避免旋转或非等比缩放后漏选。
+    particleSystems.forEach((system) => {
+        for (let i = 0; i < system.activeParticleCount; i++) {
+            const state = system.particleStates.getState(i)
+            particleCenter.copy(state.position).applyMatrix4(root.matrixWorld)
+            const radius = Math.hypot(state.size.x * worldScale.x, state.size.y * worldScale.y)
+            bounds.expandByPoint(hitPoint.copy(particleCenter).addScalar(-radius))
+            bounds.expandByPoint(hitPoint.copy(particleCenter).addScalar(radius))
         }
-    }, { immediate: true }
-)
+    })
+    if (bounds.isEmpty() || !raycaster.ray.intersectBox(bounds, hitPoint)) return
+    const distance = raycaster.ray.origin.distanceTo(hitPoint)
+    if (distance >= raycaster.near && distance <= raycaster.far) {
+        intersects.push({ distance, point: hitPoint.clone(), object: root })
+    }
+}
+
+let flickerLight: Photons.FlickerLight | null = null
+const clearLight = () => {
+    if (!flickerLight) return
+    flickerLight.light.dispose()
+    flickerLight.dispose()
+    flickerLight = null
+}
 watch(
-    () => [attrs.scale, attrs.position],
-    ([ns, np], [os, op]) => {
-        if (JSON.stringify(ns) === JSON.stringify(os) && JSON.stringify(np) === JSON.stringify(op)) {
+    () => [props.hasPointLight, props.flickerLightIntensity, props.flickerLightIntensityFlux,
+        props.flickerLightColor, props.lightDistance, props.lightDecay, props.lightCastShadow],
+    () => {
+        if (!props.hasPointLight) {
+            clearLight()
             return
         }
-        clearFire()
-        initFire()
-    }, { deep: true }
-)
-
-watch(
-    () => [props.flickerLightIntensity, props.flickerLightIntensityFlux, props.flickerLightColor],
-    () => {
-        if (flickerLight) {
-            console.log('update light')
-            flickerLight.intensity = props.flickerLightIntensity
-            flickerLight.intensityFlux = props.flickerLightIntensityFlux
-            flickerLight.light.color.set(props.flickerLightColor)
+        if (!flickerLight) {
+            flickerLight = new Photons.FlickerLight(root, props.flickerLightIntensity,
+                props.flickerLightIntensityFlux, new THREE.Color(props.flickerLightColor), props.lightDistance, props.lightDecay)
+            const shadow = flickerLight.light.shadow
+            shadow.mapSize.set(1024, 1024)
+            shadow.camera.near = 0.1
+            shadow.camera.far = 5000
+            shadow.bias = 0.000009
+            shadow.radius = 3
         }
-    }
+        flickerLight.intensity = props.flickerLightIntensity
+        flickerLight.intensityFlux = props.flickerLightIntensityFlux
+        flickerLight.light.color.set(props.flickerLightColor)
+        flickerLight.light.distance = props.lightDistance
+        flickerLight.light.decay = props.lightDecay
+        flickerLight.light.castShadow = props.lightCastShadow
+    },
+    { immediate: true },
 )
 
+let lastUpdateTime = performance.now() / 1000
+let disposed = false
+// 保留旧的手动更新入口；绘制统一由场景完成，不再额外调用 renderer.render。
 const curRender = () => {
-    PhotonsManager.update()
-    PhotonsManager.render(renderer, camera.value)
-}
-if (!props.isEditor) {
-    const { onRender } = useLoop()
-    onRender(() => {
-        curRender()
+    if (disposed) return
+    const currentTime = performance.now() / 1000
+    const delta = Math.min(currentTime - lastUpdateTime, 0.1)
+    lastUpdateTime = currentTime
+    if (!isVisible()) return
+    particleSystems.forEach((system) => {
+        system.update(currentTime, delta)
+        system.owner.visible = system.activeParticleCount > 0
     })
+    flickerLight?.update(currentTime)
 }
-defineExpose({
-    curRender
+const { onBeforeRender } = useLoop()
+const { off } = onBeforeRender(curRender)
+onBeforeUnmount(() => {
+    disposed = true
+    off()
+    root.removeFromParent()
+    clearLight()
+    particleSystems.forEach((system) => {
+        system.pause()
+        system.particleSystemRenderer.dispose()
+        system.particleSystemRenderer.material.dispose()
+    })
+    textures.forEach((texture) => texture.dispose())
+    textures.clear()
+    root.clear()
 })
+defineExpose({ root, curRender })
 
 </script>
