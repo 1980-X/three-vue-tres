@@ -9,7 +9,6 @@
 import { h } from 'vue'
 import { NIcon } from 'naive-ui'
 import { excludeParseEventKeyList, excludeParseEventValueList } from 'PLS/goView/lib/enums/eventEnum'
-import { useRouter } from '@fesjs/fes' //fesJS的路由被他自己封装了
 import { ErrorPageNameMap } from 'PLS/goView/lib/enums/pageEnum'
 import { RequestHttpIntervalEnum } from 'PLS/goView/lib/enums/httpEnum'
 
@@ -129,10 +128,10 @@ export function alpha(color: string, alpha = 1) {
 export function lighten(color: string, concentration: number) {
   return Color(color).lighten(concentration).toString()
 }
-const router = useRouter()
+const getRouter = () => window['$vue']?.config.globalProperties.$router
 export const fetchPathByName = (pageName: string, p?: string) => {
   try {
-    const pathData = router.resolve({
+    const pathData = getRouter()?.resolve({
       name: pageName,
     })
     return p ? (pathData as any)[p] : pathData
@@ -151,12 +150,12 @@ export const routerTurnByName = (
     return
   }
   if (isReplace) {
-    router.replace({
+    getRouter()?.replace({
       name: pageName,
     })
     return
   }
-  router.push({
+  getRouter()?.push({
     name: pageName,
   })
 }

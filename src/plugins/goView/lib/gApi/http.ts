@@ -1,4 +1,5 @@
 import axiosInstance from './axios'
+import cloneDeep from 'lodash/cloneDeep'
 import {
   RequestHttpEnum,
   ContentTypeEnum,
@@ -7,7 +8,7 @@ import {
   RequestContentTypeEnum,
   RequestParamsObjType
 } from 'PLS/goView/lib/enums/httpEnum'
-import type { RequestGlobalConfigType, RequestConfigType } from '@/store/modules/chartEditStore/chartEditStore.d'
+import type { RequestGlobalConfigType, RequestConfigType } from 'PLS/goView/stores/chartEditStore.d'
 
 export const get = <T = any>(url: string, params?: object) => {
   return axiosInstance<T>({
@@ -121,7 +122,7 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
     // 全局请求源地址
     requestOriginUrl,
     // 全局请求内容
-    requestParams: globalRequestParams
+    requestParams: globalRequestParams = { Header: {}, Params: {} }
   } = globalParams
 
   // 目标组件（优先级 > 全局组件）
@@ -140,7 +141,7 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
     requestSQLContent,
     // 请求内容 params / cookie / header / body: 同 requestParamsBodyType
     requestParams: targetRequestParams
-  } = targetParams
+  } = cloneDeep(targetParams)
 
   // 静态排除
   if (requestDataType === RequestDataTypeEnum.STATIC) return
@@ -157,9 +158,9 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
   headers = translateStr(headers)
 
   // data 参数
-  let data: RequestParamsObjType | FormData | string = {}
+  let data: RequestParamsObjType | FormData | URLSearchParams | string = {}
   // params 参数
-  let params: RequestParamsObjType = { ...targetRequestParams.Params }
+  let params: RequestParamsObjType = { ...globalRequestParams.Params, ...targetRequestParams.Params }
   params = translateStr(params)
   // form 类型处理
   let formData: FormData = new FormData()
@@ -173,7 +174,7 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
       headers['Content-Type'] = ContentTypeEnum.JSON
       //json对象也能使用'javasctipt:'来动态拼接参数
       data = translateStr(targetRequestParams.Body['json'])
-      if(typeof data === 'string')  data = JSON.parse(data)
+      if (typeof data === 'string') data = data.trim() ? JSON.parse(data) : {}
       // json 赋值给 data
       break
 
@@ -186,9 +187,9 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
     case RequestBodyEnum.X_WWW_FORM_URLENCODED: {
       headers['Content-Type'] = ContentTypeEnum.FORM_URLENCODED
       const bodyFormData = targetRequestParams.Body['x-www-form-urlencoded']
-      for (const i in bodyFormData) formData.set(i, translateStr(bodyFormData[i]))
-      // FormData 赋值给 data
-      data = formData
+      const urlEncoded = new URLSearchParams()
+      for (const i in bodyFormData) urlEncoded.set(i, translateStr(bodyFormData[i]))
+      data = urlEncoded
       break
     }
 
@@ -211,7 +212,8 @@ export const customizeHttp = (targetParams: RequestConfigType, globalParams: Req
   }
 
   try {
-    const url =  (new Function("return `" + `${requestOriginUrl}${requestUrl}`.trim() + "`"))();
+    const path = /^(?:https?:)?\/\//i.test(requestUrl) ? requestUrl : `${requestOriginUrl || ''}${requestUrl}`
+    const url = (new Function("return `" + path.trim() + "`"))();
     return axiosInstance({
         url,
         method: requestHttpType,

@@ -57,6 +57,7 @@ export const usePreviewFitScale = (
   // * 卸载监听
   const unWindowResize = () => {
     window.removeEventListener('resize', resize)
+    resize.cancel()
   }
 
   return {
@@ -109,6 +110,7 @@ export const usePreviewScrollYScale = (
   // * 卸载监听
   const unWindowResize = () => {
     window.removeEventListener('resize', resize)
+    resize.cancel()
   }
 
   return {
@@ -161,6 +163,7 @@ export const usePreviewScrollXScale = (
   // * 卸载监听
   const unWindowResize = () => {
     window.removeEventListener('resize', resize)
+    resize.cancel()
   }
 
   return {
@@ -208,6 +211,7 @@ export const usePreviewFullScale = (
   // * 卸载监听
   const unWindowResize = () => {
     window.removeEventListener('resize', resize)
+    resize.cancel()
   }
 
   return {

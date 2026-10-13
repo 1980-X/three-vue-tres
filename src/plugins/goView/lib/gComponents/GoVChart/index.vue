@@ -1,18 +1,14 @@
 <template>
-  <div
-    ref="vChartRef"
-    v-on="{
-      ...Object.fromEntries(event.map((eventName: string) => [eventName, (eventData: MouseEvent) => eventHandlers(eventData, eventName)]))
-    }"
-  ></div>
+  <div ref="vChartRef"></div>
 </template>
 
 <script setup lang="ts">
-import { ref, PropType, watch, onBeforeUnmount, nextTick, toRaw, toRefs } from 'vue'
+import { ref, PropType, watch, onMounted, onBeforeUnmount, nextTick, toRaw } from 'vue'
 import { VChart, type IVChart, type IInitOption } from '@visactor/vchart'
 import { transformHandler } from './transformProps'
 import { IOption } from 'PLS/goView/lib/packages/components/VChart/index.d'
 import { registerChartsAndComponents } from './register'
+import { useChartEditStore } from 'PLS/goView/stores/chartEditStore'
 
 // VChart按需加载: 注册图表及组件
 registerChartsAndComponents()
@@ -75,7 +71,7 @@ const event = [
   'animationFinished',
   'layoutStart',
   'layoutEnd',
-  'afterResizef'
+  'afterResize'
 ]
 const emit = defineEmits([
   'mousedown',
@@ -134,7 +130,7 @@ const emit = defineEmits([
   'animationFinished',
   'layoutStart',
   'layoutEnd',
-  'afterResizef'
+  'afterResize'
 ])
 
 const props = defineProps({
@@ -158,37 +154,38 @@ const props = defineProps({
 })
 
 const vChartRef = ref()
-let chart: IVChart
-
-// 解构 props.option，排除 dataset
-const { dataset, ...restOfOption } = toRefs(props.option)
+let chart: IVChart | undefined
+let disposed = false
+let updatePending = false
+const store = useChartEditStore()
+const scheduleUpdate = () => {
+  if (updatePending) return
+  updatePending = true
+  nextTick(() => {
+    updatePending = false
+    if (!disposed) createOrUpdateChart(props.option)
+  })
+}
 
 // 排除 data 监听
 watch(
-  () => ({
-    ...restOfOption
-  }),
   () => {
-    nextTick(() => {
-      createOrUpdateChart(props.option)
-    })
+    const { dataset, ...option } = props.option
+    return option
   },
+  scheduleUpdate,
   {
-    deep: props.initOptions?.deepWatch || true,
-    immediate: true
+    deep: props.initOptions?.deepWatch ?? true
   }
 )
 watch(
-  () => dataset.value,
-  () => {
-    nextTick(() => {
-      createOrUpdateChart(props.option)
-    })
-  },
+  () => props.option.dataset,
+  scheduleUpdate,
   {
     deep: false
   }
 )
+onMounted(scheduleUpdate)
 
 // 更新
 const createOrUpdateChart = (
@@ -202,9 +199,13 @@ const createOrUpdateChart = (
       { ...spec, data: chartProps.dataset },
       {
         dom: vChartRef.value,
+        theme: store.editCanvasConfig.vChartThemeName,
         ...props.initOptions
       }
     )
+    event.forEach(eventName => {
+      chart!.on(eventName as any, (data: any) => emit(eventName as any, data))
+    })
     chart.renderSync()
     return true
   } else if (chart) {
@@ -226,25 +227,20 @@ const refresh = () => {
   }
 }
 
-// 抛出事件
-const eventHandlers = (eventData: MouseEvent, eventName: string) => {
-  if (event.includes(eventName)) emit(eventName as any, eventData)
+const release = () => {
+  chart?.release()
+  chart = undefined
 }
 
 // 卸载
 onBeforeUnmount(() => {
-  if (chart) {
-    chart.release()
-  }
+  disposed = true
+  release()
 })
 
 defineExpose({
   // 重刷新
   refresh,
-  release: () => {
-    if (chart) {
-      chart.release()
-    }
-  }
+  release
 })
 </script>

@@ -6,15 +6,14 @@
  * @LastEditors: 地虎降天龙
  * @LastEditTime: 2025-09-04 11:55:40
  */
-import { defineStore } from 'pinia'
+import { defineStore, getActivePinia } from 'pinia'
+import { getCurrentInstance, inject, provide, onUnmounted, type InjectionKey } from 'vue'
 import { globalThemeJson } from '../lib/settings'
 import { PreviewScaleEnum } from '../lib/enums/styleEnum'
-import { RequestHttpIntervalEnum } from '../lib/enums/httpEnum'
 import { requestInterval, requestIntervalUnit } from 'PLS/goView/lib/gSettings/designSetting'
-// export const requestIntervalUnit = RequestHttpIntervalEnum.SECOND
 
-export const useChartEditStore = defineStore({
-    id: 'useChartEditStore',
+const defineChartEditStore = (id: string) => defineStore({
+    id,
     state: (): any => ({
         // 画布属性（需存储给后端）
         editCanvasConfig: {
@@ -107,3 +106,23 @@ export const useChartEditStore = defineStore({
         },
     },
 })
+
+const useSharedChartEditStore = defineChartEditStore('useChartEditStore')
+type ChartEditStore = ReturnType<typeof useSharedChartEditStore>
+const chartEditStoreKey: InjectionKey<ChartEditStore> = Symbol('go-view-preview-store')
+
+// 预览组件及其子组件共用实例状态，保留外部调用原有 store 的入口。
+export const useChartEditStore = () =>
+    (getCurrentInstance() && inject(chartEditStoreKey, null)) || useSharedChartEditStore()
+
+export const provideChartEditStore = () => {
+    // 使用宿主 Pinia，避免 getter 把其他场景的活动 Pinia 切换到独立容器。
+    const store = defineChartEditStore(`goViewPreview-${getCurrentInstance()!.uid}`)()
+    const pinia = getActivePinia()!
+    provide(chartEditStoreKey, store)
+    onUnmounted(() => {
+        store.$dispose()
+        delete pinia.state.value[store.$id]
+    })
+    return store
+}

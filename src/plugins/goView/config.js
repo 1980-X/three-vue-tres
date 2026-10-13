@@ -10,13 +10,13 @@ export default {
     name: 'goView',
     title: 'goView低代码UI',
     intro: '使用goView导出的配置，导入到本TvT.js快速完成项目落地。整体文档和视频教程详见：<a style="color: #5384ff;" href="https://docs.icegl.cn/docs/three-vue-tres/editor/goview.html" target="_blank">goView低代码UI结合</a>',
-    version: '0.0.1',
+    version: '1.0.0',
     author: '地虎降天龙',
     website: 'https://gitee.com/hawk86104',
     state: 'active',
     creatTime: '2024-05-27',
-    updateTime: '2024-05-27',
-    require: [],
+    updateTime: '2026-10-13',
+    require: ['floor', 'UIdemo'],
     preview: [
         {
             catalog: { type: 'tool', category: 'ui' },

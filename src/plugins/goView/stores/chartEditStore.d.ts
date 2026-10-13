@@ -1,30 +1,43 @@
-// // 请求公共类型
-// type RequestPublicConfigType = {
-//   // 时间单位（时分秒）
-//   requestIntervalUnit: RequestHttpIntervalEnum
-//   // 请求内容
-//   requestParams: RequestParams
-// }
+import type {
+    RequestParams,
+    RequestHttpIntervalEnum,
+    RequestDataTypeEnum,
+    RequestHttpEnum,
+    RequestContentTypeEnum,
+    RequestBodyEnum,
+} from '../lib/enums/httpEnum'
+import type { PreviewScaleEnum } from '../lib/enums/styleEnum'
 
+export interface RequestConfigType {
+    requestDataPondId?: string
+    requestInterval?: number | null
+    requestIntervalUnit: RequestHttpIntervalEnum
+    requestDataType: RequestDataTypeEnum
+    requestHttpType: RequestHttpEnum
+    requestUrl?: string
+    requestContentType: RequestContentTypeEnum
+    requestParamsBodyType: RequestBodyEnum
+    requestSQLContent: { sql: string }
+    requestParams: RequestParams
+}
 
-// // 单个图表请求配置
-// export interface RequestConfigType extends RequestPublicConfigType {
-//   // 所选全局数据池的对应 id
-//   requestDataPondId?: string
-//   // 组件定制轮询时间
-//   requestInterval?: number
-//   // 获取数据的方式
-//   requestDataType: RequestDataTypeEnum
-//   // 请求方式 get/post/del/put/patch
-//   requestHttpType: RequestHttpEnum
-//   // 源后续的 url
-//   requestUrl?: string
-//   // 请求内容主体方式 普通/sql
-//   requestContentType: RequestContentTypeEnum
-//   // 请求体类型
-//   requestParamsBodyType: RequestBodyEnum
-//   // SQL 请求对象
-//   requestSQLContent: {
-//     sql: string
-//   }
-// }
+export interface RequestGlobalConfigType {
+    requestOriginUrl?: string
+    requestInterval: number
+    requestIntervalUnit: RequestHttpIntervalEnum
+    requestParams: RequestParams
+    requestDataPond: Array<{
+        dataPondId: string
+        dataPondName?: string
+        dataPondRequestConfig: RequestConfigType
+    }>
+}
+
+export interface EditCanvasConfigType {
+    width: number
+    height: number
+    selectColor: boolean
+    background?: string
+    backgroundImage?: string
+    previewScaleType: PreviewScaleEnum
+}

@@ -119,7 +119,13 @@ const calcData = (data: any, type?: string) => {
 const calcCapsuleLengthAndLabelData = (dataset: any) => {
     try {
         const { source } = dataset
-        if (!source || !source.length) return
+        if (!source) return
+        if (source.length === 0) {
+            state.capsuleLength = []
+            state.capsuleValue = []
+            state.labelData = []
+            return
+        }
 
         state.capsuleItemHeight = numberSizeHandle(state.mergedConfig.itemHeight)
         const capsuleValue = source.map((item: DataProps) => item[state.mergedConfig.dataset.dimensions[1]])

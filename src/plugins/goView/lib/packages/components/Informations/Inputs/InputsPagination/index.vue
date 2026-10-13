@@ -1,7 +1,8 @@
 <template>
     <div>
         <n-pagination
-            @on-update:page="onChange"
+            @update:page="page => onChange(page, option.value.pageSize)"
+            @update:page-size="size => onChange(option.value.pageValue, size)"
             :style="`width:${w}px;`"
             v-model:page="option.value.pageValue"
             :page-count="option.value.dataset"
@@ -29,6 +30,7 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
+const chartEditStore = useChartEditStore()
 const option = shallowReactive({
     value: {
         pageValue: props.chartConfig.option.pageValue,
@@ -43,7 +45,7 @@ const onChange = (v: number, v2: number) => {
     // 存储到联动数据
     useChartInteract(
         props.chartConfig,
-        useChartEditStore,
+        () => chartEditStore,
         {
             [ComponentInteractParamsEnum.DATA]: v,
             [ComponentInteractParamsEnum.DATA2]: v2,

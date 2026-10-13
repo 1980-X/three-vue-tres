@@ -8,7 +8,9 @@
 -->
 <template>
     <n-config-provider :theme="darkTheme" :hljs="hljsTheme" :locale="locale" :date-locale="dateLocale" :theme-overrides="overridesTheme">
+        <div v-if="configError" role="alert">GoView 配置加载失败：{{ configError }}</div>
         <div
+            v-else
             v-show="showAllComRef"
             :class="`go-preview ${chartEditStore.editCanvasConfig.previewScaleType}`"
             style="pointer-events: none"
@@ -22,7 +24,7 @@
                         <!-- 展示层 -->
                         <div :style="previewRefStyle" v-if="showAllComRef && show">
                             <!-- 渲染层 -->
-                            <preview-render-list></preview-render-list>
+                            <preview-render-list :key="configRevision"></preview-render-list>
                             <!-- 遮罩层 -->
                             <div class="go-preview-top" :style="goPreviewMaskStyleTop"></div>
                             <div class="go-preview-mask" :style="goPreviewMaskStyle"></div>
@@ -35,7 +37,7 @@
                 <div ref="previewRef" class="go-preview-scale">
                     <div :style="previewRefStyle" v-if="showAllComRef && show">
                         <!-- 渲染层 -->
-                        <preview-render-list></preview-render-list>
+                        <preview-render-list :key="configRevision"></preview-render-list>
                         <!-- 遮罩层 -->
                         <div class="go-preview-top" :style="goPreviewMaskStyleTop"></div>
                         <div class="go-preview-mask" :style="goPreviewMaskStyle"></div>
@@ -48,11 +50,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch, ref } from 'vue'
-import { useChartEditStore } from '../stores/chartEditStore'
+import { computed, watch, ref, getCurrentInstance } from 'vue'
+import { provideChartEditStore } from '../stores/chartEditStore'
 import { getSessionStorageInfo, dragCanvas, getEditCanvasConfigStyle } from '../lib/utils'
 import { useScale } from '../lib/hooks/useScale.hook'
-import { useStore } from '../lib/hooks/useStore.hook'
 import { useComInstall } from '../lib/hooks/useComInstall.hook'
 import { getFilterStyle } from '../lib/utils/global'
 import { PreviewScaleEnum } from 'PLS/goView/lib/enums/styleEnum'
@@ -89,12 +90,23 @@ const props = withDefaults(
 )
 
 import naive from 'naive-ui'
-if (!window['$vue']._context.components['NConfigProvider']) {
-  window['$vue'].use(naive)
+const app = getCurrentInstance()!.appContext.app
+if (!app.component('NConfigProvider')) {
+    app.use(naive)
 }
 
-getSessionStorageInfo(props.dataJson)
-let chartEditStore = useChartEditStore() as any
+const chartEditStore = provideChartEditStore()
+const configRevision = ref(0)
+const configError = ref('')
+watch(() => props.dataJson, (data) => {
+    try {
+        getSessionStorageInfo(data, chartEditStore)
+        configError.value = ''
+        configRevision.value++
+    } catch (error) {
+        configError.value = error instanceof Error ? error.message : String(error)
+    }
+}, { immediate: true, deep: true })
 
 const previewRefStyle = computed(() => {
     return {
@@ -108,24 +120,20 @@ const showEntity = computed(() => {
     return type === PreviewScaleEnum.SCROLL_Y || type === PreviewScaleEnum.SCROLL_X
 })
 
-useStore(chartEditStore)
 // 处理全局的 vChart 主题
 useInitVChartsTheme(chartEditStore)
 
-let { entityRef, previewRef } = useScale(chartEditStore)
+const { entityRef, previewRef } = useScale(chartEditStore)
 const { show } = useComInstall(chartEditStore)
 
 const showAllComRef = ref(false)
 watch(
-    () => props.showAllCom,
-    (newValue) => {
-        if (newValue) {
-            setTimeout(() => {
-                if (props.showAllCom) {
-                    showAllComRef.value = true
-                }
-            }, props.delay)
-        }
+    [() => props.showAllCom, () => props.delay],
+    ([visible], _previous, onCleanup) => {
+        showAllComRef.value = false
+        if (!visible) return
+        const timer = setTimeout(() => { showAllComRef.value = true }, Math.max(0, props.delay))
+        onCleanup(() => clearTimeout(timer))
     },
     { immediate: true },
 )

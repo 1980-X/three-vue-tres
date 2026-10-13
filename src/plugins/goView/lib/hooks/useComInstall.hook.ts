@@ -1,34 +1,24 @@
-import { ref } from 'vue'
+import { getCurrentInstance, ref, watch } from 'vue'
 import { fetchChartComponent } from '../packages/index'
 
-export const useComInstall = (localStorageInfo: any) => {
-  const show = ref(false)
-
-  // 注册组件(一开始无法获取window['$vue'])
-  const intervalTiming = setInterval(() => {
-    if (window['$vue'].component) {
-      clearInterval(intervalTiming)
-
-      const intComponent = (target: any) => {
-        if (!window['$vue'].component(target.chartConfig.chartKey)) {
-          window['$vue'].component(target.chartConfig.chartKey, fetchChartComponent(target.chartConfig))
+export const useComInstall = (store: any) => {
+    const show = ref(false)
+    const app = getCurrentInstance()!.appContext.app
+    const install = (item: any) => {
+        if (item.isGroup) {
+            item.groupList.forEach(install)
+            return
         }
-      }
-
-      localStorageInfo.componentList.forEach(async (e: any) => {
-        if (e.isGroup) {
-          e.groupList.forEach(groupItem => {
-            intComponent(groupItem)
-          })
-        } else {
-          intComponent(e)
+        const { chartKey } = item.chartConfig
+        if (!app.component(chartKey)) {
+            const component = fetchChartComponent(item.chartConfig)
+            if (component) app.component(chartKey, component)
+            else console.warn(`GoView: 未找到组件 ${item.chartConfig.key}`)
         }
-      })
-      show.value = true
     }
-  }, 200)
-
-  return {
-    show
-  }
+    watch(() => store.componentList, (list) => {
+        list.forEach(install)
+        show.value = true
+    }, { immediate: true, flush: 'sync' })
+    return { show }
 }

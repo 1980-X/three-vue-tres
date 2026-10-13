@@ -13,7 +13,7 @@
         <TresAmbientLight :intensity="0.5" />
         <TresDirectionalLight :position="[15, 15, 15]" :intensity="1" />
     </TresCanvas>
-    <goViewCom :dataJson="gvConfig.dataJson" v-bind="gvConfig" v-if="showChild" />
+    <goViewCom v-bind="gvConfig" />
 </template>
 
 <script setup lang="ts">
@@ -21,7 +21,7 @@ import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import { Pane } from 'tweakpane'
 import { goViewCom } from 'PLS/goView'
-import { onMounted, reactive, ref, nextTick } from 'vue'
+import { onMounted, onBeforeUnmount, reactive } from 'vue'
 
 // v-bind="gvConfig"
 // import dataJson from '../common/1716877101106.json'
@@ -41,7 +41,6 @@ fileInput.type = 'file'
 fileInput.accept = '.json'
 fileInput.style.display = 'none' // 隐藏，不影响 UI
 document.body.appendChild(fileInput)
-const showChild = ref(true)
 const paneAll = new Pane()
 const paneControl = paneAll.addFolder({
   title: '收起go-view设置',
@@ -80,16 +79,23 @@ paneControl.addBinding(gvConfig, 'maskHeight', {
 onMounted(() => {
     fileInput.onchange = (event: any) => {
         const file = event.target.files[0]
+        if (!file) return
         if (fileInput.accept === '.json') {
             const reader = new FileReader()
             reader.onload = (e: any) => {
                 const contents = e.target.result
-                gvConfig.dataJson = JSON.parse(contents)
-                showChild.value = false
-                nextTick(() => (showChild.value = true))
+                try {
+                    gvConfig.dataJson = JSON.parse(contents)
+                } catch (error) {
+                    window.$message?.error('GoView 配置不是有效的 JSON')
+                }
             }
             reader.readAsText(file)
         }
     }
+})
+onBeforeUnmount(() => {
+    paneAll.dispose()
+    fileInput.remove()
 })
 </script>

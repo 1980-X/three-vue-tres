@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, onBeforeUnmount } from 'vue'
 import { useChartDataPondFetch, useLifeHandler } from 'PLS/goView/lib/gHooks'
 import { useChartEditStore } from 'PLS/goView/stores/chartEditStore'
 import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle, colorCustomMerge , getSizeStyle, getComponentAttrStyle, getStatusStyle, getPreviewConfigStyle } from 'PLS/goView/lib/utils'
@@ -72,7 +72,7 @@ const themeColor = computed(() => {
 })
 
 // 组件渲染结束初始化数据池
-clearMittDataPondMap()
+onBeforeUnmount(clearMittDataPondMap)
 onMounted(() => {
     initDataPond(useChartEditStore)
 })

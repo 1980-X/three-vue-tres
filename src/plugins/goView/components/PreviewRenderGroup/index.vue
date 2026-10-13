@@ -26,7 +26,15 @@
       ...getBlendModeStyle(item.styles) as any
     }"
         >
+            <preview-render-group
+                v-if="item.isGroup"
+                :groupData="item"
+                :groupIndex="groupIndex"
+                :themeSetting="themeSetting"
+                :themeColor="themeColor"
+            />
             <component
+                v-else
                 :is="item.chartConfig.chartKey"
                 :id="item.id"
                 :chartConfig="item"
@@ -48,6 +56,8 @@ import { PropType } from 'vue'
 import { animationsClass, getFilterStyle, getTransformStyle, getBlendModeStyle } from 'PLS/goView/lib/utils'
 import { getSizeStyle, getComponentAttrStyle, getStatusStyle, getPreviewConfigStyle } from 'PLS/goView/lib/utils'
 import { useLifeHandler } from 'PLS/goView/lib/gHooks'
+
+defineOptions({ name: 'PreviewRenderGroup' })
 
 const props = defineProps({
     groupData: {

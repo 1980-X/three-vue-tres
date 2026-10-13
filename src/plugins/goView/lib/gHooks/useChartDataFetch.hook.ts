@@ -1,130 +1,61 @@
-import { ref, toRefs, toRaw, watch } from 'vue'
+import { ref, toRaw, watch } from 'vue'
 import type VChart from 'vue-echarts'
-import { customizeHttp } from 'PLS/goView/lib/gApi/http'
-import { useChartDataPondFetch } from 'PLS/goView/lib/gHooks/'
-import { CreateComponentType, ChartFrameEnum } from 'PLS/goView/lib/packages/index.d'
-import { useChartEditStore } from 'PLS/goView/stores/chartEditStore'
-import { RequestDataTypeEnum } from 'PLS/goView/lib/enums/httpEnum'
-import { isPreview, newFunctionHandle, intervalUnitHandle } from 'PLS/goView/lib/utils/global'
-import { setOption } from 'PLS/goView/lib/packages/public/chart'
-import { isNil } from 'lodash'
+import { customizeHttp } from '../gApi/http'
+import { useChartDataPondFetch } from './useChartDataPondFetch.hook'
+import { CreateComponentType, ChartFrameEnum } from '../packages/index.d'
+import { useChartEditStore } from '../../stores/chartEditStore'
+import { RequestDataTypeEnum } from '../enums/httpEnum'
+import { newFunctionHandle, intervalUnitHandle } from '../utils/global'
+import { setOption } from '../packages/public/chart'
 
-// 获取类型
-type ChartEditStoreType = typeof useChartEditStore
-
-/**
- * setdata 数据监听与更改
- * @param targetComponent
- * @param useChartEditStore 若直接引会报错，只能动态传递
- * @param updateCallback 自定义更新函数
- */
 export const useChartDataFetch = (
-  targetComponent: CreateComponentType,
-  useChartEditStore: ChartEditStoreType,
-  updateCallback?: (...args: any) => any
+    targetComponent: CreateComponentType,
+    useStore: typeof useChartEditStore,
+    updateCallback?: (...args: any) => any,
 ) => {
-  const vChartRef = ref<typeof VChart | null>(null)
-  let fetchInterval: any = 0
-
-  // 数据池
-  const { addGlobalDataInterface } = useChartDataPondFetch()
-
-  // 组件类型
-  const { chartFrame } = targetComponent.chartConfig
-
-  // eCharts 组件配合 vChart 库更新方式
-  const echartsUpdateHandle = (dataset: any) => {
-    if (chartFrame === ChartFrameEnum.ECHARTS) {
-      if (vChartRef.value) {
-        setOption(vChartRef.value, { dataset: dataset }, false)
-      }
-    }
-  }
-
-  const requestIntervalFn = () => {
-    const chartEditStore = useChartEditStore()
-
-    // 全局数据
-    const {
-      requestOriginUrl,
-      requestIntervalUnit: globalUnit,
-      requestInterval: globalRequestInterval
-    } = toRefs(chartEditStore.getRequestGlobalConfig)
-
-    // 目标组件
-    const {
-      requestDataType,
-      requestUrl,
-      requestIntervalUnit: targetUnit,
-      requestInterval: targetInterval
-    } = toRefs(targetComponent.request)
-
-    // 非请求类型
-    if (requestDataType.value !== RequestDataTypeEnum.AJAX) return
-
-    try {
-      // 处理地址
-      // @ts-ignore
-      if (requestUrl?.value) {
-        // requestOriginUrl 允许为空
-        const completePath = requestOriginUrl && requestOriginUrl.value + requestUrl.value
-        if (!completePath) return
-
-        clearInterval(fetchInterval)
-
-        const fetchFn = async () => {
-          const res = await customizeHttp(toRaw(targetComponent.request), toRaw(chartEditStore.getRequestGlobalConfig))
-          if (res) {
-            try {
-              const filter = targetComponent.filter
-              const { data } = res
-              echartsUpdateHandle(newFunctionHandle(data, res, filter))
-              // 更新回调函数
-              if (updateCallback) {
-                updateCallback(newFunctionHandle(data, res, filter))
-              }
-            } catch (error) {
-              console.error(error)
-            }
-          }
+    const vChartRef = ref<typeof VChart | null>(null)
+    const store = useStore()
+    const { addGlobalDataInterface } = useChartDataPondFetch()
+    const update = (dataset: any) => {
+        if (targetComponent.chartConfig.chartFrame === ChartFrameEnum.ECHARTS && vChartRef.value) {
+            setOption(vChartRef.value, { dataset }, false)
         }
-
-        // 普通初始化与组件交互处理监听
-        watch(
-          () => targetComponent.request.requestParams,
-          () => {
-            fetchFn()
-          },
-          {
-            immediate: true,
-            deep: true
-          }
-        )
-
-        // 定时时间
-        const time = targetInterval && !isNil(targetInterval.value) ? targetInterval.value : globalRequestInterval.value
-        // 单位
-        const unit = targetInterval && !isNil(targetInterval.value) ? targetUnit.value : globalUnit.value
-        // 开启轮询
-        if (time) {
-          fetchInterval = setInterval(fetchFn, intervalUnitHandle(time, unit))
-        }
-      }
-      // eslint-disable-next-line no-empty
-    } catch (error) {
-      console.log(error)
+        updateCallback?.(dataset)
     }
-  }
 
-  if (isPreview()) {
-    targetComponent.request.requestDataType === RequestDataTypeEnum.Pond
-      ? addGlobalDataInterface(targetComponent, useChartEditStore, (newData: any) => {
-          echartsUpdateHandle(newData)
-          if (updateCallback) updateCallback(newData)
+    watch([() => targetComponent.request, () => store.requestGlobalConfig], ([request, global], _old, onCleanup) => {
+        let active = true
+        let timer: ReturnType<typeof setInterval> | undefined
+        let unsubscribe: (() => void) | undefined
+        onCleanup(() => {
+            active = false
+            clearInterval(timer)
+            unsubscribe?.()
         })
-      : requestIntervalFn()
-  } else {
-    requestIntervalFn()
-  }
-  return { vChartRef }
+
+        if (request.requestDataType === RequestDataTypeEnum.Pond) {
+            unsubscribe = addGlobalDataInterface(targetComponent, useStore, (data: any) => {
+                if (active) update(data)
+            })
+            return
+        }
+        if (request.requestDataType !== RequestDataTypeEnum.AJAX || !request.requestUrl?.trim()) return
+
+        const fetchData = async () => {
+            try {
+                const response = await customizeHttp(toRaw(request), toRaw(global))
+                if (active && response != null) {
+                    update(newFunctionHandle(response.data, response, targetComponent.filter))
+                }
+            } catch (error) {
+                if (active) console.error('GoView: 数据请求失败', error)
+            }
+        }
+        void fetchData()
+        const time = request.requestInterval ?? global.requestInterval
+        const unit = request.requestInterval != null ? request.requestIntervalUnit : global.requestIntervalUnit
+        if (Number.isFinite(time) && time > 0) timer = setInterval(fetchData, intervalUnitHandle(time, unit))
+    }, { immediate: true, deep: true })
+
+    return { vChartRef }
 }

@@ -18,6 +18,7 @@ const props = defineProps({
 })
 
 const { w, h } = toRefs(props.chartConfig.attr)
+const chartEditStore = useChartEditStore()
 const option = shallowReactive({
     value: {
         selectValue: props.chartConfig.option.selectValue,
@@ -28,7 +29,7 @@ const option = shallowReactive({
 // 监听事件改变
 const onChange = (v: string) => {
     // 存储到联动数据
-    useChartInteract(props.chartConfig, useChartEditStore, { [ComponentInteractParamsEnum.DATA]: v }, InteractEventOn.CHANGE)
+    useChartInteract(props.chartConfig, () => chartEditStore, { [ComponentInteractParamsEnum.DATA]: v }, InteractEventOn.CHANGE)
 }
 
 // 手动更新

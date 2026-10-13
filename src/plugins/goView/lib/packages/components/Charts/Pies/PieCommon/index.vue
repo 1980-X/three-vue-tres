@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType, onMounted, watch, ref } from 'vue'
+import { computed, PropType, onMounted, onBeforeUnmount, watch, ref } from 'vue'
 import VChart from 'vue-echarts'
 import { useCanvasInitOptions } from 'PLS/goView/lib/gHooks//useCanvasInitOptions.hook'
 import { use } from 'echarts/core'
@@ -148,9 +148,10 @@ const { vChartRef } = useChartDataFetch(props.chartConfig, useChartEditStore, (n
 })
 
 onMounted(() => {
-    seriesDataMaxLength = dataJson.source.length
+    seriesDataMaxLength = props.chartConfig.option.dataset?.source?.length || 0
     if (props.chartConfig.option.isCarousel) {
         addPieInterval(undefined, true)
     }
 })
+onBeforeUnmount(clearPieInterval)
 </script>
