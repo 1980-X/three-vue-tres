@@ -4520,20 +4520,21 @@
   resolved "https://registry.npmmirror.com/@visactor/vchart-theme/-/vchart-theme-1.12.3.tgz"
   integrity sha512-jvRM8SuLFK2SviuNNqpp83UPJbrh0j5rieW1+Ev9FRQMVtFa1yKrzg8V55C/qUvyTTb1bUFxPvit8pIzrj5nmw==
 
-"@visactor/vchart@^2.0.5":
-  version "2.0.22"
-  resolved "https://registry.npmmirror.com/@visactor/vchart/-/vchart-2.0.22.tgz"
-  integrity sha512-37jw5tSUMOoSvo8dfx0tMUougpsMMRG8IO+TC5QMZpWEb7rx/3HTBYPAeHPFdSTDkNE2CdwFKmuE+cn9tCjPfA==
+"@visactor/vchart@2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@visactor/vchart/-/vchart-2.1.4.tgz#6479a6429756317864e8b07c41fa3b513a071df7"
+  integrity sha512-NueAYq9hg9QHbsDK5WBZzOktQZiBdumMjE9mI5BKTJ9zzTOT+A2BfyK4xfFELojceXDwRs9sEH4xf93G2kexOw==
   dependencies:
     "@visactor/vdataset" "~1.0.23"
     "@visactor/vlayouts" "~1.0.23"
-    "@visactor/vrender-animate" "1.0.45"
-    "@visactor/vrender-components" "1.0.45"
-    "@visactor/vrender-core" "1.0.45"
-    "@visactor/vrender-kits" "1.0.45"
+    "@visactor/vrender" "~1.1.4"
+    "@visactor/vrender-animate" "~1.1.4"
+    "@visactor/vrender-components" "~1.1.4"
+    "@visactor/vrender-core" "~1.1.4"
+    "@visactor/vrender-kits" "~1.1.4"
     "@visactor/vscale" "~1.0.23"
     "@visactor/vutils" "~1.0.23"
-    "@visactor/vutils-extension" "2.0.22"
+    "@visactor/vutils-extension" "2.1.4"
 
 "@visactor/vdataset@~1.0.23":
   version "1.0.23"
@@ -4569,44 +4570,54 @@
     "@visactor/vutils" "1.0.23"
     eventemitter3 "^4.0.7"
 
-"@visactor/vrender-animate@1.0.45":
-  version "1.0.45"
-  resolved "https://registry.npmmirror.com/@visactor/vrender-animate/-/vrender-animate-1.0.45.tgz"
-  integrity sha512-6v7LRpr+zugxR8JH3RCnodYxrrzHkSp4GaBTNwXuJ7bwThi/YzXTvmBz2pfQNmUG/rRze8Bm7vqneHVdXuFhng==
+"@visactor/vrender-animate@1.1.12", "@visactor/vrender-animate@~1.1.4":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@visactor/vrender-animate/-/vrender-animate-1.1.12.tgz#2e5057408e57305ba8015b1f9687a5722b56d552"
+  integrity sha512-H7G0x7TEcDSzBCGPAou3BgUqiJ3Oa6y0DbLNtdiUdwb0nLzHoQD/MHKoap/DBsiIXmqTz+XtiL5EuRTFiHq3ZQ==
   dependencies:
-    "@visactor/vrender-core" "1.0.45"
+    "@visactor/vrender-core" "1.1.12"
     "@visactor/vutils" "~1.0.12"
 
-"@visactor/vrender-components@1.0.45":
-  version "1.0.45"
-  resolved "https://registry.npmmirror.com/@visactor/vrender-components/-/vrender-components-1.0.45.tgz"
-  integrity sha512-rYsG/rncT5FgYYWqv09f6LkZEAk/IS45IEYWBD0SCgKguYnpEebYDmDba1muJGn+rRv/vGlqg1pYqXLw8mEU5w==
+"@visactor/vrender-components@1.1.12", "@visactor/vrender-components@~1.1.4":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@visactor/vrender-components/-/vrender-components-1.1.12.tgz#22a9888f8e8514ee3164961b3c7a382560ad63f7"
+  integrity sha512-ltF7oYPZLpkYDyHfzfmrg0ybgfcRiGi/69x0XnIAhCkeqQ9KCNAzqLgFGOLKJbJFAlpJMolRhkrMO/qq/YGRGw==
   dependencies:
-    "@visactor/vrender-animate" "1.0.45"
-    "@visactor/vrender-core" "1.0.45"
-    "@visactor/vrender-kits" "1.0.45"
+    "@visactor/vrender-animate" "1.1.12"
+    "@visactor/vrender-core" "1.1.12"
+    "@visactor/vrender-kits" "1.1.12"
     "@visactor/vscale" "~1.0.12"
     "@visactor/vutils" "~1.0.12"
 
-"@visactor/vrender-core@1.0.45":
-  version "1.0.45"
-  resolved "https://registry.npmmirror.com/@visactor/vrender-core/-/vrender-core-1.0.45.tgz"
-  integrity sha512-kvYAsKGZ+dXbhOQzjjbMkRzI815KgaHoWOW7iyVorXTldQBTsxLtFIi/J3VfYqGdM3apUgsFoy8uvjS5DepPUA==
+"@visactor/vrender-core@1.1.12", "@visactor/vrender-core@~1.1.4":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@visactor/vrender-core/-/vrender-core-1.1.12.tgz#91d0df6c857d270c4b4ce3fee3020ad37cd1fe18"
+  integrity sha512-LMdMUdSAwg7kH8fQF7+qDc6ZCtoY9zxoguZ78BP0FMEELzXw/1DxDStTMDEzQCA+hlCxYnnRtM4xkkAjKTKSew==
   dependencies:
     "@visactor/vutils" "~1.0.12"
     color-convert "2.0.1"
 
-"@visactor/vrender-kits@1.0.45":
-  version "1.0.45"
-  resolved "https://registry.npmmirror.com/@visactor/vrender-kits/-/vrender-kits-1.0.45.tgz"
-  integrity sha512-iaeRitht8IqNvJwdKmcPKAYL0a4+f8xhK2bWUumSQjNbZJQx9UzGuDp73cIdNXzCNoCiJZElpsOiIGu3kymqiw==
+"@visactor/vrender-kits@1.1.12", "@visactor/vrender-kits@~1.1.4":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@visactor/vrender-kits/-/vrender-kits-1.1.12.tgz#106cc06d38606e1dbba64ae3f0b7f6f2dd11076d"
+  integrity sha512-AbWaiIyAGsldD30gQjXbZZAvCF+aMpH1PkigEbReOPPoxAcSogv7mV3+3tb22xTqFFnRkK35dwpH+fZ12WyZng==
   dependencies:
     "@resvg/resvg-js" "2.4.1"
-    "@visactor/vrender-core" "1.0.45"
+    "@visactor/vrender-core" "1.1.12"
     "@visactor/vutils" "~1.0.12"
     gifuct-js "2.1.2"
     lottie-web "^5.12.2"
     roughjs "4.6.6"
+
+"@visactor/vrender@~1.1.4":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@visactor/vrender/-/vrender-1.1.12.tgz#4f440ba6ef34c3f171fe9aa782188759f44deda8"
+  integrity sha512-ETehbA7UNwZcMdH3kKnzc/3O2APqkBKmReETC+z7QSjAP6xs0+4KhzBW9cwDV9Q4RWkh2pRFh/MJp1aea+PH7g==
+  dependencies:
+    "@visactor/vrender-animate" "1.1.12"
+    "@visactor/vrender-components" "1.1.12"
+    "@visactor/vrender-core" "1.1.12"
+    "@visactor/vrender-kits" "1.1.12"
 
 "@visactor/vscale@1.0.23", "@visactor/vscale@~1.0.12", "@visactor/vscale@~1.0.23":
   version "1.0.23"
@@ -4615,10 +4626,10 @@
   dependencies:
     "@visactor/vutils" "1.0.23"
 
-"@visactor/vutils-extension@2.0.22":
-  version "2.0.22"
-  resolved "https://registry.npmmirror.com/@visactor/vutils-extension/-/vutils-extension-2.0.22.tgz"
-  integrity sha512-PRxjplZF1/Qdsflb1hYh9DGGJdblq91yIG7CCC6MIlMMSlDYEAMJzJ9y2clnR1MgWa2AsAtMtuu+MSdG3DctUA==
+"@visactor/vutils-extension@2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@visactor/vutils-extension/-/vutils-extension-2.1.4.tgz#7ac85d4b74a4b55da708c20a562e8179f614f651"
+  integrity sha512-gyTxhrTN0Ybzis4FsHniTNQSKo9GWLT2f+0du3E6wEDQ/PijNRS6onkY3HyBXZbsnJlvk/sMZUqrtVJi3cTvzg==
   dependencies:
     "@visactor/vdataset" "~1.0.23"
     "@visactor/vutils" "~1.0.23"
@@ -7525,9 +7536,9 @@ help-me@^5.0.0:
   resolved "https://registry.npmmirror.com/help-me/-/help-me-5.0.0.tgz"
   integrity sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg==
 
-highlight.js@^11.8.0:
+highlight.js@11.11.1, highlight.js@^11.8.0:
   version "11.11.1"
-  resolved "https://registry.npmmirror.com/highlight.js/-/highlight.js-11.11.1.tgz"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.11.1.tgz#fca06fa0e5aeecf6c4d437239135fabc15213585"
   integrity sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==
 
 hookable@^5.5.3:
@@ -7548,6 +7559,11 @@ html-minifier-terser@^6.1.0:
     relateurl "^0.2.7"
     terser "^5.10.0"
 
+html-to-image@1.11.13:
+  version "1.11.13"
+  resolved "https://registry.yarnpkg.com/html-to-image/-/html-to-image-1.11.13.tgz#adbc989c993b7aaf90b629c0cacf833db84d5f43"
+  integrity sha512-cuOPoI7WApyhBElTTb9oqsawRvZ0rHhaHwghRLlTuffoD1B2aDemlCruLeZrUIIdvG7gs9xeELEPm6PhuASqrg==
+
 htmlparser2@^8.0.1:
   version "8.0.2"
   resolved "https://registry.npmmirror.com/htmlparser2/-/htmlparser2-8.0.2.tgz"
@@ -7567,11 +7583,6 @@ htmlparser2@^9.1.0:
     domhandler "^5.0.3"
     domutils "^3.1.0"
     entities "^4.5.0"
-
-html-to-image@1.11.13:
-  version "1.11.13"
-  resolved "https://registry.yarnpkg.com/html-to-image/-/html-to-image-1.11.13.tgz#adbc989c993b7aaf90b629c0cacf833db84d5f43"
-  integrity sha512-cuOPoI7WApyhBElTTb9oqsawRvZ0rHhaHwghRLlTuffoD1B2aDemlCruLeZrUIIdvG7gs9xeELEPm6PhuASqrg==
 
 http-errors@~2.0.0, http-errors@~2.0.1:
   version "2.0.1"
@@ -10955,17 +10966,10 @@ vue-demi@^0.12.5:
   resolved "https://registry.npmmirror.com/vue-demi/-/vue-demi-0.12.5.tgz"
   integrity sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==
 
-vue-demi@^0.13.11:
-  version "0.13.11"
-  resolved "https://registry.npmmirror.com/vue-demi/-/vue-demi-0.13.11.tgz"
-  integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
-
-vue-echarts@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.npmmirror.com/vue-echarts/-/vue-echarts-7.0.3.tgz"
-  integrity sha512-/jSxNwOsw5+dYAUcwSfkLwKPuzTQ0Cepz1LxCOpj2QcHrrmUa/Ql0eQqMmc1rTPQVrh2JQ29n2dhq75ZcHvRDw==
-  dependencies:
-    vue-demi "^0.13.11"
+vue-echarts@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/vue-echarts/-/vue-echarts-8.0.1.tgz#2ed7e507d223e56cd209610f4fee5e8ec9bcbb2f"
+  integrity sha512-23rJTFLu1OUEGRWjJGmdGt8fP+8+ja1gVgzMYPIPaHWpXegcO1viIAaeu2H4QHESlVeHzUAHIxKXGrwjsyXAaA==
 
 vue-eslint-parser@^9.1.0, vue-eslint-parser@^9.4.3:
   version "9.4.3"
