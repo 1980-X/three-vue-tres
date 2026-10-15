@@ -1,0 +1,31 @@
+export default {
+    name: 'floorplan3D',
+    title: '户型设计工坊',
+    intro: '二维户型布置、三维空间预览与独立方案展示。支持家具摆放、墙体门窗、地面材料、方案 JSON、PNG 与 GLB 导出。',
+    version: '1.0.0',
+    author: 'TvT.js',
+    website: 'https://www.icegl.cn',
+    state: 'active',
+    creatTime: '2026-10-15',
+    updateTime: '2026-10-15',
+    require: [],
+    preview: [
+        {
+            name: 'index',
+            title: '户型设计工坊 · 2D / 3D',
+            catalog: { type: 'scene', category: 'product', tags: ['户型', '室内', '设计', 'GLB'] },
+            src: 'plugins/floorplan3D/preview/floorplan.svg',
+            type: 'img',
+            disableFPSGraph: true,
+            referenceSource: { title: 'floorplan-3d', url: 'https://github.com/wy51ai/floorplan-3d' },
+        },
+        {
+            name: 'viewer',
+            title: '户型方案 · 独立展示',
+            catalog: { type: 'scene', category: 'product', tags: ['户型', '室内', '展示'] },
+            src: 'plugins/floorplan3D/preview/viewer.webp',
+            type: 'img',
+            disableFPSGraph: true,
+        },
+    ],
+}
