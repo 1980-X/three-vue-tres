@@ -1,0 +1,1716 @@
+[
+  {
+    "id": 1,
+    "slug": "v8-muscle",
+    "name": "V8 Muscle",
+    "tagline": "Tiefes, unregelmäßiges Grollen mit kräftigem Schub.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.8,
+        "lowpassMaxHz": 5200,
+        "lowpassMinHz": 900
+      },
+      "synth": {
+        "body": 0.95,
+        "rasp": 0.3,
+        "noise": 0.22,
+        "style": "crossplane-v8",
+        "whine": 0.03,
+        "crackle": 0.35,
+        "exhaustHz": 110,
+        "roughness": 0.6
+      },
+      "engine": {
+        "idleRpm": 750,
+        "cylinders": 8,
+        "limiterRpm": 7250,
+        "redlineRpm": 7000
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 750,
+          "load": "idle"
+        },
+        {
+          "id": "low_on",
+          "rpm": 1800,
+          "load": "on"
+        },
+        {
+          "id": "low_off",
+          "rpm": 1800,
+          "load": "off"
+        },
+        {
+          "id": "mid_on",
+          "rpm": 3600,
+          "load": "on"
+        },
+        {
+          "id": "mid_off",
+          "rpm": 3600,
+          "load": "off"
+        },
+        {
+          "id": "high_on",
+          "rpm": 6200,
+          "load": "on"
+        },
+        {
+          "id": "high_off",
+          "rpm": 6200,
+          "load": "off"
+        }
+      ],
+      "source": "synth",
+      "gearbox": {
+        "ratios": [
+          3.66,
+          2.43,
+          1.69,
+          1.32,
+          1,
+          0.65
+        ],
+        "launchRpm": 2200,
+        "finalDrive": 3.55,
+        "upshiftRpm": 6800,
+        "shiftTimeMs": 350,
+        "downshiftRpm": 1300,
+        "cruiseUpshiftRpm": 2100,
+        "tireCircumferenceM": 2.18
+      },
+      "vehicle": {
+        "massKg": 1750,
+        "powerKw": 340,
+        "topSpeedKmh": 250
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/v8-muscle.webp",
+    "badge": null,
+    "categories": [
+      "v8",
+      "muscle-car"
+    ],
+    "isDemo": true,
+    "displayName": "V8 Muscle",
+    "description": "深沉、略带不规则脉动的 V8 肌肉车声浪。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/1?v=87ccbc436779",
+      "locked": false,
+      "premium": false,
+      "beta": false,
+      "badge": null,
+      "isDemo": true
+    }
+  },
+  {
+    "id": 2,
+    "slug": "v10-sport",
+    "name": "V10 Sport",
+    "tagline": "Hochdrehend, kehlig und präzise.",
+    "config": {
+      "mix": {
+        "masterGain": 0.8,
+        "overrunGain": 0.7,
+        "lowpassMaxHz": 7000,
+        "lowpassMinHz": 1200
+      },
+      "synth": {
+        "body": 0.65,
+        "rasp": 0.65,
+        "noise": 0.25,
+        "style": "even-fire",
+        "whine": 0.08,
+        "crackle": 0.2,
+        "exhaustHz": 210,
+        "roughness": 0.3
+      },
+      "engine": {
+        "idleRpm": 1000,
+        "cylinders": 10,
+        "limiterRpm": 8700,
+        "redlineRpm": 8500
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 1000,
+          "load": "idle"
+        },
+        {
+          "id": "low_on",
+          "rpm": 2400,
+          "load": "on"
+        },
+        {
+          "id": "low_off",
+          "rpm": 2400,
+          "load": "off"
+        },
+        {
+          "id": "mid_on",
+          "rpm": 5000,
+          "load": "on"
+        },
+        {
+          "id": "mid_off",
+          "rpm": 5000,
+          "load": "off"
+        },
+        {
+          "id": "high_on",
+          "rpm": 8000,
+          "load": "on"
+        },
+        {
+          "id": "high_off",
+          "rpm": 8000,
+          "load": "off"
+        }
+      ],
+      "source": "synth",
+      "gearbox": {
+        "ratios": [
+          3.4,
+          2.19,
+          1.63,
+          1.29,
+          1.03,
+          0.84,
+          0.69
+        ],
+        "launchRpm": 3200,
+        "finalDrive": 4.2,
+        "upshiftRpm": 8300,
+        "shiftTimeMs": 150,
+        "downshiftRpm": 1700,
+        "cruiseUpshiftRpm": 2600,
+        "tireCircumferenceM": 2.12
+      },
+      "vehicle": {
+        "massKg": 1550,
+        "powerKw": 470,
+        "topSpeedKmh": 320
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/v10-sport.webp",
+    "badge": {
+      "key": "limited",
+      "label": "Limited Time",
+      "icon": "clock"
+    },
+    "categories": [
+      "v10",
+      "sportwagen"
+    ],
+    "isDemo": true,
+    "displayName": "V10 Sport",
+    "description": "高转速 V10，带有清晰而饱满的运动声线。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/2?v=ab1108747302",
+      "locked": false,
+      "premium": false,
+      "beta": false,
+      "badge": {
+        "key": "limited",
+        "label": "Limited Time",
+        "icon": "clock"
+      },
+      "isDemo": true
+    }
+  },
+  {
+    "id": 133,
+    "slug": "v8-performance",
+    "name": "V8 Performance",
+    "tagline": "Aggressiver Crossplane-V8 mit rauem Rasp, tiefem Grollen und knackigem Schubbetrieb.",
+    "config": {
+      "mix": {
+        "masterGain": 0.96,
+        "overrunGain": 1.2,
+        "lowpassMaxHz": 8200,
+        "lowpassMinHz": 820
+      },
+      "synth": {
+        "body": 0.9,
+        "rasp": 0.82,
+        "noise": 0.28,
+        "style": "crossplane-v8",
+        "whine": 0.05,
+        "crackle": 0.14,
+        "exhaustHz": 118,
+        "roughness": 0.55
+      },
+      "engine": {
+        "idleRpm": 850,
+        "cylinders": 8,
+        "limiterRpm": 7450,
+        "redlineRpm": 7200
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 850,
+          "gain": 1,
+          "load": "idle"
+        },
+        {
+          "id": "low_on",
+          "rpm": 1500,
+          "gain": 1,
+          "load": "on"
+        },
+        {
+          "id": "low_off",
+          "rpm": 1500,
+          "gain": 1.02,
+          "load": "off"
+        },
+        {
+          "id": "lowmid_on",
+          "rpm": 2600,
+          "gain": 1.05,
+          "load": "on"
+        },
+        {
+          "id": "lowmid_off",
+          "rpm": 2600,
+          "gain": 1.1,
+          "load": "off"
+        },
+        {
+          "id": "mid_on",
+          "rpm": 3900,
+          "gain": 1.1,
+          "load": "on"
+        },
+        {
+          "id": "mid_off",
+          "rpm": 3900,
+          "gain": 1.18,
+          "load": "off"
+        },
+        {
+          "id": "upper_on",
+          "rpm": 5200,
+          "gain": 1.14,
+          "load": "on"
+        },
+        {
+          "id": "upper_off",
+          "rpm": 5200,
+          "gain": 1.24,
+          "load": "off"
+        },
+        {
+          "id": "high_on",
+          "rpm": 6300,
+          "gain": 1.18,
+          "load": "on"
+        },
+        {
+          "id": "high_off",
+          "rpm": 6300,
+          "gain": 1.28,
+          "load": "off"
+        }
+      ],
+      "source": "synth",
+      "gearbox": {
+        "ratios": [
+          3.7,
+          2.45,
+          1.78,
+          1.39,
+          1.12,
+          0.91,
+          0.74
+        ],
+        "launchRpm": 3000,
+        "finalDrive": 3.45,
+        "upshiftRpm": 7000,
+        "shiftTimeMs": 140,
+        "downshiftRpm": 1750,
+        "cruiseUpshiftRpm": 2850,
+        "tireCircumferenceM": 2.12
+      },
+      "vehicle": {
+        "massKg": 1650,
+        "powerKw": 500,
+        "topSpeedKmh": 300
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/v8-performance.webp",
+    "badge": {
+      "key": "limited",
+      "label": "Limited Time",
+      "icon": "clock"
+    },
+    "categories": [
+      "v8",
+      "muscle-car"
+    ],
+    "isDemo": true,
+    "displayName": "V8 Performance",
+    "description": "粗粝、低沉的高性能 V8，加速与收油层次鲜明。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/133?v=7dfef21c01a6",
+      "locked": false,
+      "premium": false,
+      "beta": false,
+      "badge": {
+        "key": "limited",
+        "label": "Limited Time",
+        "icon": "clock"
+      },
+      "isDemo": true
+    }
+  },
+  {
+    "id": 162,
+    "slug": "dodge-hellcat",
+    "name": "Dodge Hellcat",
+    "tagline": "Aggressiver Crossplane-V8 mit rauem Rasp, tiefem Grollen und knackigem Schubbetrieb.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.85,
+        "lowpassMaxHz": 14000,
+        "lowpassMinHz": 2500
+      },
+      "engine": {
+        "idleRpm": 703,
+        "cylinders": 8,
+        "limiterRpm": 3800,
+        "redlineRpm": 3600
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 703,
+          "file": "sounds/hellcat/idle.wav",
+          "load": "idle"
+        },
+        {
+          "id": "on_1300",
+          "rpm": 1300,
+          "file": "sounds/hellcat/on_1300.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_1600",
+          "rpm": 1600,
+          "file": "sounds/hellcat/on_1600.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_1900",
+          "rpm": 1900,
+          "file": "sounds/hellcat/on_1900.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2350",
+          "rpm": 2350,
+          "file": "sounds/hellcat/on_2350.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2850",
+          "rpm": 2850,
+          "file": "sounds/hellcat/on_2850.wav",
+          "load": "on"
+        },
+        {
+          "id": "off_1300",
+          "rpm": 1300,
+          "file": "sounds/hellcat/off_1300.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_1600",
+          "rpm": 1600,
+          "file": "sounds/hellcat/off_1600.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_1900",
+          "rpm": 1900,
+          "file": "sounds/hellcat/off_1900.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_2350",
+          "rpm": 2350,
+          "file": "sounds/hellcat/off_2350.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_2750",
+          "rpm": 2750,
+          "file": "sounds/hellcat/off_2750.wav",
+          "load": "off"
+        }
+      ],
+      "source": "samples",
+      "gearbox": {
+        "ratios": [
+          4.71,
+          3.14,
+          2.11,
+          1.67,
+          1.29,
+          1,
+          0.84,
+          0.67
+        ],
+        "launchRpm": 1750,
+        "finalDrive": 2.6,
+        "upshiftRpm": 3528,
+        "shiftTimeMs": 300,
+        "downshiftRpm": 1120,
+        "cruiseUpshiftRpm": 1792,
+        "tireCircumferenceM": 2.1
+      },
+      "license": "Envato Elements (Lizenz des Nutzers)",
+      "vehicle": {
+        "massKg": 1600,
+        "powerKw": 250,
+        "topSpeedKmh": 250
+      },
+      "afterfire": {
+        "pops": 0,
+        "bangs": 0,
+        "level": 0.9,
+        "minRpm": 1750,
+        "crackle": 0,
+        "limiter": 0,
+        "windowS": 2.2,
+        "downshift": 0
+      },
+      "shiftSound": {
+        "file": "sounds/hellcat/shift.wav",
+        "gain": 1
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/dodge-hellcat.webp",
+    "badge": {
+      "key": "premium",
+      "label": "Premium only",
+      "display": "Premium",
+      "icon": "crown"
+    },
+    "categories": [
+      "v8",
+      "muscle-car"
+    ],
+    "isDemo": false,
+    "displayName": "Dodge Hellcat",
+    "description": "Dodge Hellcat V8 采样，深沉轰鸣与强烈机械质感。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/162?v=7dfef21c01a6",
+      "locked": false,
+      "premium": true,
+      "beta": false,
+      "badge": {
+        "key": "premium",
+        "label": "Premium only",
+        "display": "Premium",
+        "icon": "crown"
+      },
+      "isDemo": false
+    }
+  },
+  {
+    "id": 4,
+    "slug": "futuristic",
+    "name": "Futuristic",
+    "tagline": "Schwebende Synthesizer-Turbine ohne Gangwechsel.",
+    "config": {
+      "mix": {
+        "masterGain": 0.7,
+        "overrunGain": 0.75,
+        "lowpassMaxHz": 9000,
+        "lowpassMinHz": 1800
+      },
+      "synth": {
+        "body": 0.5,
+        "rasp": 0.2,
+        "noise": 0.2,
+        "style": "turbine",
+        "whine": 0.7,
+        "crackle": 0,
+        "exhaustHz": 420,
+        "roughness": 0.1
+      },
+      "engine": {
+        "idleRpm": 1500,
+        "cylinders": 0,
+        "limiterRpm": 12000,
+        "redlineRpm": 12000
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 1500,
+          "load": "idle"
+        },
+        {
+          "id": "low_on",
+          "rpm": 3500,
+          "load": "on"
+        },
+        {
+          "id": "low_off",
+          "rpm": 3500,
+          "load": "off"
+        },
+        {
+          "id": "mid_on",
+          "rpm": 7000,
+          "load": "on"
+        },
+        {
+          "id": "mid_off",
+          "rpm": 7000,
+          "load": "off"
+        },
+        {
+          "id": "high_on",
+          "rpm": 11500,
+          "load": "on"
+        },
+        {
+          "id": "high_off",
+          "rpm": 11500,
+          "load": "off"
+        }
+      ],
+      "source": "synth",
+      "gearbox": {
+        "ratios": [
+          1.1
+        ],
+        "launchRpm": 1500,
+        "finalDrive": 5.5,
+        "upshiftRpm": 11800,
+        "shiftTimeMs": 0,
+        "downshiftRpm": 3000,
+        "tireCircumferenceM": 2.1
+      },
+      "vehicle": {
+        "massKg": 1900,
+        "powerKw": 400,
+        "topSpeedKmh": 250
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/futuristic.webp",
+    "badge": null,
+    "categories": [
+      "futuristisch"
+    ],
+    "isDemo": true,
+    "displayName": "Futuristic",
+    "description": "连续变化的未来感涡轮合成音，不进行挡位切换。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/4?v=46fee34fe0a4",
+      "locked": false,
+      "premium": false,
+      "beta": false,
+      "badge": null,
+      "isDemo": true
+    }
+  },
+  {
+    "id": 451,
+    "slug": "spooky-halloweenq",
+    "name": "Spooky Halloween",
+    "tagline": "Unheimlicher Ghost-Sound mit geisterhaftem Heulen, düsteren Stimmen und schaurigen Halloween-Effekten während der Fahrt.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.85,
+        "lowpassMaxHz": 14000,
+        "lowpassMinHz": 2500
+      },
+      "engine": {
+        "idleRpm": 1230,
+        "cylinders": 16,
+        "limiterRpm": 4900,
+        "redlineRpm": 4600
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 1230,
+          "file": "sounds/halloween-ghost/idle.wav",
+          "load": "idle"
+        },
+        {
+          "id": "on_1800",
+          "rpm": 1800,
+          "file": "sounds/halloween-ghost/on_1800.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2250",
+          "rpm": 2250,
+          "file": "sounds/halloween-ghost/on_2250.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2850",
+          "rpm": 2850,
+          "file": "sounds/halloween-ghost/on_2850.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_3550",
+          "rpm": 3550,
+          "file": "sounds/halloween-ghost/on_3550.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_4400",
+          "rpm": 4400,
+          "file": "sounds/halloween-ghost/on_4400.wav",
+          "load": "on"
+        },
+        {
+          "id": "off_1800",
+          "rpm": 1800,
+          "file": "sounds/halloween-ghost/off_1800.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_2250",
+          "rpm": 2250,
+          "file": "sounds/halloween-ghost/off_2250.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_2850",
+          "rpm": 2850,
+          "file": "sounds/halloween-ghost/off_2850.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_3550",
+          "rpm": 3550,
+          "file": "sounds/halloween-ghost/off_3550.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_4250",
+          "rpm": 4250,
+          "file": "sounds/halloween-ghost/off_4250.wav",
+          "load": "off"
+        }
+      ],
+      "source": "samples",
+      "gearbox": {
+        "ratios": [
+          3.6,
+          2.4,
+          1.7,
+          1.3,
+          1,
+          0.8
+        ],
+        "launchRpm": 2254,
+        "finalDrive": 3.4,
+        "upshiftRpm": 4508,
+        "shiftTimeMs": 300,
+        "downshiftRpm": 2080,
+        "cruiseUpshiftRpm": 3328,
+        "tireCircumferenceM": 2.1
+      },
+      "license": "Halloween-Geistergeräusch (halloween-ghost.m4a, leerlauf.m4a), zu Motor-Loops verarbeitet 2026-10-08",
+      "vehicle": {
+        "massKg": 1600,
+        "powerKw": 250,
+        "topSpeedKmh": 250
+      },
+      "afterfire": {
+        "pops": 0,
+        "bangs": 0,
+        "level": 0.9,
+        "minRpm": 3250,
+        "crackle": 0,
+        "limiter": 0,
+        "windowS": 2.2,
+        "downshift": 0
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/spooky-halloweenq.webp",
+    "badge": {
+      "key": "halloween",
+      "label": "Halloween Season",
+      "icon": "pumpkin"
+    },
+    "categories": [
+      "futuristisch"
+    ],
+    "isDemo": false,
+    "displayName": "Spooky Halloween",
+    "description": "幽灵般的呼啸与万圣节氛围音效。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/451?v=0e704a357963",
+      "locked": false,
+      "premium": false,
+      "beta": false,
+      "badge": {
+        "key": "halloween",
+        "label": "Halloween Season",
+        "icon": "pumpkin"
+      },
+      "isDemo": false
+    }
+  },
+  {
+    "id": 180,
+    "slug": "ferarri-v6",
+    "name": "Ferarri V6",
+    "tagline": "Hochdrehender V6-Sound mit scharfem Rasp, aggressivem Ansaugton und sportlichem Schubbetrieb.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.85,
+        "lowpassMaxHz": 14000,
+        "lowpassMinHz": 2500
+      },
+      "engine": {
+        "idleRpm": 1044,
+        "cylinders": 6,
+        "limiterRpm": 8700,
+        "redlineRpm": 8500
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 1044,
+          "file": "sounds/ferrari/idle.wav",
+          "load": "idle"
+        },
+        {
+          "id": "on_2300",
+          "rpm": 2300,
+          "file": "sounds/ferrari/on_2300.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_3750",
+          "rpm": 3750,
+          "file": "sounds/ferrari/on_3750.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_4900",
+          "rpm": 4900,
+          "file": "sounds/ferrari/on_4900.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_6350",
+          "rpm": 6350,
+          "file": "sounds/ferrari/on_6350.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_8300",
+          "rpm": 8300,
+          "file": "sounds/ferrari/on_8300.wav",
+          "load": "on"
+        },
+        {
+          "id": "off_2300",
+          "rpm": 2300,
+          "file": "sounds/ferrari/off_2300.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_3750",
+          "rpm": 3750,
+          "file": "sounds/ferrari/off_3750.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_4900",
+          "rpm": 4900,
+          "file": "sounds/ferrari/off_4900.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_6350",
+          "rpm": 6350,
+          "file": "sounds/ferrari/off_6350.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_8300",
+          "rpm": 8300,
+          "file": "sounds/ferrari/off_8300.wav",
+          "load": "off"
+        }
+      ],
+      "source": "samples",
+      "gearbox": {
+        "ratios": [
+          3.2,
+          2.2,
+          1.65,
+          1.3,
+          1.05,
+          0.88,
+          0.75,
+          0.63
+        ],
+        "launchRpm": 2625,
+        "finalDrive": 4.6,
+        "upshiftRpm": 8330,
+        "shiftTimeMs": 150,
+        "downshiftRpm": 1680,
+        "cruiseUpshiftRpm": 2688,
+        "tireCircumferenceM": 2.267
+      },
+      "license": "Aufnahme des Nutzers (Lizenz bitte eintragen)",
+      "vehicle": {
+        "massKg": 1470,
+        "powerKw": 610,
+        "topSpeedKmh": 330
+      },
+      "afterfire": {
+        "pops": 0,
+        "bangs": 0,
+        "level": 0.9,
+        "minRpm": 2625,
+        "crackle": 0,
+        "limiter": 0,
+        "windowS": 2.2,
+        "downshift": 0
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/ferarri-v6.webp",
+    "badge": {
+      "key": "premium",
+      "label": "Premium only",
+      "display": "Premium",
+      "icon": "crown"
+    },
+    "categories": [
+      "v6",
+      "sportwagen"
+    ],
+    "isDemo": false,
+    "displayName": "Ferarri V6",
+    "description": "高转速 V6 采样，锐利进气声与运动排气声。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/180?v=005318b58666",
+      "locked": false,
+      "premium": true,
+      "beta": false,
+      "badge": {
+        "key": "premium",
+        "label": "Premium only",
+        "display": "Premium",
+        "icon": "crown"
+      },
+      "isDemo": false
+    }
+  },
+  {
+    "id": 181,
+    "slug": "nissan-gtr",
+    "name": "Nissan GTR",
+    "tagline": "Aggressiver Twin-Turbo-V6 mit markantem Rasp, kräftigem Spool und hartem Schubbetrieb.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.85,
+        "lowpassMaxHz": 14000,
+        "lowpassMinHz": 2500
+      },
+      "engine": {
+        "idleRpm": 866,
+        "cylinders": 6,
+        "limiterRpm": 7300,
+        "redlineRpm": 7100
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 866,
+          "file": "sounds/nissan-gtr/idle.wav",
+          "load": "idle"
+        },
+        {
+          "id": "on_1750",
+          "rpm": 1750,
+          "file": "sounds/nissan-gtr/on_1750.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2450",
+          "rpm": 2450,
+          "file": "sounds/nissan-gtr/on_2450.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_3400",
+          "rpm": 3400,
+          "file": "sounds/nissan-gtr/on_3400.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_4800",
+          "rpm": 4800,
+          "file": "sounds/nissan-gtr/on_4800.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_6750",
+          "rpm": 6750,
+          "file": "sounds/nissan-gtr/on_6750.wav",
+          "load": "on"
+        },
+        {
+          "id": "off_1750",
+          "rpm": 1750,
+          "file": "sounds/nissan-gtr/off_1750.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_2450",
+          "rpm": 2450,
+          "file": "sounds/nissan-gtr/off_2450.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_3400",
+          "rpm": 3400,
+          "file": "sounds/nissan-gtr/off_3400.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_4800",
+          "rpm": 4800,
+          "file": "sounds/nissan-gtr/off_4800.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_6750",
+          "rpm": 6750,
+          "file": "sounds/nissan-gtr/off_6750.wav",
+          "load": "off"
+        }
+      ],
+      "source": "samples",
+      "gearbox": {
+        "ratios": [
+          3.6,
+          2.4,
+          1.7,
+          1.3,
+          1,
+          0.8
+        ],
+        "launchRpm": 2200,
+        "finalDrive": 3.4,
+        "upshiftRpm": 6958,
+        "shiftTimeMs": 150,
+        "downshiftRpm": 1408,
+        "cruiseUpshiftRpm": 2253,
+        "tireCircumferenceM": 2.1
+      },
+      "license": "Aufnahme des Nutzers (Lizenz bitte eintragen)",
+      "vehicle": {
+        "massKg": 1600,
+        "powerKw": 250,
+        "topSpeedKmh": 250
+      },
+      "afterfire": {
+        "pops": 0,
+        "bangs": 0,
+        "level": 0.9,
+        "minRpm": 2200,
+        "crackle": 0,
+        "limiter": 0,
+        "windowS": 2.2,
+        "downshift": 0
+      },
+      "shiftSound": {
+        "file": "sounds/nissan-gtr/shift.wav",
+        "gain": 1
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/nissan-gtr.webp",
+    "badge": {
+      "key": "premium",
+      "label": "Premium only",
+      "display": "Premium",
+      "icon": "crown"
+    },
+    "categories": [
+      "v6",
+      "sportwagen"
+    ],
+    "isDemo": false,
+    "displayName": "Nissan GTR",
+    "description": "双涡轮 V6 采样，带有鲜明粗粝感与增压声。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/181?v=867d41c525b9",
+      "locked": false,
+      "premium": true,
+      "beta": false,
+      "badge": {
+        "key": "premium",
+        "label": "Premium only",
+        "display": "Premium",
+        "icon": "crown"
+      },
+      "isDemo": false
+    }
+  },
+  {
+    "id": 422,
+    "slug": "mustang-gt-500",
+    "name": "Mustang GT500",
+    "tagline": "Brutaler Supercharged-V8 mit tiefem Grollen, aggressivem Kompressor-Sound und explosivem Rasp unter Last.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.85,
+        "lowpassMaxHz": 14000,
+        "lowpassMinHz": 2500
+      },
+      "engine": {
+        "idleRpm": 703,
+        "cylinders": 8,
+        "limiterRpm": 3700,
+        "redlineRpm": 3500
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 703,
+          "file": "sounds/mustang-gt500/idle.wav",
+          "load": "idle"
+        },
+        {
+          "id": "on_1650",
+          "rpm": 1650,
+          "file": "sounds/mustang-gt500/on_1650.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2400",
+          "rpm": 2400,
+          "file": "sounds/mustang-gt500/on_2400.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2650",
+          "rpm": 2650,
+          "file": "sounds/mustang-gt500/on_2650.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2900",
+          "rpm": 2900,
+          "file": "sounds/mustang-gt500/on_2900.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_3150",
+          "rpm": 3150,
+          "file": "sounds/mustang-gt500/on_3150.wav",
+          "load": "on"
+        },
+        {
+          "id": "off_1650",
+          "rpm": 1650,
+          "file": "sounds/mustang-gt500/off_1650.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_2150",
+          "rpm": 2150,
+          "file": "sounds/mustang-gt500/off_2150.wav",
+          "load": "off"
+        }
+      ],
+      "source": "samples",
+      "gearbox": {
+        "ratios": [
+          3.36,
+          2.07,
+          1.5,
+          1.2,
+          1,
+          0.87,
+          0.73
+        ],
+        "launchRpm": 1715,
+        "finalDrive": 3.73,
+        "upshiftRpm": 3430,
+        "shiftTimeMs": 150,
+        "downshiftRpm": 1200,
+        "cruiseUpshiftRpm": 1920,
+        "tireCircumferenceM": 2.19
+      },
+      "license": "Aufnahme des Nutzers (Lizenz bitte eintragen)",
+      "vehicle": {
+        "massKg": 1916,
+        "powerKw": 563,
+        "topSpeedKmh": 290
+      },
+      "afterfire": {
+        "pops": 0,
+        "bangs": 0,
+        "level": 0.9,
+        "minRpm": 1875,
+        "crackle": 0,
+        "limiter": 0,
+        "windowS": 2.2,
+        "downshift": 0
+      },
+      "shiftSound": {
+        "file": "sounds/mustang-gt500/shift.wav",
+        "gain": 1
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/mustang-gt-500.webp",
+    "badge": {
+      "key": "premium",
+      "label": "Premium only",
+      "display": "Premium",
+      "icon": "crown"
+    },
+    "categories": [
+      "v8",
+      "muscle-car"
+    ],
+    "isDemo": false,
+    "displayName": "Mustang GT500",
+    "description": "机械增压 V8 采样，低沉轰鸣与强烈的负载声浪。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/422?v=71f181bba55a",
+      "locked": false,
+      "premium": true,
+      "beta": false,
+      "badge": {
+        "key": "premium",
+        "label": "Premium only",
+        "display": "Premium",
+        "icon": "crown"
+      },
+      "isDemo": false
+    }
+  },
+  {
+    "id": 423,
+    "slug": "camaro-zl1",
+    "name": "Camaro ZL1",
+    "tagline": "Druckvoller Supercharged-V8 mit tiefem Bass, aggressivem Growl und markantem Kompressor-Heulen.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.85,
+        "lowpassMaxHz": 14000,
+        "lowpassMinHz": 2500
+      },
+      "engine": {
+        "idleRpm": 612,
+        "cylinders": 8,
+        "limiterRpm": 6600,
+        "redlineRpm": 6500
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 612,
+          "file": "sounds/camaro-zl1/idle.wav",
+          "load": "idle"
+        },
+        {
+          "id": "on_1550",
+          "rpm": 1550,
+          "file": "sounds/camaro-zl1/on_1550.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2900",
+          "rpm": 2900,
+          "file": "sounds/camaro-zl1/on_2900.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_3650",
+          "rpm": 3650,
+          "file": "sounds/camaro-zl1/on_3650.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_4600",
+          "rpm": 4600,
+          "file": "sounds/camaro-zl1/on_4600.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_5800",
+          "rpm": 5800,
+          "file": "sounds/camaro-zl1/on_5800.wav",
+          "load": "on"
+        },
+        {
+          "id": "off_1550",
+          "rpm": 1550,
+          "file": "sounds/camaro-zl1/off_1550.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_2900",
+          "rpm": 2900,
+          "file": "sounds/camaro-zl1/off_2900.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_3650",
+          "rpm": 3650,
+          "file": "sounds/camaro-zl1/off_3650.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_4600",
+          "rpm": 4600,
+          "file": "sounds/camaro-zl1/off_4600.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_5750",
+          "rpm": 5750,
+          "file": "sounds/camaro-zl1/off_5750.wav",
+          "load": "off"
+        }
+      ],
+      "source": "samples",
+      "gearbox": {
+        "ratios": [
+          4.7,
+          2.99,
+          2.15,
+          1.8,
+          1.52,
+          1.28,
+          1,
+          0.85,
+          0.69,
+          0.64
+        ],
+        "launchRpm": 2600,
+        "finalDrive": 2.85,
+        "upshiftRpm": 6370,
+        "shiftTimeMs": 300,
+        "downshiftRpm": 1900,
+        "cruiseUpshiftRpm": 2900,
+        "tireCircumferenceM": 2.171
+      },
+      "license": "Aufnahme des Nutzers (Lizenz bitte eintragen)",
+      "vehicle": {
+        "massKg": 1750,
+        "powerKw": 485,
+        "topSpeedKmh": 318
+      },
+      "afterfire": {
+        "pops": 0,
+        "bangs": 0,
+        "level": 0.9,
+        "minRpm": 1950,
+        "crackle": 0,
+        "limiter": 0,
+        "windowS": 2.2,
+        "downshift": 0
+      },
+      "shiftSound": {
+        "file": "sounds/camaro-zl1/shift.wav",
+        "gain": 1
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/camaro-zl1.webp",
+    "badge": {
+      "key": "premium",
+      "label": "Premium only",
+      "display": "Premium",
+      "icon": "crown"
+    },
+    "categories": [
+      "v8",
+      "muscle-car"
+    ],
+    "isDemo": false,
+    "displayName": "Camaro ZL1",
+    "description": "机械增压 V8 采样，深厚低频与标志性增压啸叫。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/423?v=f710d55c6fe5",
+      "locked": false,
+      "premium": true,
+      "beta": false,
+      "badge": {
+        "key": "premium",
+        "label": "Premium only",
+        "display": "Premium",
+        "icon": "crown"
+      },
+      "isDemo": false
+    }
+  },
+  {
+    "id": 621,
+    "slug": "ferarri-fxx-k",
+    "name": "Ferrari FXX K",
+    "tagline": "Extremer V12-Hypercar-Sound mit hochdrehendem Renncharakter, aggressiver Schärfe und purer Track-Atmosphäre.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.85,
+        "lowpassMaxHz": 14000,
+        "lowpassMinHz": 2500
+      },
+      "engine": {
+        "idleRpm": 1045,
+        "cylinders": 12,
+        "limiterRpm": 9250,
+        "redlineRpm": 9000
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 1045,
+          "file": "sounds/ferrari-fxx-k/idle.wav",
+          "load": "idle"
+        },
+        {
+          "id": "on_2600",
+          "rpm": 2600,
+          "file": "sounds/ferrari-fxx-k/on_2600.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_3500",
+          "rpm": 3500,
+          "file": "sounds/ferrari-fxx-k/on_3500.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_4700",
+          "rpm": 4700,
+          "file": "sounds/ferrari-fxx-k/on_4700.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_5700",
+          "rpm": 5700,
+          "file": "sounds/ferrari-fxx-k/on_5700.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_6700",
+          "rpm": 6700,
+          "file": "sounds/ferrari-fxx-k/on_6700.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_7650",
+          "rpm": 7650,
+          "file": "sounds/ferrari-fxx-k/on_7650.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_8000",
+          "rpm": 8000,
+          "file": "sounds/ferrari-fxx-k/on_8000.wav",
+          "load": "on"
+        }
+      ],
+      "source": "samples",
+      "gearbox": {
+        "ratios": [
+          3.08,
+          2.19,
+          1.63,
+          1.29,
+          1.03,
+          0.84,
+          0.69
+        ],
+        "launchRpm": 2500,
+        "finalDrive": 5.15,
+        "upshiftRpm": 8820,
+        "shiftTimeMs": 150,
+        "downshiftRpm": 1620,
+        "cruiseUpshiftRpm": 2592,
+        "tireCircumferenceM": 2.246
+      },
+      "license": "Aufnahme des Nutzers (Lizenz bitte eintragen)",
+      "vehicle": {
+        "massKg": 1165,
+        "powerKw": 772,
+        "topSpeedKmh": 350
+      },
+      "afterfire": {
+        "pops": 0,
+        "bangs": 0,
+        "level": 0.9,
+        "minRpm": 2700,
+        "crackle": 0,
+        "limiter": 0,
+        "windowS": 2.2,
+        "downshift": 0
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/ferarri-fxx-k.webp",
+    "badge": {
+      "key": "premium",
+      "label": "Premium only",
+      "display": "Premium",
+      "icon": "crown"
+    },
+    "categories": [
+      "v12",
+      "sportwagen",
+      "supercar"
+    ],
+    "isDemo": false,
+    "displayName": "Ferrari FXX K",
+    "description": "高转速 V12 赛道采样，锐利而直接。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/621?v=1ca425aa651a",
+      "locked": false,
+      "premium": true,
+      "beta": false,
+      "badge": {
+        "key": "premium",
+        "label": "Premium only",
+        "display": "Premium",
+        "icon": "crown"
+      },
+      "isDemo": false
+    }
+  },
+  {
+    "id": 614,
+    "slug": "amg-gt3",
+    "name": "AMG GT3",
+    "tagline": "Aggressiver GT3-Rennsound mit hartem V8-Charakter, rauem Motorsport-Ton und direkter Rennstrecken-Atmosphäre.",
+    "config": {
+      "mix": {
+        "masterGain": 0.85,
+        "overrunGain": 0.85,
+        "lowpassMaxHz": 14000,
+        "lowpassMinHz": 2500
+      },
+      "engine": {
+        "idleRpm": 897,
+        "cylinders": 8,
+        "limiterRpm": 7400,
+        "redlineRpm": 7200
+      },
+      "layers": [
+        {
+          "id": "idle",
+          "rpm": 897,
+          "file": "sounds/amg-gt3/idle.wav",
+          "load": "idle"
+        },
+        {
+          "id": "on_2000",
+          "rpm": 2000,
+          "file": "sounds/amg-gt3/on_2000.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_2950",
+          "rpm": 2950,
+          "file": "sounds/amg-gt3/on_2950.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_3900",
+          "rpm": 3900,
+          "file": "sounds/amg-gt3/on_3900.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_5150",
+          "rpm": 5150,
+          "file": "sounds/amg-gt3/on_5150.wav",
+          "load": "on"
+        },
+        {
+          "id": "on_6800",
+          "rpm": 6800,
+          "file": "sounds/amg-gt3/on_6800.wav",
+          "load": "on"
+        },
+        {
+          "id": "off_2000",
+          "rpm": 2000,
+          "file": "sounds/amg-gt3/off_2000.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_2950",
+          "rpm": 2950,
+          "file": "sounds/amg-gt3/off_2950.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_3900",
+          "rpm": 3900,
+          "file": "sounds/amg-gt3/off_3900.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_5150",
+          "rpm": 5150,
+          "file": "sounds/amg-gt3/off_5150.wav",
+          "load": "off"
+        },
+        {
+          "id": "off_6700",
+          "rpm": 6700,
+          "file": "sounds/amg-gt3/off_6700.wav",
+          "load": "off"
+        }
+      ],
+      "source": "samples",
+      "gearbox": {
+        "ratios": [
+          3.2,
+          2.2,
+          1.7,
+          1.38,
+          1.15,
+          0.98
+        ],
+        "launchRpm": 2250,
+        "finalDrive": 3.5,
+        "upshiftRpm": 7056,
+        "shiftTimeMs": 150,
+        "downshiftRpm": 1440,
+        "cruiseUpshiftRpm": 2304,
+        "tireCircumferenceM": 2.253
+      },
+      "license": "Aufnahme des Nutzers (Lizenz bitte eintragen)",
+      "vehicle": {
+        "massKg": 1285,
+        "powerKw": 405,
+        "topSpeedKmh": 285
+      },
+      "afterfire": {
+        "pops": 0,
+        "bangs": 0,
+        "level": 0.9,
+        "minRpm": 2250,
+        "crackle": 0,
+        "limiter": 0,
+        "windowS": 2.2,
+        "downshift": 0
+      },
+      "shiftSound": {
+        "file": "sounds/amg-gt3/shift.wav",
+        "gain": 0.7
+      },
+      "schemaVersion": 1
+    },
+    "locked": false,
+    "premium": false,
+    "beta": false,
+    "image": "images/profiles/amg-gt3.webp",
+    "badge": {
+      "key": "premium",
+      "label": "Premium only",
+      "display": "Premium",
+      "icon": "crown"
+    },
+    "categories": [
+      "v8",
+      "sportwagen"
+    ],
+    "isDemo": false,
+    "displayName": "AMG GT3",
+    "description": "GT3 赛车 V8 采样，粗犷、直接的赛道声线。",
+    "sourceMetadata": {
+      "origin": "https://evenginev1.com",
+      "image": "/media/profiles/614?v=0dadfc1523e7",
+      "locked": false,
+      "premium": true,
+      "beta": false,
+      "badge": {
+        "key": "premium",
+        "label": "Premium only",
+        "display": "Premium",
+        "icon": "crown"
+      },
+      "isDemo": false
+    }
+  }
+]

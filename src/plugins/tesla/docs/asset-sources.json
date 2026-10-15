@@ -1,0 +1,1833 @@
+{
+  "sourceOrigin": "https://evenginev1.com",
+  "createdAt": "2026-10-15T03:18:53.923Z",
+  "profileSource": "work/boot-current.json",
+  "scope": "Images and fonts are retained locally; WAV audio is served from audioBaseUrl. Source URLs, sizes and hashes describe the original imported files. Original config license fields are preserved.",
+  "profileCount": 12,
+  "assetCount": 102,
+  "totalBytes": 16742816,
+  "failures": [],
+  "assets": [
+    {
+      "sourceUrl": "https://evenginev1.com/img/favicon-64.png",
+      "localPath": "public/plugins/tesla/favicon.png",
+      "kind": "favicon",
+      "bytes": 3320,
+      "sha256": "4f972c41b94714d81131b92cee027452f8e0f559a433286476a1f1e154de0927",
+      "fetchedAt": "2026-10-15T03:18:53.061Z"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/614?v=0dadfc1523e7",
+      "localPath": "public/plugins/tesla/images/profiles/amg-gt3.webp",
+      "kind": "image",
+      "bytes": 186914,
+      "sha256": "0dadfc1523e7cd3d4112348f467eaafb31455b05ca0d89a8e8c709d87c043886",
+      "fetchedAt": "2026-10-15T03:18:52.847Z",
+      "profileIds": [
+        614
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/423?v=f710d55c6fe5",
+      "localPath": "public/plugins/tesla/images/profiles/camaro-zl1.webp",
+      "kind": "image",
+      "bytes": 210608,
+      "sha256": "f710d55c6fe553142fd632e404069cec7a33485ff55304d0aceaf27f676c8cba",
+      "fetchedAt": "2026-10-15T03:18:43.116Z",
+      "profileIds": [
+        423
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/162?v=7dfef21c01a6",
+      "localPath": "public/plugins/tesla/images/profiles/dodge-hellcat.webp",
+      "kind": "image",
+      "bytes": 161020,
+      "sha256": "7dfef21c01a6eaa6fd7e6f5a16a5bbeea6442f9e67642b2190c863942c296e85",
+      "fetchedAt": "2026-10-15T03:18:21.141Z",
+      "profileIds": [
+        162
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/621?v=1ca425aa651a",
+      "localPath": "public/plugins/tesla/images/profiles/ferarri-fxx-k.webp",
+      "kind": "image",
+      "bytes": 181738,
+      "sha256": "1ca425aa651a27111598922052f26519ea23dd149be1af40cfc08a55aacae44c",
+      "fetchedAt": "2026-10-15T03:18:47.143Z",
+      "profileIds": [
+        621
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/180?v=005318b58666",
+      "localPath": "public/plugins/tesla/images/profiles/ferarri-v6.webp",
+      "kind": "image",
+      "bytes": 156854,
+      "sha256": "005318b586660beb5b0e9ee008fab267d7a97ace08b11c234a22e477ba7ee7b6",
+      "fetchedAt": "2026-10-15T03:18:26.352Z",
+      "profileIds": [
+        180
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/4?v=46fee34fe0a4",
+      "localPath": "public/plugins/tesla/images/profiles/futuristic.webp",
+      "kind": "image",
+      "bytes": 95396,
+      "sha256": "46fee34fe0a435904effa7d18c9b7e898f20e5e792bc419f5fc899edda62126a",
+      "fetchedAt": "2026-10-15T03:18:21.008Z",
+      "profileIds": [
+        4
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/422?v=71f181bba55a",
+      "localPath": "public/plugins/tesla/images/profiles/mustang-gt-500.webp",
+      "kind": "image",
+      "bytes": 173936,
+      "sha256": "71f181bba55aa36cba53546087dcab29db851efa463c40200fdc524daa216445",
+      "fetchedAt": "2026-10-15T03:18:35.262Z",
+      "profileIds": [
+        422
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/181?v=867d41c525b9",
+      "localPath": "public/plugins/tesla/images/profiles/nissan-gtr.webp",
+      "kind": "image",
+      "bytes": 157400,
+      "sha256": "867d41c525b9f3ca9bf8bcccb432ef3613e9b67947e37a43223b8060921db6ae",
+      "fetchedAt": "2026-10-15T03:18:29.409Z",
+      "profileIds": [
+        181
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/451?v=0e704a357963",
+      "localPath": "public/plugins/tesla/images/profiles/spooky-halloweenq.webp",
+      "kind": "image",
+      "bytes": 232802,
+      "sha256": "0e704a357963d7f1795676924a5c05a8dfde6cdf6fa864ebd79e62bf8abcb0bc",
+      "fetchedAt": "2026-10-15T03:18:23.394Z",
+      "profileIds": [
+        451
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/2?v=ab1108747302",
+      "localPath": "public/plugins/tesla/images/profiles/v10-sport.webp",
+      "kind": "image",
+      "bytes": 103188,
+      "sha256": "ab11087473024dd389eea1a53086fe2e4b4f9b39eee57c3d2b356a919fffc7f8",
+      "fetchedAt": "2026-10-15T03:18:17.467Z",
+      "profileIds": [
+        2
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/1?v=87ccbc436779",
+      "localPath": "public/plugins/tesla/images/profiles/v8-muscle.webp",
+      "kind": "image",
+      "bytes": 85332,
+      "sha256": "87ccbc4367793429530207445323d34e9e5e0cbf85e774def95a474ba0496cb3",
+      "fetchedAt": "2026-10-15T03:18:17.384Z",
+      "profileIds": [
+        1
+      ]
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/media/profiles/133?v=7dfef21c01a6",
+      "localPath": "public/plugins/tesla/images/profiles/v8-performance.webp",
+      "kind": "image",
+      "bytes": 161020,
+      "sha256": "7dfef21c01a6eaa6fd7e6f5a16a5bbeea6442f9e67642b2190c863942c296e85",
+      "fetchedAt": "2026-10-15T03:18:17.571Z",
+      "profileIds": [
+        133
+      ],
+      "sameContentAsSourceUrl": "https://evenginev1.com/media/profiles/162?v=7dfef21c01a6"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/idle.wav",
+      "kind": "audio",
+      "bytes": 377580,
+      "sha256": "c10fc8221358e5b968f19646ac01e37e13295e6afedd9819adb7167ac59d3b22",
+      "fetchedAt": "2026-10-15T03:18:47.864Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 377536,
+        "seconds": 4.280453514739229
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/idle.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/off_2000.wav",
+      "kind": "audio",
+      "bytes": 116468,
+      "sha256": "f0fdf54864fea1054f486bc520506b92cd206b2f1d97b23f3f9d9cf183512486",
+      "fetchedAt": "2026-10-15T03:18:49.798Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 116424,
+        "seconds": 1.32
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/off_2000.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/off_2950.wav",
+      "kind": "audio",
+      "bytes": 78976,
+      "sha256": "4fd9c9a4ea7f7eeabd83313caa2856b367c5f21e778f55526f987ca8581d5eae",
+      "fetchedAt": "2026-10-15T03:18:50.088Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 78932,
+        "seconds": 0.8949206349206349
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/off_2950.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/off_3900.wav",
+      "kind": "audio",
+      "bytes": 92314,
+      "sha256": "57f2f63788f7abf6eef041a59c9a4595072a47e8998682a921297ad9e2b7beb6",
+      "fetchedAt": "2026-10-15T03:18:51.708Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 92270,
+        "seconds": 1.0461451247165532
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/off_3900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/off_5150.wav",
+      "kind": "audio",
+      "bytes": 217890,
+      "sha256": "764b0d3731cb1b08bdd9fafba2846abbc52e0392050e704dac6bf2f7d6020010",
+      "fetchedAt": "2026-10-15T03:18:51.604Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 217846,
+        "seconds": 2.4699092970521543
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/off_5150.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/off_6700.wav",
+      "kind": "audio",
+      "bytes": 208564,
+      "sha256": "56272e22b9b47824220623681bda61190bc2793d550759095e523165544410e1",
+      "fetchedAt": "2026-10-15T03:18:51.878Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 208520,
+        "seconds": 2.364172335600907
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/off_6700.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/on_2000.wav",
+      "kind": "audio",
+      "bytes": 164096,
+      "sha256": "494345ecb68826193dde42a09a74e27543e4053dba686196ccd7ceb31deff494",
+      "fetchedAt": "2026-10-15T03:18:47.532Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 164052,
+        "seconds": 1.86
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/on_2000.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/on_2950.wav",
+      "kind": "audio",
+      "bytes": 111266,
+      "sha256": "c7d5ae78470f315a95af16e9fc05f383004e1406eff2acd3e76412e0b640dda3",
+      "fetchedAt": "2026-10-15T03:18:48.238Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 111222,
+        "seconds": 1.2610204081632652
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/on_2950.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/on_3900.wav",
+      "kind": "audio",
+      "bytes": 84174,
+      "sha256": "912f878fd6a8c5e7c122714ff968e5a7d798fe732b256412dc0a88793dbc69cd",
+      "fetchedAt": "2026-10-15T03:18:48.953Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 84130,
+        "seconds": 0.9538548752834467
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/on_3900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/on_5150.wav",
+      "kind": "audio",
+      "bytes": 82250,
+      "sha256": "1768189c4fc752f9f40fa689b1829662f3cfb656145fffb7a9444ef868453302",
+      "fetchedAt": "2026-10-15T03:18:49.402Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 82206,
+        "seconds": 0.9320408163265306
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/on_5150.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/on_6800.wav",
+      "kind": "audio",
+      "bytes": 208612,
+      "sha256": "99eb7a2c616f3462e4c395df72b707f66ff107e2b883e4a1d9f1c870e6d9cc6d",
+      "fetchedAt": "2026-10-15T03:18:49.873Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 208568,
+        "seconds": 2.3647165532879817
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/on_6800.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/amg-gt3/shift.wav",
+      "kind": "audio",
+      "bytes": 42286,
+      "sha256": "d7b061312fcddebcc813ce1e9d9600dbaed9f27f7d1da1c12c1cfdbb1d9ee1fb",
+      "fetchedAt": "2026-10-15T03:18:51.990Z",
+      "profileIds": [
+        614
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 38190,
+        "seconds": 0.43299319727891156
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/shift.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/idle.wav",
+      "kind": "audio",
+      "bytes": 395416,
+      "sha256": "b2b6af6445befcab5d9cf729f25f98aec41fa42932fda1b55c3b7e3690beb9f5",
+      "fetchedAt": "2026-10-15T03:18:36.013Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 395372,
+        "seconds": 4.118458333333334
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/idle.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/off_1550.wav",
+      "kind": "audio",
+      "bytes": 215580,
+      "sha256": "8f391c581ecc9ff7bfe0ed483dc69cd2100005e87bc138fad7936b04a65b1467",
+      "fetchedAt": "2026-10-15T03:18:42.276Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 215536,
+        "seconds": 2.2451666666666665
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/off_1550.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/off_2900.wav",
+      "kind": "audio",
+      "bytes": 115244,
+      "sha256": "9538a4af1da3e4bb1e2be555c0e2594ba9835ca68929720f75bb1825c1bce81f",
+      "fetchedAt": "2026-10-15T03:18:37.898Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 115200,
+        "seconds": 1.2
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/off_2900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/off_3650.wav",
+      "kind": "audio",
+      "bytes": 91572,
+      "sha256": "8fe1330ac5605d09065b7a979126cb7edecd7dab8e5d677218f7e8eb2a878aa4",
+      "fetchedAt": "2026-10-15T03:18:38.385Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 91528,
+        "seconds": 0.9534166666666667
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/off_3650.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/off_4600.wav",
+      "kind": "audio",
+      "bytes": 240462,
+      "sha256": "1c14d0dbfba73434c5c1e7f4ef94f7eb7c5a59c40a6126aa2ced9d8dae5d11cb",
+      "fetchedAt": "2026-10-15T03:18:38.410Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 240418,
+        "seconds": 2.504354166666667
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/off_4600.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/off_5750.wav",
+      "kind": "audio",
+      "bytes": 230444,
+      "sha256": "9d953fbb2b63148205bdf0b384a1dda812ddd04a43ed3dd40595fb0ff0e13d55",
+      "fetchedAt": "2026-10-15T03:18:41.599Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 230400,
+        "seconds": 2.4
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/off_5750.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/on_1550.wav",
+      "kind": "audio",
+      "bytes": 215580,
+      "sha256": "a5071c636f53dca159944b916050735033bfef833fa015841099eef7ed6a43b4",
+      "fetchedAt": "2026-10-15T03:18:36.528Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 215536,
+        "seconds": 2.2451666666666665
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/on_1550.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/on_2900.wav",
+      "kind": "audio",
+      "bytes": 115244,
+      "sha256": "6446890dac70ff520b230fc99419657a0c775018235d5685506315a9e2c72068",
+      "fetchedAt": "2026-10-15T03:18:36.420Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 115200,
+        "seconds": 1.2
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/on_2900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/on_3650.wav",
+      "kind": "audio",
+      "bytes": 91572,
+      "sha256": "c54654981ad715965e147c2e1955afade0c03ca427cd876af6433cb24119a873",
+      "fetchedAt": "2026-10-15T03:18:36.490Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 91528,
+        "seconds": 0.9534166666666667
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/on_3650.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/on_4600.wav",
+      "kind": "audio",
+      "bytes": 90200,
+      "sha256": "749639b6780f19c18d0c176490c9bfeee4654ccb3959cd024bab470f6d6879bb",
+      "fetchedAt": "2026-10-15T03:18:36.518Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 90156,
+        "seconds": 0.939125
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/on_4600.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/on_5800.wav",
+      "kind": "audio",
+      "bytes": 226472,
+      "sha256": "49ff046712bcbe3b566497c5e741048dba71ea7d66774fc70e2ad40f3b3d90f9",
+      "fetchedAt": "2026-10-15T03:18:37.912Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 226428,
+        "seconds": 2.358625
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/on_5800.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/camaro-zl1/shift.wav",
+      "kind": "audio",
+      "bytes": 27692,
+      "sha256": "8b4d5056e80518cdce45e7afb0c4aefea939ee86cd3947e98d4ba8e8e1f26860",
+      "fetchedAt": "2026-10-15T03:18:41.617Z",
+      "profileIds": [
+        423
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 27648,
+        "seconds": 0.288
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/camaro-zl1/shift.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari-fxx-k/idle.wav",
+      "kind": "audio",
+      "bytes": 385042,
+      "sha256": "bced3c64e738c00739da5d32ee5c929935eca3388e98e333cad2c5e0cfb716ed",
+      "fetchedAt": "2026-10-15T03:18:42.040Z",
+      "profileIds": [
+        621
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 384998,
+        "seconds": 4.365056689342404
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari-fxx-k/idle.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari-fxx-k/on_2600.wav",
+      "kind": "audio",
+      "bytes": 610660,
+      "sha256": "f68e5799188c912fa0c797aced3025894613891f387c986071542e3dcf36edfb",
+      "fetchedAt": "2026-10-15T03:18:45.637Z",
+      "profileIds": [
+        621
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 610616,
+        "seconds": 6.923083900226757
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari-fxx-k/on_2600.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari-fxx-k/on_3500.wav",
+      "kind": "audio",
+      "bytes": 453644,
+      "sha256": "4f49759e59507ac0442ffed376c8880b434f0f3755d3e552f837e71dcb1e5a7e",
+      "fetchedAt": "2026-10-15T03:18:43.791Z",
+      "profileIds": [
+        621
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 453600,
+        "seconds": 5.142857142857143
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari-fxx-k/on_3500.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari-fxx-k/on_4700.wav",
+      "kind": "audio",
+      "bytes": 337832,
+      "sha256": "13d5dddfd464ad57a130641cffc4d5708d71482197b62daff2484d665a2b17c0",
+      "fetchedAt": "2026-10-15T03:18:45.423Z",
+      "profileIds": [
+        621
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 337788,
+        "seconds": 3.829795918367347
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari-fxx-k/on_4700.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari-fxx-k/on_5700.wav",
+      "kind": "audio",
+      "bytes": 278570,
+      "sha256": "98aa30dc6cbca8012b82bfef50c8023f3c9aab0d5815063a4b7caa8c4a523a47",
+      "fetchedAt": "2026-10-15T03:18:44.325Z",
+      "profileIds": [
+        621
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 278526,
+        "seconds": 3.157891156462585
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari-fxx-k/on_5700.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari-fxx-k/on_6700.wav",
+      "kind": "audio",
+      "bytes": 237000,
+      "sha256": "55399b81e0488929c65fbe1d0716e89cca45d651ba4448e5cff9a2ca64906937",
+      "fetchedAt": "2026-10-15T03:18:45.750Z",
+      "profileIds": [
+        621
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 236956,
+        "seconds": 2.6865759637188207
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari-fxx-k/on_6700.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari-fxx-k/on_7650.wav",
+      "kind": "audio",
+      "bytes": 148082,
+      "sha256": "5bc0462150ea6b094fc67e24d8e4ab3d1d0d2159973124a141d95fc845bf6a86",
+      "fetchedAt": "2026-10-15T03:18:46.674Z",
+      "profileIds": [
+        621
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 148038,
+        "seconds": 1.6784353741496598
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari-fxx-k/on_7650.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari-fxx-k/on_8000.wav",
+      "kind": "audio",
+      "bytes": 104562,
+      "sha256": "753c33e5667d02b15957c02c101880b178fb91c79d2adb68f4e847064a2577e1",
+      "fetchedAt": "2026-10-15T03:18:46.300Z",
+      "profileIds": [
+        621
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 104518,
+        "seconds": 1.1850113378684808
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari-fxx-k/on_8000.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/idle.wav",
+      "kind": "audio",
+      "bytes": 385320,
+      "sha256": "acbc87ae511fa701298ec4e9ed79b90c1f29f7a4a6c56ae1077e544de6a57b45",
+      "fetchedAt": "2026-10-15T03:18:24.036Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 385276,
+        "seconds": 4.368208616780046
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/idle.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/off_2300.wav",
+      "kind": "audio",
+      "bytes": 82876,
+      "sha256": "a4074e0bb941aaf9eeb361f491cfcc50d8d64cbe28d5276a74094a497a95c0d1",
+      "fetchedAt": "2026-10-15T03:18:25.189Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 82832,
+        "seconds": 0.9391383219954649
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/off_2300.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/off_3750.wav",
+      "kind": "audio",
+      "bytes": 87538,
+      "sha256": "1527bd92304b6445a580c5de458a28487d94036a3fc979f239e9eb57f0d06b3a",
+      "fetchedAt": "2026-10-15T03:18:25.206Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 87494,
+        "seconds": 0.9919954648526077
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/off_3750.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/off_4900.wav",
+      "kind": "audio",
+      "bytes": 88604,
+      "sha256": "724f125c841c5cd944293b3bc54e148d90243bdb8693f74ae7410004ec4b305f",
+      "fetchedAt": "2026-10-15T03:18:25.325Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 88560,
+        "seconds": 1.0040816326530613
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/off_4900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/off_6350.wav",
+      "kind": "audio",
+      "bytes": 225058,
+      "sha256": "f7b568f9f6ce0a3cfa7158fb99c3863138e5f7c3f9f7b2a0c8b307b3f7bca2a3",
+      "fetchedAt": "2026-10-15T03:18:25.759Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 225014,
+        "seconds": 2.5511791383219955
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/off_6350.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/off_8300.wav",
+      "kind": "audio",
+      "bytes": 181120,
+      "sha256": "fa7ae34933d2166f6a0af95736eedc2b106714b07ffe1b96844caf234729db87",
+      "fetchedAt": "2026-10-15T03:18:26.706Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 181076,
+        "seconds": 2.053015873015873
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/off_8300.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/on_2300.wav",
+      "kind": "audio",
+      "bytes": 82876,
+      "sha256": "49d1a83b0b8273e4bae2366a402d9152760504f2b8f7de1e3c0b7c526ee8900b",
+      "fetchedAt": "2026-10-15T03:18:24.175Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 82832,
+        "seconds": 0.9391383219954649
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/on_2300.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/on_3750.wav",
+      "kind": "audio",
+      "bytes": 81894,
+      "sha256": "88e1f6d903f2a195af3f3f2e8ebb2593b9cd7e6cfd575746fd2e94078f4250db",
+      "fetchedAt": "2026-10-15T03:18:24.126Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 81850,
+        "seconds": 0.9280045351473923
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/on_3750.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/on_4900.wav",
+      "kind": "audio",
+      "bytes": 60524,
+      "sha256": "b3f9a6fbd9fb66659d4bbfd47bb90f763ee0d1fac3db8ee6d894087dabb09a7e",
+      "fetchedAt": "2026-10-15T03:18:24.285Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 60480,
+        "seconds": 0.6857142857142857
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/on_4900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/on_6350.wav",
+      "kind": "audio",
+      "bytes": 46714,
+      "sha256": "41a74a29db880f6623dc058a5aec6146d9304b5f321402f8aefbc9aadb060548",
+      "fetchedAt": "2026-10-15T03:18:24.338Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 46670,
+        "seconds": 0.5291383219954648
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/on_6350.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/ferrari/on_8300.wav",
+      "kind": "audio",
+      "bytes": 205348,
+      "sha256": "fdc87c504e1e986f64acadd20349346a39de7ef6a3a27667e8c4c43ece44c839",
+      "fetchedAt": "2026-10-15T03:18:25.196Z",
+      "profileIds": [
+        180
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 205304,
+        "seconds": 2.3277097505668936
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/ferrari/on_8300.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/idle.wav",
+      "kind": "audio",
+      "bytes": 432044,
+      "sha256": "33f186ad570492b04aecbd5524d80390085565087b381f81a283f0dcbf27d3d0",
+      "fetchedAt": "2026-10-15T03:18:21.300Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 432000,
+        "seconds": 4.5
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/idle.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/off_1800.wav",
+      "kind": "audio",
+      "bytes": 96044,
+      "sha256": "8b5a1f554deb8fcc8dc2cc12858622192f9477a0c0faa0e13af26fae95b80368",
+      "fetchedAt": "2026-10-15T03:18:22.228Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 96000,
+        "seconds": 1
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/off_1800.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/off_2250.wav",
+      "kind": "audio",
+      "bytes": 133164,
+      "sha256": "c94849c97bd407bf6fad891daf0ea2af928fa9e0a804c07c43aa01008931d0a0",
+      "fetchedAt": "2026-10-15T03:18:22.655Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 133120,
+        "seconds": 1.3866666666666667
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/off_2250.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/off_2850.wav",
+      "kind": "audio",
+      "bytes": 88970,
+      "sha256": "6faba6f1245252ca28dc8876349acf0a99ed2bd2b648103de945c9338bc44b7a",
+      "fetchedAt": "2026-10-15T03:18:23.130Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 88926,
+        "seconds": 0.9263125
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/off_2850.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/off_3550.wav",
+      "kind": "audio",
+      "bytes": 90906,
+      "sha256": "7e37a6ab105901cfd21432f77b5cf65e37130f2d386ff89889ee7b4f553b514c",
+      "fetchedAt": "2026-10-15T03:18:23.145Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 90862,
+        "seconds": 0.9464791666666666
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/off_3550.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/off_4250.wav",
+      "kind": "audio",
+      "bytes": 81362,
+      "sha256": "c971684db141bb23edbae849badb002b31c8f6ff7266173a0dc39cdd4229474c",
+      "fetchedAt": "2026-10-15T03:18:23.284Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 81318,
+        "seconds": 0.8470625
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/off_4250.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/on_1800.wav",
+      "kind": "audio",
+      "bytes": 108844,
+      "sha256": "7550521f25e2fd63a8fdf5bcf48d331506fb098742099619abf41acc12718e16",
+      "fetchedAt": "2026-10-15T03:18:21.049Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 108800,
+        "seconds": 1.1333333333333333
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/on_1800.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/on_2250.wav",
+      "kind": "audio",
+      "bytes": 92204,
+      "sha256": "41a8c4efd9d3b85fd9ef6f28fa857dfd073404991d4dce087df2cf16d4efd9b2",
+      "fetchedAt": "2026-10-15T03:18:21.101Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 92160,
+        "seconds": 0.96
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/on_2250.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/on_2850.wav",
+      "kind": "audio",
+      "bytes": 93012,
+      "sha256": "f14588fb30988e4a49a72ed09b22218f7945d8eeeeb80c5126daa16a45f41e94",
+      "fetchedAt": "2026-10-15T03:18:22.079Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 92968,
+        "seconds": 0.9684166666666667
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/on_2850.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/on_3550.wav",
+      "kind": "audio",
+      "bytes": 100642,
+      "sha256": "3c62ceb361346e4f0eb8e7e968f702fdf4c84f9fb1ae7044b6a2c68aa5f49050",
+      "fetchedAt": "2026-10-15T03:18:22.128Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 100598,
+        "seconds": 1.0478958333333332
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/on_3550.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/halloween-ghost/on_4400.wav",
+      "kind": "audio",
+      "bytes": 83826,
+      "sha256": "78c430d5c02b1fede60b42d2ba37fca6a9db0f434d03b3bba03ac079e2ae71cf",
+      "fetchedAt": "2026-10-15T03:18:22.140Z",
+      "profileIds": [
+        451
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 83782,
+        "seconds": 0.8727291666666667
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/halloween-ghost/on_4400.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/idle.wav",
+      "kind": "audio",
+      "bytes": 376504,
+      "sha256": "fb003f3a9d605cc240070a64ea5c2d96b52ca34b01292861f894379eae07d81c",
+      "fetchedAt": "2026-10-15T03:18:17.688Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 376460,
+        "seconds": 4.268253968253968
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/idle.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/off_1300.wav",
+      "kind": "audio",
+      "bytes": 89600,
+      "sha256": "a98774490611f54376f0238d8bc965b0f8cd8f75bd1fad3fe17d51a483c7c7f6",
+      "fetchedAt": "2026-10-15T03:18:18.832Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 89556,
+        "seconds": 1.015374149659864
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/off_1300.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/off_1600.wav",
+      "kind": "audio",
+      "bytes": 165420,
+      "sha256": "34fc85eb55af1741df7014a314c3ea8200d5a671c0e4b77b7def278a56803b97",
+      "fetchedAt": "2026-10-15T03:18:20.005Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 165376,
+        "seconds": 1.8750113378684807
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/off_1600.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/off_1900.wav",
+      "kind": "audio",
+      "bytes": 178300,
+      "sha256": "02b06c4c2fd73651339c57d140eb582c878b5660c3824dc18f23b3147513a9d2",
+      "fetchedAt": "2026-10-15T03:18:19.950Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 178256,
+        "seconds": 2.021043083900227
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/off_1900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/off_2350.wav",
+      "kind": "audio",
+      "bytes": 220732,
+      "sha256": "34dea086ca9f6c1535678fd72f2ddd6ff14e4665f3475b8cfa2259e657d0826b",
+      "fetchedAt": "2026-10-15T03:18:20.053Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 220688,
+        "seconds": 2.5021315192743763
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/off_2350.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/off_2750.wav",
+      "kind": "audio",
+      "bytes": 207876,
+      "sha256": "6329836507af8662a758045079e245fd4eff219b76321f598fd828885b312426",
+      "fetchedAt": "2026-10-15T03:18:19.978Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 207832,
+        "seconds": 2.356371882086168
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/off_2750.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/on_1300.wav",
+      "kind": "audio",
+      "bytes": 105884,
+      "sha256": "d3084a6a3034ab7eda802afd75b6ab95506971b47403159b1c8cac247c8cc140",
+      "fetchedAt": "2026-10-15T03:18:17.491Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 105840,
+        "seconds": 1.2
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/on_1300.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/on_1600.wav",
+      "kind": "audio",
+      "bytes": 86040,
+      "sha256": "be351f7b1e06a6bc60f5578fb4c63fa5d8dbe03aaec67676f11e27dd72754150",
+      "fetchedAt": "2026-10-15T03:18:18.550Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 85996,
+        "seconds": 0.9750113378684807
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/on_1600.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/on_1900.wav",
+      "kind": "audio",
+      "bytes": 78032,
+      "sha256": "434f256d1fe9fc2561b9e61ce801fa89b1a2b378274975ec8840a82116c5337e",
+      "fetchedAt": "2026-10-15T03:18:18.564Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 77988,
+        "seconds": 0.88421768707483
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/on_1900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/on_2350.wav",
+      "kind": "audio",
+      "bytes": 225236,
+      "sha256": "0fabd51cb01ceb4cfbf39b0083e393e7cdd093a99025d754dd23a5c747fd9afb",
+      "fetchedAt": "2026-10-15T03:18:19.000Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 225192,
+        "seconds": 2.5531972789115644
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/on_2350.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/on_2850.wav",
+      "kind": "audio",
+      "bytes": 204296,
+      "sha256": "a74e811976f446a23e15c77ec9f657fd8b7a28fed393f9ea1604149163aaea9a",
+      "fetchedAt": "2026-10-15T03:18:18.854Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 204252,
+        "seconds": 2.3157823129251702
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/on_2850.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/hellcat/shift.wav",
+      "kind": "audio",
+      "bytes": 33236,
+      "sha256": "7541343e5e11a3e906c18ac501a5488c9c9748d6e2ac70b3d9fcabf57a65966f",
+      "fetchedAt": "2026-10-15T03:18:19.990Z",
+      "profileIds": [
+        162
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 33192,
+        "seconds": 0.3763265306122449
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/hellcat/shift.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/idle.wav",
+      "kind": "audio",
+      "bytes": 409928,
+      "sha256": "cfdd3165de531f66ae1316fae92137af651d7a39248632755e6630cccb3830ba",
+      "fetchedAt": "2026-10-15T03:18:30.737Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 409884,
+        "seconds": 4.269625
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/idle.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/off_1650.wav",
+      "kind": "audio",
+      "bytes": 160626,
+      "sha256": "989e6676e862d0d293a005a80eef185367d86da9be134bd06e15e1c8d62c5127",
+      "fetchedAt": "2026-10-15T03:18:34.464Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 160582,
+        "seconds": 1.6727291666666666
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/off_1650.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/off_2150.wav",
+      "kind": "audio",
+      "bytes": 225086,
+      "sha256": "dfc006a8cbd5505e37da4dff2bccfdf12048ef4392eefde4333117338e6db01f",
+      "fetchedAt": "2026-10-15T03:18:35.226Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 225042,
+        "seconds": 2.3441875
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/off_2150.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/on_1650.wav",
+      "kind": "audio",
+      "bytes": 160626,
+      "sha256": "9af400d71c089cecf38eafdcb4cd7ac883614b8c5bd06d01a186253ab7faf1cd",
+      "fetchedAt": "2026-10-15T03:18:30.994Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 160582,
+        "seconds": 1.6727291666666666
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/on_1650.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/on_2400.wav",
+      "kind": "audio",
+      "bytes": 96044,
+      "sha256": "2cc5ae3c97750cfa14e68611c50b3504d30bb4a5d2a9eb60a3916405dd298eb7",
+      "fetchedAt": "2026-10-15T03:18:30.869Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 96000,
+        "seconds": 1
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/on_2400.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/on_2650.wav",
+      "kind": "audio",
+      "bytes": 239138,
+      "sha256": "1ab9a96c429163bd27525ec0ee6d838706629c2cc4f25997fd2847474a4909b8",
+      "fetchedAt": "2026-10-15T03:18:31.862Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 239094,
+        "seconds": 2.4905625
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/on_2650.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/on_2900.wav",
+      "kind": "audio",
+      "bytes": 222500,
+      "sha256": "f1647a7d78cb9417f06bfdd68b5aa1034a693b26ade1adae781c42dce8cac201",
+      "fetchedAt": "2026-10-15T03:18:31.252Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 222456,
+        "seconds": 2.31725
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/on_2900.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/on_3150.wav",
+      "kind": "audio",
+      "bytes": 223130,
+      "sha256": "82c4cb472907e6e148bcae8c9e239627a4490a54070613935f382c27a790bc17",
+      "fetchedAt": "2026-10-15T03:18:34.722Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 223086,
+        "seconds": 2.3238125
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/on_3150.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/mustang-gt500/shift.wav",
+      "kind": "audio",
+      "bytes": 35504,
+      "sha256": "ba3c17492579b49323d963c2a6fdba22f13f504f1b1690fd42ef4975b4ba88d7",
+      "fetchedAt": "2026-10-15T03:18:33.270Z",
+      "profileIds": [
+        422
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 35426,
+        "seconds": 0.36902083333333335
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/mustang-gt500/shift.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/idle.wav",
+      "kind": "audio",
+      "bytes": 378798,
+      "sha256": "061751f4f2b2c6cb6d9627c3f1d5ee360dbe2b0f95eb598a890fa93e77206c46",
+      "fetchedAt": "2026-10-15T03:18:26.471Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 378754,
+        "seconds": 4.294263038548753
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/idle.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/off_1750.wav",
+      "kind": "audio",
+      "bytes": 78668,
+      "sha256": "0a2eec2d41de406224e22d834d840cc18ac3f6beec451bc41b515ac1aca555ff",
+      "fetchedAt": "2026-10-15T03:18:27.763Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 78624,
+        "seconds": 0.8914285714285715
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/off_1750.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/off_2450.wav",
+      "kind": "audio",
+      "bytes": 77804,
+      "sha256": "e46e078fa93838dbc16a40a14249d64993d6b4f2a9edbf196b0a32aa63253b6f",
+      "fetchedAt": "2026-10-15T03:18:27.773Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 77760,
+        "seconds": 0.8816326530612245
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/off_2450.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/off_3400.wav",
+      "kind": "audio",
+      "bytes": 90320,
+      "sha256": "0dc7f239c6a7f655f6a5eefea0e95c802eb9c12234fb94f5c4e84f4ee36c825c",
+      "fetchedAt": "2026-10-15T03:18:28.597Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 90276,
+        "seconds": 1.0235374149659864
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/off_3400.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/off_4800.wav",
+      "kind": "audio",
+      "bytes": 167624,
+      "sha256": "c106d9e7a267a8b3a352060894ab6f81768362e342c307600a14ec1a2ec2e4ec",
+      "fetchedAt": "2026-10-15T03:18:28.871Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 167580,
+        "seconds": 1.9
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/off_4800.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/off_6750.wav",
+      "kind": "audio",
+      "bytes": 213292,
+      "sha256": "ac4c13609bd0d510ba1b73e53ab6673ebcf7d855fad2412be7d9aebca1847365",
+      "fetchedAt": "2026-10-15T03:18:29.145Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 213248,
+        "seconds": 2.417777777777778
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/off_6750.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/on_1750.wav",
+      "kind": "audio",
+      "bytes": 127052,
+      "sha256": "17f61889cb644c92416c0051dd8d19ed680dde315adf11f1a9f4af0daa0ee9f1",
+      "fetchedAt": "2026-10-15T03:18:26.452Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 127008,
+        "seconds": 1.44
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/on_1750.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/on_2450.wav",
+      "kind": "audio",
+      "bytes": 86444,
+      "sha256": "c5e6016aa5ff1c5d712f7afdb86af6559defb2f6be50f1e32a6d0bbb34a78555",
+      "fetchedAt": "2026-10-15T03:18:26.778Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 86400,
+        "seconds": 0.9795918367346939
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/on_2450.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/on_3400.wav",
+      "kind": "audio",
+      "bytes": 80980,
+      "sha256": "65af7d7cca663085bb7c7c60a08839e66bd373dda5e1231209204b3c0cc39198",
+      "fetchedAt": "2026-10-15T03:18:27.428Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 80936,
+        "seconds": 0.917641723356009
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/on_3400.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/on_4800.wav",
+      "kind": "audio",
+      "bytes": 81630,
+      "sha256": "e3753e1d1b319ac38b73fc8715af2fdcc0d5c5373177dde8fe6dd0e4d3987e24",
+      "fetchedAt": "2026-10-15T03:18:27.510Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 81586,
+        "seconds": 0.9250113378684808
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/on_4800.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/on_6750.wav",
+      "kind": "audio",
+      "bytes": 211724,
+      "sha256": "4fa0732edaabc78f3b5e88e28216c16a5a00b988e86e494157326a03714c7157",
+      "fetchedAt": "2026-10-15T03:18:27.656Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bitsPerSample": 16,
+        "dataBytes": 211680,
+        "seconds": 2.4
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/on_6750.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/sounds/nissan-gtr/shift.wav",
+      "kind": "audio",
+      "bytes": 89070,
+      "sha256": "260d46ee7604560e5ecad38991fb295308bf20ac6a63e51536abd839f17e81ff",
+      "fetchedAt": "2026-10-15T03:18:29.163Z",
+      "profileIds": [
+        181
+      ],
+      "wav": {
+        "audioFormat": 1,
+        "channels": 1,
+        "sampleRate": 48000,
+        "bitsPerSample": 16,
+        "dataBytes": 88992,
+        "seconds": 0.927
+      },
+      "url": "https://opensource.cdn.icegl.cn/sound/tesla/nissan-gtr/shift.wav"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/fonts/inter/inter-latin-wght-normal.woff2",
+      "localPath": "src/plugins/tesla/assets/inter.woff2",
+      "kind": "font",
+      "bytes": 48256,
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+      "fetchedAt": "2026-10-15T03:18:53.915Z"
+    },
+    {
+      "sourceUrl": "https://evenginev1.com/fonts/sora/sora-latin-wght-normal.woff2",
+      "localPath": "src/plugins/tesla/assets/sora.woff2",
+      "kind": "font",
+      "bytes": 33652,
+      "sha256": "fa26406eeda9a3c6ec3d9ea8813c3045d6dc755e30c716d5c094e8ef43be5a7f",
+      "fetchedAt": "2026-10-15T03:18:53.342Z"
+    }
+  ],
+  "sourceUrlCount": 102,
+  "verification": {
+    "verifiedAt": "2026-10-15T03:20:06.441Z",
+    "configsMatchOriginalExceptFilePaths": true,
+    "allWavHeadersAndDataChunksValid": true,
+    "allFilesNonEmpty": true,
+    "hashesMatchSavedFiles": true
+  },
+  "deduplicationPolicy": "Download a source URL once; preserve each distinct source URL as an independent local asset for per-profile replacement.",
+  "sameContentSourceCount": 1,
+  "audioBaseUrl": "https://opensource.cdn.icegl.cn/sound/tesla/"
+}
