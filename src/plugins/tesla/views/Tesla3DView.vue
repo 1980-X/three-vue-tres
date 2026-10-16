@@ -23,6 +23,7 @@ let generation = 0
 
 watch([state, profile], () => drive?.setTelemetry(state.value, profile.value))
 watch(cameraView, view => drive?.setCameraView(view))
+watch(() => state.value.settings.modelId, () => { if (container.value) mountScene() })
 
 function mountScene() {
     drive?.dispose()
@@ -34,6 +35,7 @@ function mountScene() {
     try {
         drive = createTeslaDrive(container.value, {
             telemetry: true,
+            modelId: state.value.settings.modelId,
             onProgress: (value: number) => { progress.value = value },
             onStart: () => { phase.value = 'running' },
             onError: fail,

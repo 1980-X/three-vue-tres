@@ -1,19 +1,24 @@
-import { Box3, CanvasTexture, MathUtils, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace, Vector3 } from 'three'
+import { Box3, CanvasTexture, MathUtils, Matrix4, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace, Vector3 } from 'three'
 import { readVehicleTelemetry } from './live-drive.js'
 
-export function createVehicleScreen(model) {
-    const display = model.getObjectByName('Display')
-    if (!display?.isMesh) throw new Error('Model Y 缺少车内 Display 屏幕节点。')
-    const positions = display.geometry.getAttribute('position')
+export function createVehicleScreen(model, vehicle) {
+    let display = null
+    model.getObjectByName(vehicle.screenNode)?.traverse((node) => {
+        if (node.isMesh && [node.material].flat().some(material => material.name === vehicle.screenMaterial)) display = node
+    })
+    if (!display) throw new Error(`${vehicle.name} 缺少车内屏幕：${vehicle.screenNode}/${vehicle.screenMaterial}`)
+    model.updateWorldMatrix(true, true)
+    const toVehicle = new Matrix4().copy(model.matrixWorld).invert().multiply(display.matrixWorld)
+    const positions = display.geometry.getAttribute('position').clone().applyMatrix4(toVehicle)
     const bounds = new Box3().setFromBufferAttribute(positions)
     const front = new Box3()
     const point = new Vector3()
     const split = bounds.getCenter(new Vector3()).z
     for (let i = 0; i < positions.count; i++) {
         point.fromBufferAttribute(positions, i)
-        if (point.z < split) front.expandByPoint(point)
+        if (!vehicle.combinedScreen || point.z < split) front.expandByPoint(point)
     }
-    // Display contains front and rear screens and has no UVs. Fit the front face only.
+    // Fit in vehicle coordinates; some models combine front and rear screens.
     const center = front.getCenter(new Vector3())
     const size = front.getSize(new Vector3())
     const tilt = Math.atan2(size.z, size.y)
@@ -32,7 +37,7 @@ export function createVehicleScreen(model) {
     panel.name = 'TeslaLiveInstruments'
     panel.position.copy(center).addScaledVector(normal, .006)
     panel.rotation.x = -tilt
-    display.add(panel)
+    model.add(panel)
     // Keep the white instruments readable through the dark side glazing.
     model.traverse((node) => {
         if (!node.isMesh) return
@@ -121,7 +126,7 @@ export function createVehicleScreen(model) {
         update,
         getCabinView() {
             model.updateWorldMatrix(true, true)
-            return { target: display.localToWorld(center.clone()), position: display.localToWorld(new Vector3(-.32, 1.3, .12)) }
+            return { target: model.localToWorld(center.clone()), position: model.localToWorld(center.clone().add(new Vector3(-.32, .26, .72))) }
         },
         dispose() {
             disposed = true

@@ -1,9 +1,12 @@
+import type { VehicleModelId } from './vehicles'
+
 export type InputMode = 'gps' | 'demo'
 export type MotionQuality = 'none' | 'fresh' | 'stale' | 'lost' | 'demo'
 export type ProcessingMode = 'smooth' | 'adaptive'
 export type PageName = 'dashboard' | 'diagnostics' | 'tesla' | 'tesla3d'
 
 export interface EngineSettings {
+  modelId: VehicleModelId
   volume: number
   intensity: number
   shiftSounds: boolean

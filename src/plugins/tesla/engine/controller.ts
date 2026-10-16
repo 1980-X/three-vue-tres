@@ -1,11 +1,12 @@
 import { AudioEngine } from './reference/audio.mjs'
 import { DemoInput, PowertrainModel } from './reference/powertrain.mjs'
 import { GeolocationService } from './geolocation'
+import { getVehicleModel } from './vehicles'
 import { emptyFrame, emptyMotion, emptyStats } from './types'
 import type { EngineProfile, EngineSettings, EngineState, InputMode, MotionSnapshot } from './types'
 
 const defaultStorageKey = 'tvt:tesla:engine:v1'
-const defaults: EngineSettings = { volume: 55, intensity: 60, shiftSounds: true, processingMode: 'smooth', pollMs: 0 }
+const defaults: EngineSettings = { modelId: 'modely', volume: 55, intensity: 60, shiftSounds: true, processingMode: 'smooth', pollMs: 0 }
 const bounded = (value: unknown, fallback: number) => typeof value === 'number' && Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : fallback
 
 function readPreferences(storageKey: string): { profileId?: number; mode?: InputMode; settings: EngineSettings } {
@@ -14,7 +15,7 @@ function readPreferences(storageKey: string): { profileId?: number; mode?: Input
     return {
       profileId: typeof value.profileId === 'number' ? value.profileId : undefined,
       mode: value.mode === 'demo' ? 'demo' : 'gps',
-      settings: { volume: bounded(value.settings?.volume, 55), intensity: bounded(value.settings?.intensity, 60), shiftSounds: value.settings?.shiftSounds !== false, processingMode: value.settings?.processingMode === 'adaptive' ? 'adaptive' : 'smooth', pollMs: value.settings?.pollMs === 250 ? 250 : 0 },
+      settings: { modelId: getVehicleModel(value.settings?.modelId).id, volume: bounded(value.settings?.volume, 55), intensity: bounded(value.settings?.intensity, 60), shiftSounds: value.settings?.shiftSounds !== false, processingMode: value.settings?.processingMode === 'adaptive' ? 'adaptive' : 'smooth', pollMs: value.settings?.pollMs === 250 ? 250 : 0 },
     }
   } catch { return { settings: { ...defaults } } }
 }
@@ -95,6 +96,7 @@ export class EngineController {
 
   applySettings(patch: Partial<EngineSettings>) {
     this.state.settings = { ...this.state.settings, ...patch }
+    this.state.settings.modelId = getVehicleModel(this.state.settings.modelId).id
     this.state.settings.volume = bounded(this.state.settings.volume, 55)
     this.state.settings.intensity = bounded(this.state.settings.intensity, 60)
     this.audio.applySettings({ ...this.state.settings, volume: this.mutedForLoss ? 0 : this.state.settings.volume })

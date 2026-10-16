@@ -9,6 +9,7 @@
 import { CubeTextureLoader, SRGBColorSpace, TextureLoader } from 'three'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { getVehicleModel } from '../engine/vehicles'
 
 export function resolvePluginBase(name) {
     const publicPath = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__ || import.meta.env.BASE_URL || './'
@@ -25,14 +26,14 @@ function collectResources(object, resources) {
     })
 }
 
-export function loadDriveAssets(onProgress = () => {}) {
+export function loadDriveAssets(onProgress = () => {}, modelId = 'modely') {
     const sharedBase = resolvePluginBase('ff91Drive')
     const resources = new Set()
     const controller = new AbortController()
-    const cargo = {}
+    const cargo = { vehicle: getVehicleModel(modelId) }
     let disposed = false
     let completed = 0
-    const abort = () => new DOMException('Model Y loading cancelled', 'AbortError')
+    const abort = () => new DOMException('Tesla model loading cancelled', 'AbortError')
     const progress = () => { if (!disposed) onProgress(++completed / 5) }
     const texture = (name, cube = false, source) => new Promise((resolve, reject) => {
         const loader = cube ? new CubeTextureLoader() : new TextureLoader()
@@ -51,10 +52,10 @@ export function loadDriveAssets(onProgress = () => {}) {
         texture('envSkybox', true), texture('shadow'), texture('flareHead'),
         texture('teslaMark', false, `${resolvePluginBase('tesla')}textures/tesla-mark.svg`),
     ]
-    const modelUrl = 'https://opensource.cdn.icegl.cn/model/industry4/tesla/modely-2025-performance.glb'
+    const modelUrl = cargo.vehicle.url
     const model = fetch(modelUrl, { signal: controller.signal })
         .then((response) => {
-            if (!response.ok) throw new Error(`无法加载 Model Y 模型（${response.status}）`)
+            if (!response.ok) throw new Error(`无法加载 ${cargo.vehicle.name} 模型（${response.status}）`)
             return response.arrayBuffer()
         })
         .then((buffer) => {

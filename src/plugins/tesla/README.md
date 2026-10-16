@@ -18,19 +18,21 @@
 
 从仪表盘右上角「三维车机」进入，或直接使用 `?view=tesla3d`。三维车机加载完成后直接驻车，默认整车外部视角。顶部提供「设置」、车内/车外视角切换，以及「键盘模拟/使用 GPS」按钮；「设置」返回仪表盘，车内/车外只在手动点击时切换。
 
+设置面板的「展示车型」可选择 Model Y Performance 或 Model 3 Performance，默认 Model Y。选择随其他设置保存在本机，重新进入三维车机时按所选车型加载；通过 `applySettings({ modelId: 'model3' })` 也可切换，已经打开的三维车机会重新加载所选模型并释放旧资源。两款车型的 CDN 地址、车轮命名、屏幕节点与灯光材质集中在 `engine/vehicles.ts`，共用车辆动作、GPS/键盘输入、声浪和运镜逻辑。Model 3 使用 [提供的 CDN 模型](https://opensource.cdn.icegl.cn/model/industry4/tesla/model3-2024-performance.glb)，模型文件不复制进仓库。
+
 PC 预览时点击「键盘模拟」，焦点自动进入场景：`↑ / W` 加速，`↓ / S / 空格` 刹车，`← / A` 左转，`→ / D` 右转，可同时按加速和转向。键盘复用现有桌面模拟动力模型，车辆、车灯、车内仪表、声浪和运镜共同跟随模拟状态。进入模拟会先停止 GPS 定位，点击「使用 GPS」则清空模拟输入、停止模拟并重新连接定位，两种输入不混用。松键、失焦、切后台、切换模式或卸载均释放控制；浏览器的 Ctrl/Alt/Command 快捷键不被接管。
 
 三维车辆与仪表、声浪共用 `EngineController`，每 50 ms 更新一次状态；模型每帧根据该状态更新四轮滚动、前轮转向、加减速俯仰、刹车灯和移动地面，不另外运行手动驾驶物理。声浪沿用仪表盘所选音色、音量、强度、模拟转速和挡位；音频加载或播放被浏览器限制时，定位和三维车辆仍独立更新。首次播放如果需要用户手势，点按场景即可启用或重试，提示显示在车内屏幕中。
 
 优先读取 GPS 的 `heading`；缺失时，根据通过位置过滤的坐标和足够长的移动距离推算航向。低速、精度不足、航向跳变或数据过期时不触发转弯；有效航向的变化同时控制车轮、车身转向、同侧转向灯和镜头。制动根据减速度与现有动力总成的制动估计触发。这些是 GPS 推算的动作，不代表读取了实车方向盘、制动踏板或转向灯总线信号。定位延迟时按声浪控制器相同的衰减规则逐渐减速，定位中断时停止运动并清除转向、制动状态。
 
-原仪表的双表盘、速度、模拟转速、挡位、加速度、负载、定位与音频状态直接绘制到模型原 `Display` 节点处的 CanvasTexture。根据模型几何计算前屏位置和倾角，不需要截取 DOM；屏幕略微放大，使用不受场景灯光染色的高亮材质，并降低本视图车窗的不透明度。数据有变化才上传纹理。车外视角保留起步、加速、制动和转弯的状态运镜；车内视角跟随车辆座舱方便读取仪表，停车或匀速都不会自动改变所选的车内/车外视角。
+原仪表的双表盘、速度、模拟转速、挡位、加速度、负载、定位与音频状态直接绘制到原车内屏幕处的 CanvasTexture，Model Y 使用 `Display` 的前屏区域，Model 3 使用独立的 `Screen_Front`。根据模型自身变换和几何计算前屏位置、倾角及座舱镜头，不需要截取 DOM；屏幕略微放大，使用不受场景灯光染色的高亮材质，并降低本视图车窗的不透明度。数据有变化才上传纹理。车外视角保留起步、加速、制动和转弯的状态运镜；车内视角跟随车辆座舱方便读取仪表，停车或匀速都不会自动改变所选的车内/车外视角。
 
 拖动可环绕镜头，滚轮或双指可缩放，操作后保留手动视角 6 秒，再恢复自动运镜。按 `Esc` 返回设置，也可使用浏览器返回。缓存停用、页面隐藏和卸载时沿用引擎的暂停/清理，并释放三维场景、车内屏幕纹理及镜头监听；返回前台后重新连接定位。
 
 ## Model Y 三维页面
 
-模型从 [Model Y CDN 地址](https://opensource.cdn.icegl.cn/model/industry4/tesla/modely-2025-performance.glb) 加载，地址集中在 `lib/drive-assets.js` 的 `modelUrl`，运行时不再依赖本地 `models/` 目录。保留车身材质和节点层级，通过模型现有的 `Wheel_*_Spatial`、`Wheel_*_Assembly` 实现前轮转向和四轮滚动，轴距、轮距和轮胎半径从模型读取。点击「开始试驾」后以演示车速行驶；方向键加速、制动、转向，拖拽环绕，滚轮缩放。触屏左侧驾驶、右侧转动镜头，双指缩放；「重置」恢复视角并停车。
+手动 `drive` 页默认使用 [Model Y CDN 模型](https://opensource.cdn.icegl.cn/model/industry4/tesla/modely-2025-performance.glb)，车型地址集中在 `engine/vehicles.ts`，运行时不再依赖本地 `models/` 目录。保留车身材质和节点层级，通过模型现有的 `Wheel_*_Spatial`、`Wheel_*_Assembly` 实现前轮转向和四轮滚动，轴距、轮距和轮胎半径从模型读取。点击「开始试驾」后以演示车速行驶；方向键加速、制动、转向，拖拽环绕，滚轮缩放。触屏左侧驾驶、右侧转动镜头，双指缩放；「重置」恢复视角并停车。
 
 前大灯与日行灯常亮，尾部示宽灯保持低亮度；按下方向键「下」制动时，后部灯带和高位刹车灯变亮；左右转向时，同侧前后琥珀色转向灯按 1 秒周期闪烁，松开后关闭。灯光使用 GLB 原有灯罩/灯带几何；光晕复用 `ff91Drive/textures/flareHead.jpg`，按观察角度衰减并进行深度测试。阴影材质关闭色调映射，保持贴图白边在乘法混合中为中性色，避免整块矩形变暗。
 
@@ -50,13 +52,13 @@ PC 预览时点击「键盘模拟」，焦点自动进入场景：`↑ / W` 加�
 ## 文件边界
 
 - `pages/index.vue`：声浪实验室的 Fes 路由适配入口。
-- `pages/drive.vue`、`lib/drive-*.js`、`lib/model-y*.js`：三维页面、最小资源加载、场景生命周期、T 字地面、深红环境与 Model Y 适配。
+- `pages/drive.vue`、`lib/drive-*.js`、`lib/model-y*.js`：三维页面、最小资源加载、场景生命周期、T 字地面、深红环境与两款 Tesla 模型的共用适配。
 - `components/EngineApp.vue`：应用组件，负责视图切换和生命周期。
 - `views/Tesla3DView.vue`、`lib/live-drive.js`、`lib/vehicle-screen.js`：三维车机入口、实时车辆状态适配、状态运镜与车内屏幕绘制。
 - `views/`、`components/`：四个视图和原生 SVG 仪表、图标、波形。
-- `engine/`：声音、运动估算、动力总成、定位与诊断；不引用宿主路由或其他插件。
+- `engine/`：声音、运动估算、动力总成、定位、诊断与车型配置；不引用宿主路由或其他插件。
 - `data/profiles.json`：12 套配置；`assets/`：本地字体。
-- `public/plugins/tesla/`：12 张音色图片、案例预览图和 T 形标识；Model Y 模型从上述 CDN 地址加载。
+- `public/plugins/tesla/`：12 张音色图片、案例预览图和 T 形标识；车型模型从上述 CDN 地址加载。
 - 声浪音频：87 个 WAV 从 `https://opensource.cdn.icegl.cn/sound/tesla/` 加载，仓库不包含 `sounds` 目录。
 
 音频 CDN 根目录集中在 `engine/assets.ts`。配置中保留 `sounds/<音色>/<文件>.wav` 相对路径，解析时去掉 `sounds/` 前缀，例如 `sounds/amg-gt3/idle.wav` 对应 `https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/idle.wav`；分层采样和换挡音效使用相同规则。
@@ -87,7 +89,7 @@ const engine = ref<InstanceType<typeof TeslaEngine> | null>(null)
 
 `assetBase` 默认 `./plugins/tesla/`，可指定图片资源部署目录；音频使用上述独立 CDN 目录。`page` 默认 `dashboard`；`storageKey` 默认 `tvt:tesla:engine:v1`，独立实例可使用不同键。资源目录和存储键在创建实例时读取；更换时通过 Vue `key` 重建实例。`--ev-min-height`、`--ev-display-height` 可调整嵌入高度。
 
-通过组件 ref 可调用 `start()`、`stop()`、`setProfile(id)`、`setMode('gps' | 'demo')`、`applySettings(patch)`、`getState()`。`applySettings` 接收 `volume`、`intensity`（0–100）、`shiftSounds`、`processingMode`（`smooth` / `adaptive`）、`pollMs`（0 / 250）。桌面手动演示的方向键/空格仅在仪表盘内获取焦点后生效。
+通过组件 ref 可调用 `start()`、`stop()`、`setProfile(id)`、`setMode('gps' | 'demo')`、`applySettings(patch)`、`getState()`。`applySettings` 接收 `modelId`（`modely` / `model3`）、`volume`、`intensity`（0–100）、`shiftSounds`、`processingMode`（`smooth` / `adaptive`）、`pollMs`（0 / 250）。桌面手动演示的方向键/空格仅在仪表盘内获取焦点后生效。
 
 切换视图、停用缓存页面或卸载会停止当前音频、定位和定时器；缓存停用时销毁内部视图，清理诊断与按键监听。重新激活后重建视图，车机展示页按原逻辑尝试自动连接，仪表盘等待点击启动。
 

@@ -4,6 +4,7 @@ import { useEngine } from '../composables/engineContext'
 import GaugeDial from '../components/GaugeDial.vue'
 import SignalWave from '../components/SignalWave.vue'
 import UiIcon from '../components/UiIcon.vue'
+import { getVehicleModel, vehicleModels } from '../engine/vehicles'
 
 const { state, controller, profiles } = useEngine()
 const filter = ref('all')
@@ -78,6 +79,12 @@ onBeforeUnmount(() => { window.removeEventListener('blur', release); release() }
         <button :class="{ active: state.mode === 'demo' }" :disabled="busy" :aria-pressed="state.mode === 'demo'" @click="controller.setMode('demo')"><UiIcon name="play" :size="14"/>桌面演示</button>
       </div>
       <div class="ev-control-description">{{ state.mode === 'gps' ? '根据定位速度，模拟转速、挡位与负载。' : '用模拟输入，在电脑上体验加速和换挡。' }}</div>
+      <div class="ev-slider-control ev-model-select">
+        <label for="engine-model"><span><UiIcon name="car" :size="16"/>展示车型</span></label>
+        <select id="engine-model" :value="state.settings.modelId" @change="controller.applySettings({ modelId: getVehicleModel(($event.target as HTMLSelectElement).value).id })">
+          <option v-for="vehicle in vehicleModels" :key="vehicle.id" :value="vehicle.id">{{ vehicle.name }}</option>
+        </select>
+      </div>
       <div class="ev-slider-control"><label for="engine-volume"><span><UiIcon name="volume" :size="16"/>音量</span><strong class="ev-mono">{{ state.settings.volume }}<small>%</small></strong></label><input id="engine-volume" type="range" min="0" max="100" :value="state.settings.volume" :style="{ '--range-value': `${state.settings.volume}%` }" @input="controller.applySettings({ volume: Number(($event.target as HTMLInputElement).value) })"/></div>
       <div class="ev-slider-control"><label for="engine-intensity"><span><UiIcon name="bolt" :size="16"/>声浪强度</span><strong class="ev-mono">{{ state.settings.intensity }}<small>%</small></strong></label><input id="engine-intensity" type="range" min="0" max="100" :value="state.settings.intensity" :style="{ '--range-value': `${state.settings.intensity}%` }" @input="controller.applySettings({ intensity: Number(($event.target as HTMLInputElement).value) })"/></div>
       <label class="ev-toggle-row"><span>换挡音效<small>升挡切断与降挡补油</small></span><input type="checkbox" role="switch" :checked="state.settings.shiftSounds" @change="controller.applySettings({ shiftSounds: ($event.target as HTMLInputElement).checked })"/><i/></label>

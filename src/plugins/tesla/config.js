@@ -1,7 +1,7 @@
 export default {
     name: 'tesla',
     title: 'Tesla 声浪实验室',
-    intro: '支持 GPS 声浪、桌面演示、兼容性诊断、二维及三维车机展示。Model Y 三维车机实时联动行驶、制动、航向转弯、声浪、车内仪表与运镜，另保留手动试驾页面。音频由 CDN 加载，三维场景复用 ff91Drive 公共资源。',
+    intro: '支持 GPS 声浪、桌面演示、兼容性诊断、二维及三维车机展示。三维车机可选择 Model Y 或 Model 3，实时联动行驶、制动、航向转弯、声浪、车内仪表与运镜，另保留手动试驾页面。音频由 CDN 加载，三维场景复用 ff91Drive 公共资源。',
     version: '1.0.0',
     author: '地虎降天龙',
     website: 'https://www.icegl.cn',

@@ -8,10 +8,10 @@ export function createModelY(scene, cargo, { dashboard = false } = {}) {
     model.updateMatrixWorld(true)
     const bounds = new Box3().setFromObject(model)
     const center = bounds.getCenter(new Vector3())
-    const wheels = ['LF', 'RF', 'RL', 'RR'].map((id) => {
+    const wheels = cargo.vehicle.wheelIds.map((id) => {
         const pivot = model.getObjectByName(`Wheel_${id}_Spatial`)
         const assembly = model.getObjectByName(`Wheel_${id}_Assembly`)
-        if (!pivot || !assembly) throw new Error(`Model Y 缺少车轮节点：${id}`)
+        if (!pivot || !assembly) throw new Error(`${cargo.vehicle.name} 缺少车轮节点：${id}`)
         return {
             id, pivot, assembly, front: id.endsWith('F'), left: id.startsWith('L'),
             orientation: pivot.quaternion.clone(), rotation: assembly.quaternion.clone(),
@@ -43,7 +43,7 @@ export function createModelY(scene, cargo, { dashboard = false } = {}) {
     whole.add(shadow)
 
     const lights = createModelYLights(model, cargo)
-    const screen = dashboard ? createVehicleScreen(model) : null
+    const screen = dashboard ? createVehicleScreen(model, cargo.vehicle) : null
     const turn = new Quaternion()
     const up = new Vector3(0, 1, 0)
 

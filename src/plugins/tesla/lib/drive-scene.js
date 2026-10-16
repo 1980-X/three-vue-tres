@@ -41,7 +41,7 @@ class TeslaDriveScene {
         const magentaRim = new THREE.DirectionalLight(0xc32f8c, 2)
         magentaRim.position.set(5, 3, 4)
         this.scene.add(redRim, magentaRim)
-        this.assets = loadDriveAssets(this.options.onProgress)
+        this.assets = loadDriveAssets(this.options.onProgress, this.options.modelId)
         this.assets.ready.catch(() => {})
         this.grid = createTeslaGround(this.scene, this.renderer, this.assets.cargo.teslaMark)
         this.resize()
