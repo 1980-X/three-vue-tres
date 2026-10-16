@@ -1,7 +1,7 @@
 export default {
     name: 'tesla',
     title: 'Tesla 声浪实验室',
-    intro: '支持 GPS 声浪、桌面演示、兼容性诊断与车机展示，并提供基于 FF 91 场景移植的 Model Y Performance 三维试驾页面。声浪音频由 CDN 加载，三维场景复用 ff91Drive 公共资源。',
+    intro: '支持 GPS 声浪、桌面演示、兼容性诊断与车机展示，并提供基于 FF 91 场景移植的 Model Y Performance 深红朋克三维试驾页面。声浪音频由 CDN 加载，三维场景复用 ff91Drive 公共资源。',
     version: '1.0.0',
     author: '地虎降天龙',
     website: 'https://www.icegl.cn',
@@ -21,7 +21,7 @@ export default {
         },
         {
             catalog: { type: 'scene', category: 'product' },
-            src: '<div style="padding: 28px 18px; line-height: 1.8"><span style="letter-spacing: 5px">TESLA</span><br><strong style="font-size: 28px">Model Y</strong><br>Performance · 三维交互试驾</div>',
+            src: '<div style="padding: 28px 18px; line-height: 1.8; background: linear-gradient(135deg, #541027, #14030b); color: #ffe6ed"><span style="letter-spacing: 5px; color: #ff5278">TESLA</span><br><strong style="font-size: 28px">Model Y</strong><br>Performance · 深红朋克试驾</div>',
             type: 'text',
             name: 'drive',
             title: 'Model Y 三维试驾',

@@ -1,7 +1,9 @@
 import * as THREE from 'three'
-import { DriveCamera, DriveGround, DriveState, bindDriveInput } from 'PLS/ff91Drive'
+import { DriveCamera, DriveState, bindDriveInput } from 'PLS/ff91Drive'
 import { loadDriveAssets } from './drive-assets.js'
 import { createModelY } from './model-y.js'
+import { createTeslaGround } from './drive-ground.js'
+import { createDriveEnvironment } from './drive-environment.js'
 
 class TeslaDriveScene {
     constructor(container, options) {
@@ -15,7 +17,7 @@ class TeslaDriveScene {
     initialize() {
         this.renderer = new THREE.WebGLRenderer({ antialias: true })
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
-        this.renderer.setClearColor(0x393533)
+        this.renderer.setClearColor(0x14030b)
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping
         this.renderer.outputColorSpace = THREE.SRGBColorSpace
         this.renderer.autoClear = false
@@ -29,13 +31,17 @@ class TeslaDriveScene {
             rotation: new THREE.Vector3(35, 20, 0),
             distRange: { min: 4, max: 24 }, rotRange: { yMin: 3, yMax: 75 },
         })
-        this.scene.add(new THREE.HemisphereLight(0xffffff, 0x393533, 1))
-        this.light = new THREE.DirectionalLight(0xffffff, Math.PI)
+        this.scene.add(new THREE.HemisphereLight(0xff829e, 0x14020b, 0.55))
+        this.light = new THREE.DirectionalLight(0xffe2ec, 2.5)
         this.scene.add(this.light)
+        const redRim = new THREE.DirectionalLight(0xff174a, 4)
+        redRim.position.set(-5, 4, -6)
+        const magentaRim = new THREE.DirectionalLight(0xc32f8c, 2)
+        magentaRim.position.set(5, 3, 4)
+        this.scene.add(redRim, magentaRim)
         this.assets = loadDriveAssets(this.options.onProgress)
         this.assets.ready.catch(() => {})
-        this.grid = new DriveGround(this.scene, this.renderer, this.assets.cargo.ledA)
-        this.grid.uniProgress.value = 1
+        this.grid = createTeslaGround(this.scene, this.renderer, this.assets.cargo.teslaMark)
         this.resize()
         this.observer = new ResizeObserver(() => this.resize())
         this.observer.observe(this.container)
@@ -49,8 +55,7 @@ class TeslaDriveScene {
             this.props = new DriveState(this.vehicle.spec)
             this.syncTime()
             this.vehicle.reset()
-            this.scene.background = cargo.envSkybox
-            this.scene.environment = cargo.envReflection
+            this.environment = createDriveEnvironment(this.scene, this.renderer, cargo.envSkybox)
             this.resize()
             this.status = 'ready'
             this.options.onReady?.()
@@ -89,9 +94,9 @@ class TeslaDriveScene {
             this.vehicle.update(this.props)
             this.grid.update(this.props)
         } else if (!this.vehicle) this.grid.update()
-        this.grid.uniProgress.value = THREE.MathUtils.damp(this.grid.uniProgress.value, this.started ? 0 : 1, 4, delta)
-        this.grid.color.setScalar(this.grid.uniProgress.value)
+        this.grid.setIntro(THREE.MathUtils.damp(this.grid.uniProgress.value, this.started ? 0 : 1, 4, delta))
         this.camera.update()
+        this.environment?.update(this.camera.camera)
         this.light.position.copy(this.camera.camera.position).normalize()
         this.light.position.y = 1
         this.renderer.setRenderTarget(null)
@@ -156,6 +161,7 @@ class TeslaDriveScene {
         this.removeInput?.()
         if (this.onVisibility) document.removeEventListener('visibilitychange', this.onVisibility)
         this.assets?.dispose(this.scene)
+        this.environment?.dispose()
         this.grid?.rippleGen.dispose()
         this.scene?.clear()
         this.renderer?.dispose()

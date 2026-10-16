@@ -24,12 +24,12 @@ export function loadDriveAssets(onProgress = () => {}) {
     let disposed = false
     let completed = 0
     const abort = () => new DOMException('Model Y loading cancelled', 'AbortError')
-    const progress = () => { if (!disposed) onProgress(++completed / 6) }
-    const texture = (name, cube = false) => new Promise((resolve, reject) => {
+    const progress = () => { if (!disposed) onProgress(++completed / 5) }
+    const texture = (name, cube = false, source) => new Promise((resolve, reject) => {
         const loader = cube ? new CubeTextureLoader() : new TextureLoader()
-        const url = cube
+        const url = source || (cube
             ? ['xp', 'xn', 'yp', 'yn', 'zp', 'zn'].map((face) => `${sharedBase}textures/${name}/${face}.jpg`)
-            : `${sharedBase}textures/${name}.${name === 'ledA' ? 'png' : 'jpg'}`
+            : `${sharedBase}textures/${name}.jpg`)
         cargo[name] = loader.load(url, (loaded) => {
             if (disposed) { loaded.dispose(); reject(abort()); return }
             progress()
@@ -38,7 +38,10 @@ export function loadDriveAssets(onProgress = () => {}) {
         if (cube) cargo[name].colorSpace = SRGBColorSpace
         resources.add(cargo[name])
     })
-    const textures = [texture('envReflection', true), texture('envSkybox', true), texture('shadow'), texture('ledA'), texture('flareHead')]
+    const textures = [
+        texture('envSkybox', true), texture('shadow'), texture('flareHead'),
+        texture('teslaMark', false, `${resolvePluginBase('tesla')}textures/tesla-mark.svg`),
+    ]
     const modelUrl = `${resolvePluginBase('tesla')}models/modely-2025-performance.glb`
     const model = fetch(modelUrl, { signal: controller.signal })
         .then((response) => {

@@ -82,22 +82,22 @@ defineExpose({
 </script>
 
 <style scoped>
-.tesla-drive { position: relative; width: 100%; height: 100%; min-height: 360px; overflow: hidden; isolation: isolate; background: #393533; color: #fff; font-family: TeslaDriveRoboto, Arial, sans-serif; font-weight: 300; touch-action: none; outline: none; }
-.tesla-drive:focus-visible { outline: 1px solid #bd9989; outline-offset: -1px; }
+.tesla-drive { position: relative; width: 100%; height: 100%; min-height: 360px; overflow: hidden; isolation: isolate; background: #14030b; color: #ffe6ed; font-family: TeslaDriveRoboto, Arial, sans-serif; font-weight: 300; touch-action: none; outline: none; }
+.tesla-drive:focus-visible { outline: 1px solid #ff5278; outline-offset: -1px; }
 .drive-title { position: absolute; z-index: 1; top: 28px; left: 32px; pointer-events: none; }
-.drive-title > span { font-size: 11px; letter-spacing: 5px; }
+.drive-title > span { color: #ff5278; font-size: 11px; letter-spacing: 5px; }
 .drive-title h1 { margin: 8px 0 0; color: inherit; font-size: 30px; font-weight: 300; }
 .drive-title small { display: block; margin-top: 4px; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; }
 .drive-loader { position: absolute; z-index: 2; left: 50%; bottom: 12%; width: min(320px, 80%); transform: translateX(-50%); text-align: center; }
 .drive-loader p { margin: 0 0 12px; font-size: 14px; }
-.drive-loader progress { width: 160px; height: 4px; accent-color: #bd9989; }
-.tesla-drive button { padding: 11px 24px; border: 1px solid #a5897a; border-radius: 3px; background: #393533db; color: inherit; font: inherit; font-size: 13px; cursor: pointer; }
+.drive-loader progress { width: 160px; height: 4px; accent-color: #ff2455; }
+.tesla-drive button { padding: 11px 24px; border: 1px solid #a52e4b; border-radius: 3px; background: #260510db; color: inherit; font: inherit; font-size: 13px; cursor: pointer; }
 .tesla-drive button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .drive-hints { position: absolute; z-index: 1; left: 20px; bottom: 18px; display: flex; gap: 20px; pointer-events: none; }
-.drive-hints > div { display: grid; justify-items: center; gap: 4px; color: #bbb; font-size: 10px; }
+.drive-hints > div { display: grid; justify-items: center; gap: 4px; color: #df9eaf; font-size: 10px; }
 .drive-hints i { display: block; width: 35px; height: 35px; background-size: 300% 100%; }
 .drive-reset { position: absolute; z-index: 2; right: 20px; bottom: 20px; }
-.drive-joystick { position: absolute; z-index: 2; transform: translate(-60px, -60px); pointer-events: none; fill: none; stroke: #fff; stroke-width: 2; }
+.drive-joystick { position: absolute; z-index: 2; transform: translate(-60px, -60px); pointer-events: none; fill: none; stroke: #ff809d; stroke-width: 2; }
 .drive-joystick circle + circle { stroke-width: 5; }
 @media (pointer: coarse) { .drive-hints { display: none; } }
 @media (max-width: 600px) { .drive-title { top: 20px; left: 20px; } .drive-title h1 { font-size: 24px; } }
