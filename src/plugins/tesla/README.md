@@ -11,11 +11,26 @@
 | `/plugins/tesla/index` | 仪表盘：12 套声浪、音量/强度、换挡音效、GPS 与桌面演示 |
 | `/plugins/tesla/index?view=diagnostics` | 浏览器能力、提示音、定位信号与诊断结果导出 |
 | `/plugins/tesla/index?view=tesla` | 车机展示：GPS 时速、模拟转速与挡位 |
+| `/plugins/tesla/index?view=tesla3d` | 三维车机：实时车辆动作、车内仪表、声浪与状态运镜 |
 | `/plugins/tesla/drive` | Model Y Performance 三维试驾 |
+
+## 三维车机展示
+
+从仪表盘右上角「三维车机」进入，或直接使用 `?view=tesla3d`。三维车机加载完成后直接驻车，默认整车外部视角。顶部提供「设置」、车内/车外视角切换，以及「键盘模拟/使用 GPS」按钮；「设置」返回仪表盘，车内/车外只在手动点击时切换。
+
+PC 预览时点击「键盘模拟」，焦点自动进入场景：`↑ / W` 加速，`↓ / S / 空格` 刹车，`← / A` 左转，`→ / D` 右转，可同时按加速和转向。键盘复用现有桌面模拟动力模型，车辆、车灯、车内仪表、声浪和运镜共同跟随模拟状态。进入模拟会先停止 GPS 定位，点击「使用 GPS」则清空模拟输入、停止模拟并重新连接定位，两种输入不混用。松键、失焦、切后台、切换模式或卸载均释放控制；浏览器的 Ctrl/Alt/Command 快捷键不被接管。
+
+三维车辆与仪表、声浪共用 `EngineController`，每 50 ms 更新一次状态；模型每帧根据该状态更新四轮滚动、前轮转向、加减速俯仰、刹车灯和移动地面，不另外运行手动驾驶物理。声浪沿用仪表盘所选音色、音量、强度、模拟转速和挡位；音频加载或播放被浏览器限制时，定位和三维车辆仍独立更新。首次播放如果需要用户手势，点按场景即可启用或重试，提示显示在车内屏幕中。
+
+优先读取 GPS 的 `heading`；缺失时，根据通过位置过滤的坐标和足够长的移动距离推算航向。低速、精度不足、航向跳变或数据过期时不触发转弯；有效航向的变化同时控制车轮、车身转向、同侧转向灯和镜头。制动根据减速度与现有动力总成的制动估计触发。这些是 GPS 推算的动作，不代表读取了实车方向盘、制动踏板或转向灯总线信号。定位延迟时按声浪控制器相同的衰减规则逐渐减速，定位中断时停止运动并清除转向、制动状态。
+
+原仪表的双表盘、速度、模拟转速、挡位、加速度、负载、定位与音频状态直接绘制到模型原 `Display` 节点处的 CanvasTexture。根据模型几何计算前屏位置和倾角，不需要截取 DOM；屏幕略微放大，使用不受场景灯光染色的高亮材质，并降低本视图车窗的不透明度。数据有变化才上传纹理。车外视角保留起步、加速、制动和转弯的状态运镜；车内视角跟随车辆座舱方便读取仪表，停车或匀速都不会自动改变所选的车内/车外视角。
+
+拖动可环绕镜头，滚轮或双指可缩放，操作后保留手动视角 6 秒，再恢复自动运镜。按 `Esc` 返回设置，也可使用浏览器返回。缓存停用、页面隐藏和卸载时沿用引擎的暂停/清理，并释放三维场景、车内屏幕纹理及镜头监听；返回前台后重新连接定位。
 
 ## Model Y 三维页面
 
-模型从 [Model Y CDN 地址](https://opensource.cdn.icegl.cn/plugins/industry4/model/modely-2025-performance.glb) 加载，地址集中在 `lib/drive-assets.js` 的 `modelUrl`，运行时不再依赖本地 `models/` 目录。保留车身材质和节点层级，通过模型现有的 `Wheel_*_Spatial`、`Wheel_*_Assembly` 实现前轮转向和四轮滚动，轴距、轮距和轮胎半径从模型读取。点击「开始试驾」后以演示车速行驶；方向键加速、制动、转向，拖拽环绕，滚轮缩放。触屏左侧驾驶、右侧转动镜头，双指缩放；「重置」恢复视角并停车。
+模型从 [Model Y CDN 地址](https://opensource.cdn.icegl.cn/model/industry4/tesla/modely-2025-performance.glb) 加载，地址集中在 `lib/drive-assets.js` 的 `modelUrl`，运行时不再依赖本地 `models/` 目录。保留车身材质和节点层级，通过模型现有的 `Wheel_*_Spatial`、`Wheel_*_Assembly` 实现前轮转向和四轮滚动，轴距、轮距和轮胎半径从模型读取。点击「开始试驾」后以演示车速行驶；方向键加速、制动、转向，拖拽环绕，滚轮缩放。触屏左侧驾驶、右侧转动镜头，双指缩放；「重置」恢复视角并停车。
 
 前大灯与日行灯常亮，尾部示宽灯保持低亮度；按下方向键「下」制动时，后部灯带和高位刹车灯变亮；左右转向时，同侧前后琥珀色转向灯按 1 秒周期闪烁，松开后关闭。灯光使用 GLB 原有灯罩/灯带几何；光晕复用 `ff91Drive/textures/flareHead.jpg`，按观察角度衰减并进行深度测试。阴影材质关闭色调映射，保持贴图白边在乘法混合中为中性色，避免整块矩形变暗。
 
@@ -30,14 +45,15 @@
 | `model3-2024-performance.glb` | 4,499,332 | 628,700 | 155 |
 | `modely-2025-performance.glb` | 8,821,956 | 994,316 | 137 |
 
-`config.js.require` 声明 `ff91Drive`，单插件资源保留依赖该字段；安装 Tesla 插件时也需保留该插件。新入口先使用文字预览卡片，后续获准截图后可替换为真实场景图。三维驾驶目前独立运行，尚未连接声浪控制器。共享场景与贴图来源说明见 `src/plugins/ff91Drive/NOTICE.md`，Roboto 许可见同目录 `OFL.txt`。
+`config.js.require` 声明 `ff91Drive`，单插件资源保留依赖该字段；安装 Tesla 插件时也需保留该插件。手动试驾入口使用文字预览卡片。手动 `drive` 页继续独立运行，三维车机通过 `EngineApp` 连接原声浪控制器。共享场景与贴图来源说明见 `src/plugins/ff91Drive/NOTICE.md`，Roboto 许可见同目录 `OFL.txt`。
 
 ## 文件边界
 
 - `pages/index.vue`：声浪实验室的 Fes 路由适配入口。
 - `pages/drive.vue`、`lib/drive-*.js`、`lib/model-y*.js`：三维页面、最小资源加载、场景生命周期、T 字地面、深红环境与 Model Y 适配。
 - `components/EngineApp.vue`：应用组件，负责视图切换和生命周期。
-- `views/`、`components/`：三个视图和原生 SVG 仪表、图标、波形。
+- `views/Tesla3DView.vue`、`lib/live-drive.js`、`lib/vehicle-screen.js`：三维车机入口、实时车辆状态适配、状态运镜与车内屏幕绘制。
+- `views/`、`components/`：四个视图和原生 SVG 仪表、图标、波形。
 - `engine/`：声音、运动估算、动力总成、定位与诊断；不引用宿主路由或其他插件。
 - `data/profiles.json`：12 套配置；`assets/`：本地字体。
 - `public/plugins/tesla/`：12 张音色图片、案例预览图和 T 形标识；Model Y 模型从上述 CDN 地址加载。
@@ -54,7 +70,7 @@
 import { ref } from 'vue'
 import { TeslaEngine } from 'PLS/tesla'
 
-const page = ref<'dashboard' | 'diagnostics' | 'tesla'>('dashboard')
+const page = ref<'dashboard' | 'diagnostics' | 'tesla' | 'tesla3d'>('dashboard')
 const engine = ref<InstanceType<typeof TeslaEngine> | null>(null)
 </script>
 

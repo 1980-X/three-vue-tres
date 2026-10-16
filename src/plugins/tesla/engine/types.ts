@@ -1,7 +1,7 @@
 export type InputMode = 'gps' | 'demo'
 export type MotionQuality = 'none' | 'fresh' | 'stale' | 'lost' | 'demo'
 export type ProcessingMode = 'smooth' | 'adaptive'
-export type PageName = 'dashboard' | 'diagnostics' | 'tesla'
+export type PageName = 'dashboard' | 'diagnostics' | 'tesla' | 'tesla3d'
 
 export interface EngineSettings {
   volume: number
@@ -65,6 +65,11 @@ export interface MotionSnapshot {
   accuracyM: number | null
   throttle?: number
   brake?: number
+  /** Manual demo wheel input: -1 right, +1 left. */
+  steering?: number
+  /** GPS course in degrees; clockwise turn rate, estimated only while moving. */
+  headingDeg?: number | null
+  turnRateDegS?: number
 }
 
 export interface MotionStats {

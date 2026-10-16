@@ -33,6 +33,7 @@ export class EngineController {
   private startedAt = 0
   private logId = 0
   private mutedForLoss = false
+  private demoSteering = 0
   private waveBytes = new Uint8Array(512)
   private wakeLock: WakeLockSentinel | null = null
   private disposed = false
@@ -148,7 +149,7 @@ export class EngineController {
     this.publish()
   }
 
-  async start(options: { automatic?: boolean } = {}) {
+  async start(options: { automatic?: boolean; monitoring?: boolean } = {}) {
     if (this.disposed || this.busy || this.state.status === 'running') return
     const token = ++this.operation
     this.state.error = ''
@@ -172,17 +173,16 @@ export class EngineController {
       this.demo.start()
       this.demo.setMode(this.state.demoMode)
     }
+    if (options.monitoring) this.startMonitoring()
     try {
-      await this.audio.start(this.profile, this.state.settings, { allowSuspended: !!options.automatic })
+      await this.audio.start(this.profile, { ...this.state.settings, volume: this.mutedForLoss ? 0 : this.state.settings.volume }, { allowSuspended: !!options.automatic })
       if (token !== this.operation || this.disposed || this.audio.state !== 'running') return
       if (this.audio.contextState !== 'running' && !options.automatic) throw new Error('浏览器暂未开启音频，请再次点击启动。')
       this.state.status = 'running'
       this.state.contextState = this.audio.contextState
       this.state.audioBlocked = this.audio.contextState !== 'running'
       this.state.progress = 100
-      this.lastTick = this.startedAt = performance.now()
-      this.timer = setInterval(() => this.tick(performance.now()), 50)
-      this.tick(this.lastTick + 0.01)
+      this.startMonitoring()
       this.log(this.state.audioBlocked ? '位置与仪表已启动，等待点击启用声浪。' : `${this.state.mode === 'gps' ? 'GPS 驾驶' : '桌面演示'}已启动 · ${this.profile.name}`)
       this.persist()
       this.publish()
@@ -191,21 +191,35 @@ export class EngineController {
       if (token !== this.operation) return
       this.state.error = friendlyError(error)
       this.log(this.state.error, 'error')
-      await this.stop('error')
+      if (options.monitoring) {
+        // A failed/blocked audio download must not stop live vehicle telemetry.
+        this.state.status = 'running'
+        this.state.audioBlocked = true
+        this.state.contextState = this.audio.contextState
+        this.publish()
+        void this.requestWakeLock(token)
+      } else await this.stop('error')
     }
+  }
+
+  private startMonitoring() {
+    if (this.timer) return
+    this.lastTick = this.startedAt = performance.now()
+    this.timer = setInterval(() => this.tick(performance.now()), 50)
+    this.tick(this.lastTick + .01)
   }
 
   /** 20 Hz control update. Web Audio schedules the actual audio independently. */
   tick(now: number) {
-    if (this.state.status !== 'running' && this.state.status !== 'switching') return
+    if (this.state.status !== 'running' && this.state.status !== 'switching' && this.state.status !== 'starting') return
     const dt = Math.min(0.25, Math.max(0, (now - this.lastTick) / 1000))
     this.lastTick = now
     let motion: MotionSnapshot
     if (this.state.mode === 'demo') {
       this.demo.tick(dt, this.state.engine)
-      motion = this.demo.snapshot()
+      motion = { ...this.demo.snapshot(), steering: this.demoSteering }
       this.state.demoPhase = this.demo.phaseIndex
-    } else motion = this.gps.estimator.snapshot(now)
+    } else motion = this.gps.snapshot(now)
     this.state.motion = motion
     const stale = motion.quality === 'stale' || motion.quality === 'lost'
     const decay = stale ? Math.max(0, 1 - ((motion.ageS ?? 0) - 3.5) / 4.5) : 1
@@ -233,23 +247,40 @@ export class EngineController {
 
   setDemoMode(mode: 'manual' | 'auto') {
     this.state.demoMode = mode
+    this.demoSteering = 0
     this.demo.setMode(mode)
     this.publish()
   }
   setGas(held: boolean) { this.demo.setGas(held) }
   setBrake(held: boolean) { this.demo.setBrake(held) }
-  releasePedals() { this.demo.setGas(false); this.demo.setBrake(false) }
+  setSteering(value: number) { this.demoSteering = this.state.mode === 'demo' && this.state.demoMode === 'manual' && Number.isFinite(value) ? Math.max(-1, Math.min(1, value)) : 0 }
+  releasePedals() { this.demo.setGas(false); this.demo.setBrake(false); this.demoSteering = 0 }
   setHoldThrottle(percent: number) { this.demo.setHoldThrottle(percent / 100) }
   setCruise(kmh: number) { this.demo.setCruise(kmh) }
 
   async resumeSound() {
-    const resumed = await this.audio.resume()
-    this.state.audioBlocked = !resumed
-    this.state.contextState = this.audio.contextState
-    if (resumed) { this.state.error = ''; this.log('声浪已启用。') }
-    else this.state.error = '浏览器仍未开启音频，请再次点击。'
-    this.publish()
-    return resumed
+    const token = this.operation
+    try {
+      if (this.state.status === 'running' && this.audio.state !== 'running') {
+        if (this.audio.state === 'loading') return false
+        await this.audio.start(this.profile, { ...this.state.settings, volume: this.mutedForLoss ? 0 : this.state.settings.volume })
+        if (token !== this.operation || this.disposed) return false
+      }
+      const resumed = await this.audio.resume()
+      if (token !== this.operation || this.disposed) return false
+      this.state.audioBlocked = !resumed
+      this.state.contextState = this.audio.contextState
+      if (resumed) { this.state.error = ''; this.log('声浪已启用。') }
+      else this.state.error = '浏览器仍未开启音频，请再次点击。'
+      this.publish()
+      return resumed
+    } catch (error) {
+      if (token !== this.operation || this.disposed) return false
+      this.state.error = friendlyError(error)
+      this.state.audioBlocked = true
+      this.publish()
+      return false
+    }
   }
 
   async stop(status: EngineState['status'] = 'off') {

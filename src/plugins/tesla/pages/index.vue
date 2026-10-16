@@ -9,7 +9,7 @@ const router = useRouter()
 const assetBase = `${import.meta.env.BASE_URL}plugins/tesla/`
 const page = computed<PageName>(() => {
     const view = route.query.view
-    return view === 'diagnostics' || view === 'tesla' ? view : 'dashboard'
+    return view === 'diagnostics' || view === 'tesla' || view === 'tesla3d' ? view : 'dashboard'
 })
 
 function navigate(view: PageName) {

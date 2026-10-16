@@ -309,10 +309,11 @@
 .tesla-engine .ev-gauge-red { stroke: #ff708a; }
 .tesla-engine .ev-tick-red line { stroke: #ff708a; }
 .tesla-engine .ev-tick-red text { fill: #ff8da0; }
+.tesla-engine .ev-display-entries { display: flex; gap: 10px; flex-shrink: 0; }
 .tesla-engine .ev-display-entry { color: #ffa5b3 !important; min-height: 44px; padding: 0 13px !important; border: 1px solid #ff354f40 !important; background: #ff354f0a !important; border-radius: 3px; font-family: inherit; font-size: 12px; letter-spacing: 0; }
 .tesla-engine .ev-display-entry:hover { background: #ff354f18 !important; }
 @media (max-width: 900px) { .tesla-engine .ev-display-entry { display: flex; } }
-@media (max-width: 600px) { .tesla-engine .ev-display-entry { position: fixed; bottom: 18px; right: 18px; z-index: 5; background: #35101e !important; box-shadow: 0 4px 24px #0008; } }
+@media (max-width: 900px) { .tesla-engine .ev-display-entries { position: fixed; bottom: 18px; right: 18px; z-index: 5; } .tesla-engine .ev-display-entry { background: #35101e !important; box-shadow: 0 4px 24px #0008; } }
 
 /* Dedicated car display: one viewport, no document scroll or settings panels. */
 .tesla-engine.ev-app.ev-app-display { height: var(--ev-display-height, 100vh); height: var(--ev-display-height, 100dvh); min-height: 0; overflow: hidden; }

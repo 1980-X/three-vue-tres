@@ -4,6 +4,7 @@ import { loadDriveAssets } from './drive-assets.js'
 import { createModelY } from './model-y.js'
 import { createTeslaGround } from './drive-ground.js'
 import { createDriveEnvironment } from './drive-environment.js'
+import { createDisplayCamera, readVehicleTelemetry, updateLiveDriveState } from './live-drive.js'
 
 class TeslaDriveScene {
     constructor(container, options) {
@@ -11,6 +12,7 @@ class TeslaDriveScene {
         this.options = { gyroscope: false, ...options }
         this.props = new DriveState()
         this.status = 'loading'
+        this.cameraView = 'exterior'
         this.started = this.paused = this.active = this.disposed = false
     }
 
@@ -27,9 +29,9 @@ class TeslaDriveScene {
         this.container.appendChild(this.renderer.domElement)
         this.scene = new THREE.Scene()
         this.camera = new DriveCamera({
-            distance: 12, focusPos: new THREE.Vector3(0, 0.8, 0),
-            rotation: new THREE.Vector3(35, 20, 0),
-            distRange: { min: 4, max: 24 }, rotRange: { yMin: 3, yMax: 75 },
+            distance: this.options.telemetry ? 6.4 : 12, focusPos: new THREE.Vector3(0, this.options.telemetry ? .95 : .8, 0),
+            rotation: new THREE.Vector3(this.options.telemetry ? -125 : 35, this.options.telemetry ? 16 : 20, 0),
+            distRange: { min: this.options.telemetry ? .55 : 4, max: 24 }, rotRange: { yMin: 3, yMax: 75 },
         })
         this.scene.add(new THREE.HemisphereLight(0xff829e, 0x14020b, 0.55))
         this.light = new THREE.DirectionalLight(0xffe2ec, 2.5)
@@ -45,20 +47,26 @@ class TeslaDriveScene {
         this.resize()
         this.observer = new ResizeObserver(() => this.resize())
         this.observer.observe(this.container)
-        this.removeInput = bindDriveInput(this.container, this, this.options.onJoystick)
+        if (!this.options.telemetry) this.removeInput = bindDriveInput(this.container, this, this.options.onJoystick)
         this.onVisibility = () => this.updateActivity()
         document.addEventListener('visibilitychange', this.onVisibility)
         this.updateActivity()
         this.ready = this.assets.ready.then((cargo) => {
             if (this.disposed) return
-            this.vehicle = createModelY(this.scene, cargo)
+            this.vehicle = createModelY(this.scene, cargo, { dashboard: this.options.telemetry })
             this.props = new DriveState(this.vehicle.spec)
             this.syncTime()
             this.vehicle.reset()
+            if (this.options.telemetry) {
+                this.displayCamera = createDisplayCamera(this.container, this.camera, this.vehicle)
+                this.displayCamera.setView(this.cameraView)
+                this.vehicle.setTelemetry(this.telemetry, this.profile)
+            }
             this.environment = createDriveEnvironment(this.scene, this.renderer, cargo.envSkybox)
             this.resize()
             this.status = 'ready'
             this.options.onReady?.()
+            if (this.options.telemetry) this.start()
         }).catch((error) => {
             if (!this.disposed) {
                 this.dispose()
@@ -88,9 +96,15 @@ class TeslaDriveScene {
     render(time) {
         if (!this.active || this.disposed) return
         const seconds = time / 1000
-        const delta = Math.min(seconds - this.lastFrame, 0.05)
+        const delta = Math.max(0, Math.min(seconds - this.lastFrame, this.options.telemetry ? .25 : .05))
         this.lastFrame = seconds
-        if (this.vehicle && this.props.update(seconds)) {
+        if (this.vehicle && this.options.telemetry) {
+            const telemetry = readVehicleTelemetry(this.telemetry)
+            updateLiveDriveState(this.props, telemetry, delta)
+            this.vehicle.update(this.props)
+            this.grid.update(this.props)
+            this.displayCamera.update(this.props, telemetry, delta)
+        } else if (this.vehicle && this.props.update(seconds)) {
             this.vehicle.update(this.props)
             this.grid.update(this.props)
         } else if (!this.vehicle) this.grid.update()
@@ -116,6 +130,7 @@ class TeslaDriveScene {
             cancelAnimationFrame(this.frameId)
             this.props.keys.length = 0
             this.props.joyVec.set(0, 0)
+            this.displayCamera?.clear()
         }
     }
 
@@ -123,10 +138,12 @@ class TeslaDriveScene {
         if (this.disposed || this.started || this.status !== 'ready') return
         this.started = true
         this.status = 'running'
-        this.props.speed = 12
-        this.camera.rotTarget.set(-20, 10, 0)
-        this.camera.distTarget = 8.5
-        this.container.focus({ preventScroll: true })
+        if (!this.options.telemetry) {
+            this.props.speed = 12
+            this.camera.rotTarget.set(-20, 10, 0)
+            this.camera.distTarget = 8.5
+            this.container.focus({ preventScroll: true })
+        }
         this.options.onStart?.()
     }
 
@@ -144,8 +161,22 @@ class TeslaDriveScene {
     }
 
     setInput({ throttle = 0, steering = 0, brake = false } = {}) {
+        if (this.options.telemetry) return
         const clamp = (value) => THREE.MathUtils.clamp(Number.isFinite(value) ? value : 0, -1, 1)
         this.props.joyVec.set(clamp(steering), brake ? -1 : clamp(throttle))
+    }
+
+    setTelemetry(state, profile) {
+        if (this.disposed) return
+        this.telemetry = state
+        this.profile = profile
+        this.vehicle?.setTelemetry(state, profile)
+    }
+
+    setCameraView(view) {
+        if (this.disposed) return
+        this.cameraView = view === 'interior' ? 'interior' : 'exterior'
+        this.displayCamera?.setView(this.cameraView)
     }
 
     getState() {
@@ -159,6 +190,8 @@ class TeslaDriveScene {
         cancelAnimationFrame(this.frameId)
         this.observer?.disconnect()
         this.removeInput?.()
+        this.displayCamera?.dispose()
+        this.vehicle?.dispose()
         if (this.onVisibility) document.removeEventListener('visibilitychange', this.onVisibility)
         this.assets?.dispose(this.scene)
         this.environment?.dispose()

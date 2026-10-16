@@ -1,8 +1,9 @@
 import { Box3, Group, Mesh, MeshBasicMaterial, MultiplyBlending, PlaneGeometry, Quaternion, Vector3 } from 'three'
 import { createModelYLights } from './model-y-lights.js'
+import { createVehicleScreen } from './vehicle-screen.js'
 
 // Keep the supplied GLB hierarchy and body materials; animate its existing wheel pivots.
-export function createModelY(scene, cargo) {
+export function createModelY(scene, cargo, { dashboard = false } = {}) {
     const model = cargo.model
     model.updateMatrixWorld(true)
     const bounds = new Box3().setFromObject(model)
@@ -42,11 +43,15 @@ export function createModelY(scene, cargo) {
     whole.add(shadow)
 
     const lights = createModelYLights(model, cargo)
+    const screen = dashboard ? createVehicleScreen(model) : null
     const turn = new Quaternion()
     const up = new Vector3(0, 1, 0)
 
     return {
         spec,
+        setTelemetry(state, profile) { screen?.update(state, profile) },
+        getCabinView() { return screen?.getCabinView() },
+        dispose() { screen?.dispose() },
         resize(height) { lights.resize(height) },
         update(state) {
             whole.rotation.y = state.theta
