@@ -1,0 +1,185 @@
+{
+  "reference": "https://vr.ff.com/us/",
+  "assets": [
+    {
+      "path": "public/plugins/ff91Drive/fonts/roboto-bold.ttf",
+      "bytes": 44864,
+      "sha256": "bbf3e2a2cb10a5a59284f96f97f4083c176798fe709633db019da376b10936e9",
+      "source": "https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuYjalmUiA8.ttf"
+    },
+    {
+      "path": "public/plugins/ff91Drive/fonts/roboto-light.ttf",
+      "bytes": 44792,
+      "sha256": "be5ffcf033d7e69b219d38a9bbf0e35bd6e8fdb7a5b9fc3c3c6ec4224672c017",
+      "source": "https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuaabVmUiA8.ttf"
+    },
+    {
+      "path": "public/plugins/ff91Drive/meshes/vrBodyCompiled.json",
+      "bytes": 2822364,
+      "sha256": "63803e80e1cb15e922a4dafa2b583201a99333e935332505784a35176ede03b0",
+      "source": "https://vr.ff.com/meshes/vrBodyCompiled.json"
+    },
+    {
+      "path": "public/plugins/ff91Drive/meshes/vrWheelBrakes.json",
+      "bytes": 135903,
+      "sha256": "133ca67ddd0e21c8fd734007b9fe424f7f58d43221a3043f4d1a6e67b404c77d",
+      "source": "https://vr.ff.com/meshes/vrWheelBrakes.json"
+    },
+    {
+      "path": "public/plugins/ff91Drive/preview/ff91.png",
+      "bytes": 182637,
+      "sha256": "ca525efcae934f9487ab1b958283986a7e515e782158931bfc946b5cae6ab071",
+      "source": "Screenshot of the previous standalone recreation; not a TvT.js runtime screenshot."
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envReflection/xn.jpg",
+      "bytes": 25885,
+      "sha256": "c607d99851fbbf352c04984417ac4760a1852b70b758620f63666ada60297246",
+      "source": "https://vr.ff.com/textures/envReflection/xn.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envReflection/xp.jpg",
+      "bytes": 25707,
+      "sha256": "0f99abfea12f9f3a7be47b118edb4bb01634387435961c70ad9e3d0d5664828e",
+      "source": "https://vr.ff.com/textures/envReflection/xp.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envReflection/yn.jpg",
+      "bytes": 4202,
+      "sha256": "1b7131f015b01f65feb57888c680ab8161b253fa5bc9e42f0e1129ebe7c508b0",
+      "source": "https://vr.ff.com/textures/envReflection/yn.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envReflection/yp.jpg",
+      "bytes": 46805,
+      "sha256": "4aa0ab18cf386b8ba55cdfd720293a61dd7c282b7226e63ba1c6b4db7bbbf3d8",
+      "source": "https://vr.ff.com/textures/envReflection/yp.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envReflection/zn.jpg",
+      "bytes": 27190,
+      "sha256": "9c6c06fffa45160aac9b07dbe637a0bfce70d04ce626c3172f112b8f2a1c2ec7",
+      "source": "https://vr.ff.com/textures/envReflection/zn.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envReflection/zp.jpg",
+      "bytes": 30266,
+      "sha256": "9c117dd58757ab527883950dc03ed2b5aa5192f51396bdf844db3073e8eb1715",
+      "source": "https://vr.ff.com/textures/envReflection/zp.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envSkybox/xn.jpg",
+      "bytes": 124703,
+      "sha256": "d6dcb9a59206b53fdec9ae48ed9602302c7447616778858ce48604daf189833f",
+      "source": "https://vr.ff.com/textures/envSkybox/xn.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envSkybox/xp.jpg",
+      "bytes": 124804,
+      "sha256": "2cfaaf43fb6997b065768dd8c40fd9b50e99fe676d57ac52078e03681b5d8bcc",
+      "source": "https://vr.ff.com/textures/envSkybox/xp.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envSkybox/yn.jpg",
+      "bytes": 50283,
+      "sha256": "c842a6b60b2b00687891975bfb9f1b0985126c8ec9592351d3d9aae5a0443d12",
+      "source": "https://vr.ff.com/textures/envSkybox/yn.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envSkybox/yp.jpg",
+      "bytes": 177158,
+      "sha256": "83d1db44c21b2b38750851d365367204a260c23a2aef62129fa4413edb525ff9",
+      "source": "https://vr.ff.com/textures/envSkybox/yp.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envSkybox/zn.jpg",
+      "bytes": 130898,
+      "sha256": "3e8252c194a27d806b2a82de19cbcc9ec42f04f6a175e4658313ff6d45f99a18",
+      "source": "https://vr.ff.com/textures/envSkybox/zn.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/envSkybox/zp.jpg",
+      "bytes": 127893,
+      "sha256": "2d0df4eafe30684798ff8ea3472983ec886ee4f8ab84c2f4253a22aeafe6a390",
+      "source": "https://vr.ff.com/textures/envSkybox/zp.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/ffLogo.png",
+      "bytes": 3383,
+      "sha256": "83d92fc242971270ac29dd749dd86977105c4dc3b6b47e2d1193d3d800e88d82",
+      "source": "https://vr.ff.com/textures/ffLogo.png"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/flareHead.jpg",
+      "bytes": 5319,
+      "sha256": "2e233e60206da023e2b586181fa9f7a7aeca2341b7fd7f8ada3dadd463a30f5b",
+      "source": "https://vr.ff.com/textures/flareHead.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/flareTurn.jpg",
+      "bytes": 3115,
+      "sha256": "cbfa4f5dffdc6aa21d004a62967345cd843e8a138297c9a710d00c3bdcdb8b19",
+      "source": "https://vr.ff.com/textures/flareTurn.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/icoCtrls.png",
+      "bytes": 2243,
+      "sha256": "4fc81e194c6ca426edb57000f515ac68d9de6b468697e1b08cc537f2b8f61c8b",
+      "source": "https://vr.ff.com/textures/icoCtrls.png"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/icoMobile.png",
+      "bytes": 5772,
+      "sha256": "89c6d9ecececeda726ce59e2b4e1a44e89026f992dab414d1a09bdfe3a56dfbc",
+      "source": "https://vr.ff.com/textures/icoMobile.png"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/ledA.png",
+      "bytes": 1407,
+      "sha256": "718372ebfef66a7416a27f82da88c207f186d1b02ed55ae34fa589124ccc58c3",
+      "source": "https://vr.ff.com/textures/ledA.png"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/lightStop.jpg",
+      "bytes": 15807,
+      "sha256": "8832c28826048392ad9c954a6353862d0dc7b77fe3fd4ab06db81069698dd2b5",
+      "source": "https://vr.ff.com/textures/lightStop.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/lightTurn.jpg",
+      "bytes": 19364,
+      "sha256": "82c8318b62c92c31e00b13f3d6f63b8b97cd6070b0a530b75e7209b46626e4ec",
+      "source": "https://vr.ff.com/textures/lightTurn.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/meta/appleIcon.png",
+      "bytes": 16113,
+      "sha256": "f6d6232ae2a3f71c5fd355e9b96155a05febef97c89b3bf10a825cef0177a429",
+      "source": "https://vr.ff.com/textures/meta/appleIcon.png"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/meta/favicon.png",
+      "bytes": 487,
+      "sha256": "5e8e23ecd80e7a3064aa44d80be76d1ba527f6c734ade4ce9660049cd54d6cdf",
+      "source": "https://vr.ff.com/textures/meta/favicon.png"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/meta/preview.png",
+      "bytes": 182637,
+      "sha256": "ca525efcae934f9487ab1b958283986a7e515e782158931bfc946b5cae6ab071",
+      "source": "https://vr.ff.com/textures/meta/preview.png"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/shadow.jpg",
+      "bytes": 27984,
+      "sha256": "5d6a54636c03e0379a72740c197a5905f276a3b155292a5dd82458cffef69835",
+      "source": "https://vr.ff.com/textures/shadow.jpg"
+    },
+    {
+      "path": "public/plugins/ff91Drive/textures/thread.jpg",
+      "bytes": 327632,
+      "sha256": "6e95c87629f26333ef22c7af1eadc189d5f00554f278a7ae75e9f4b5187b037d",
+      "source": "https://vr.ff.com/textures/thread.jpg"
+    }
+  ]
+}

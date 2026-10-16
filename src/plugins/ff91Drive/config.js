@@ -1,0 +1,22 @@
+export default {
+    name: 'ff91Drive',
+    title: 'FF 91 交互试驾',
+    intro: 'FF 91 原生 Three.js 试驾场景：车辆反射、前灯光晕、转向灯、刹车灯、轮胎运动和 GPU 地面波纹。已移除 VR 与全屏功能。',
+    version: '1.0.0',
+    author: 'FF 91 scene adaptation',
+    website: 'https://vr.ff.com/us/',
+    state: 'active',
+    creatTime: '2026-10-16',
+    updateTime: '2026-10-16',
+    require: [],
+    preview: [{
+        src: 'plugins/ff91Drive/preview/ff91.png',
+        type: 'img',
+        name: 'index',
+        title: 'FF 91 交互试驾',
+        catalog: { type: 'scene', category: 'product' },
+        disableFPSGraph: true,
+        disableSrcBtn: false,
+        referenceSource: { title: 'Faraday Future FF 91', url: 'https://vr.ff.com/us/' },
+    }],
+}
