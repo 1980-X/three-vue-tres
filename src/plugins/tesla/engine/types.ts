@@ -4,6 +4,7 @@ export type InputMode = 'gps' | 'demo'
 export type MotionQuality = 'none' | 'fresh' | 'stale' | 'lost' | 'demo'
 export type ProcessingMode = 'smooth' | 'adaptive'
 export type PageName = 'dashboard' | 'diagnostics' | 'tesla' | 'tesla3d'
+export type TurnSensorStatus = 'off' | 'permission' | 'requesting' | 'waiting' | 'active' | 'denied' | 'unsupported' | 'insecure' | 'unavailable'
 
 export interface EngineSettings {
   modelId: VehicleModelId
@@ -70,9 +71,11 @@ export interface MotionSnapshot {
   brake?: number
   /** Manual demo wheel input: -1 right, +1 left. */
   steering?: number
-  /** GPS course in degrees; clockwise turn rate, estimated only while moving. */
+  /** GPS/track course; clockwise turn rate can use device orientation while moving. */
   headingDeg?: number | null
   turnRateDegS?: number
+  turnSource?: 'gps' | 'derived' | 'sensor' | null
+  turnSensorStatus?: TurnSensorStatus
 }
 
 export interface MotionStats {

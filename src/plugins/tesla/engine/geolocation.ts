@@ -1,4 +1,5 @@
 import { haversineDistance, MotionEstimator } from './reference/motion.mjs'
+import { TurnSensor } from './turn-sensor'
 import type { FixResult, MotionFix, MotionSnapshot, ProcessingMode } from './types'
 
 export interface LocationSample {
@@ -20,6 +21,7 @@ const geoMessages: Record<number, string> = {
 /** The upstream estimator is retained; this adapter adds session-safe teardown. */
 export class GeolocationService {
   readonly estimator = new MotionEstimator()
+  private readonly turnSensor = new TurnSensor()
   status = 'off'
   onSample: ((sample: LocationSample) => void) | null = null
   onStatus: ((status: string) => void) | null = null
@@ -32,7 +34,7 @@ export class GeolocationService {
   private lastReceivedAt: number | null = null
   private pollMs = 0
   private courseFix: MotionFix | null = null
-  private course: { heading: number; receivedAt: number } | null = null
+  private course: { heading: number; sampledAt: number; receivedAt: number; source: 'gps' | 'derived'; intervalS: number } | null = null
   private turnRate = 0
 
   configure(mode: ProcessingMode, pollMs = 0) {
@@ -56,6 +58,7 @@ export class GeolocationService {
     this.active = true
     const generation = ++this.generation
     this.estimator.reset()
+    this.turnSensor.start()
     this.lastReceivedAt = null
     this.setStatus('requesting')
     try {
@@ -112,41 +115,57 @@ export class GeolocationService {
 
   private updateCourse(fix: MotionFix, deviceHeading: number | null) {
     const motion = this.estimator.snapshot(fix.receivedAt)
-    if (motion.speedMps < 1.5 || (fix.accuracy ?? Infinity) > 50 || Date.now() - fix.timestamp > 3500) {
+    if (motion.speedMps < .8 || fix.speed === 0 || (fix.accuracy ?? Infinity) > 65 || Date.now() - fix.timestamp > 3500) {
       this.courseFix = fix
       this.course = null
       this.turnRate = 0
       return
     }
     let heading = typeof deviceHeading === 'number' && Number.isFinite(deviceHeading) && deviceHeading >= 0 && deviceHeading < 360 ? deviceHeading : null
+    let source: 'gps' | 'derived' = 'gps'
+    let sampledAt = fix.timestamp
     const previous = this.courseFix
-    if (heading === null && previous && fix.receivedAt - previous.receivedAt <= 5000) {
+    if (heading === null && previous && fix.receivedAt - previous.receivedAt <= 8000 && Math.max(previous.accuracy ?? Infinity, fix.accuracy ?? Infinity) <= 35) {
       const distance = haversineDistance(previous.latitude, previous.longitude, fix.latitude, fix.longitude)
-      if (distance >= Math.max(6, .75 * ((previous.accuracy ?? 50) + (fix.accuracy ?? 50)))) {
+      if (distance >= Math.max(3, .5 * Math.hypot(previous.accuracy ?? 35, fix.accuracy ?? 35))) {
         const rad = Math.PI / 180
         const lat1 = previous.latitude * rad, lat2 = fix.latitude * rad
         const longitude = (fix.longitude - previous.longitude) * rad
         heading = (Math.atan2(Math.sin(longitude) * Math.cos(lat2), Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(longitude)) / rad + 360) % 360
+        source = 'derived'
+        // A segment bearing describes its midpoint, rather than the latest fix.
+        sampledAt = (previous.timestamp + fix.timestamp) / 2
       }
     }
     if (heading === null) {
-      if (!previous || fix.receivedAt - previous.receivedAt > 5000) this.courseFix = fix
+      if (!previous || fix.receivedAt - previous.receivedAt > 8000) this.courseFix = fix
       return
     }
-    const dt = this.course ? (fix.receivedAt - this.course.receivedAt) / 1000 : 0
-    if (this.course && dt < .25) return
+    const dt = this.course ? (sampledAt - this.course.sampledAt) / 1000 : 0
+    if (this.course && dt < .2) return
     const change = this.course ? (heading - this.course.heading + 540) % 360 - 180 : 0
-    const rate = dt > 0 && dt <= 3.5 ? change / dt : 0
+    const rate = this.course?.source === source && dt > 0 && dt <= 8 ? change / dt : 0
     // Discard GPS course jumps and wrap 359 -> 0 along the shortest arc.
-    this.turnRate = Math.abs(rate) <= 60 ? this.turnRate + (rate - this.turnRate) * (1 - Math.exp(-dt / .6)) : 0
-    this.course = { heading, receivedAt: fix.receivedAt }
+    if (Math.abs(rate) > 60) { this.turnRate = 0; return }
+    this.turnRate = this.course?.source === source && dt <= 8 ? this.turnRate + (rate - this.turnRate) * (1 - Math.exp(-dt / .45)) : 0
+    this.course = { heading, sampledAt, receivedAt: fix.receivedAt, source, intervalS: dt }
     this.courseFix = fix
+  }
+
+  enableTurnSensor() {
+    return this.active ? this.turnSensor.enable() : Promise.resolve()
   }
 
   snapshot(now: number): MotionSnapshot {
     const motion = this.estimator.snapshot(now)
-    const current = motion.quality === 'fresh' && motion.speedMps >= 1.5 && this.course && now - this.course.receivedAt <= 2500
-    return { ...motion, headingDeg: current ? this.course!.heading : null, turnRateDegS: current && Math.abs(this.turnRate) >= 1.5 ? this.turnRate : 0 }
+    const moving = motion.quality === 'fresh' && motion.speedMps >= .8 && motion.rawSpeedMps !== 0
+    const course = this.course
+    const age = course ? (now - course.receivedAt) / 1000 : Infinity
+    const current = moving && course && age <= Math.min(6, Math.max(3.5, course.intervalS * 1.5))
+    const gpsRate = current ? this.turnRate * Math.exp(-Math.max(0, age - Math.max(.8, course.intervalS)) / .8) : 0
+    const sensorRate = moving ? this.turnSensor.sample(now) : null
+    const rate = sensorRate ?? gpsRate
+    return { ...motion, headingDeg: current ? course.heading : null, turnRateDegS: Math.abs(rate) >= .6 ? rate : 0, turnSource: sensorRate !== null ? 'sensor' : current ? course.source : null, turnSensorStatus: this.turnSensor.status(now) }
   }
 
   stop() {
@@ -157,6 +176,7 @@ export class GeolocationService {
     if (this.pollTimer) clearInterval(this.pollTimer)
     this.pollTimer = null
     this.pollBusy = false
+    this.turnSensor.stop()
     this.courseFix = this.course = null
     this.turnRate = 0
     this.setStatus('off')
