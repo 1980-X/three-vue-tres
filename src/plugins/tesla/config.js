@@ -1,14 +1,14 @@
 export default {
     name: 'tesla',
     title: 'Tesla 声浪实验室',
-    intro: '基于 EV Engine Lab 移植，支持 GPS 驾驶、桌面演示、兼容性诊断与车机展示，声浪音频由 CDN 加载，图片和字体使用本地资源。',
+    intro: '支持 GPS 声浪、桌面演示、兼容性诊断与车机展示，并提供基于 FF 91 场景移植的 Model Y Performance 三维试驾页面。声浪音频由 CDN 加载，三维场景复用 ff91Drive 公共资源。',
     version: '1.0.0',
     author: '地虎降天龙',
     website: 'https://www.icegl.cn',
     state: 'active',
     creatTime: '2026-10-15',
-    updateTime: '2026-10-15',
-    require: [],
+    updateTime: '2026-10-16',
+    require: ['ff91Drive'],
     preview: [
         {
             catalog: { type: 'scene', category: 'product' },
@@ -16,6 +16,15 @@ export default {
             type: 'img',
             name: 'index',
             title: 'Tesla 声浪实验室',
+            disableFPSGraph: true,
+            disableSrcBtn: false,
+        },
+        {
+            catalog: { type: 'scene', category: 'product' },
+            src: '<div style="padding: 28px 18px; line-height: 1.8"><span style="letter-spacing: 5px">TESLA</span><br><strong style="font-size: 28px">Model Y</strong><br>Performance · 三维交互试驾</div>',
+            type: 'text',
+            name: 'drive',
+            title: 'Model Y 三维试驾',
             disableFPSGraph: true,
             disableSrcBtn: false,
         },

@@ -1,2 +1,6 @@
 export { default as FF91Drive } from './components/FF91Drive.vue'
 export { createFF91Experience } from './lib/experience.js'
+export { default as DriveCamera } from './lib/camera.js'
+export { default as DriveGround } from './lib/ground.js'
+export { CarProps as DriveState } from './lib/vehicle-state.js'
+export { bindInput as bindDriveInput } from './lib/input.js'

@@ -21,7 +21,8 @@ var FF91 = (function () {
 }());
 export { FF91 };
 var CarProps = (function () {
-    function CarProps() {
+    function CarProps(vehicle = {}) {
+        this.vehicle = { ...FF91, ...vehicle };
         this.time = new utils_1.Time();
         this.velocity = new THREE.Vector2();
         this.speed = 0;
@@ -55,19 +56,19 @@ var CarProps = (function () {
         for (var i = 0; i < this.keys.length; i++) {
             switch (this.keys[i]) {
                 case 38:// Up
-                    this.accel += FF91.Accel;
+                    this.accel += this.vehicle.Accel;
                     // Simulate wind resistance as we reach top speed
-                    this.accel *= utils_1.normalizeQuadIn(this.speed, FF91.MaxVel, FF91.MaxVel - 10);
+                    this.accel *= utils_1.normalizeQuadIn(this.speed, this.vehicle.MaxVel, this.vehicle.MaxVel - 10);
                     break;
                 case 40:// Down
-                    this.accel += FF91.Decel;
+                    this.accel += this.vehicle.Decel;
                     this.braking = 1;
                     break;
                 case 37:// Left
-                    this.wAngleTarg += FF91.MaxTurn;
+                    this.wAngleTarg += this.vehicle.MaxTurn;
                     break;
                 case 39:// Right
-                    this.wAngleTarg -= FF91.MaxTurn;
+                    this.wAngleTarg -= this.vehicle.MaxTurn;
                     break;
             }
         }
@@ -84,16 +85,16 @@ var CarProps = (function () {
         }
     };
     CarProps.prototype.readJoyStickInput = function () {
-        this.wAngleTarg = this.joyVec.x * FF91.MaxTurn;
+        this.wAngleTarg = this.joyVec.x * this.vehicle.MaxTurn;
         //Accelerating
         if (this.joyVec.y >= 0) {
-            this.accel = this.joyVec.y * FF91.Accel;
+            this.accel = this.joyVec.y * this.vehicle.Accel;
             // Simulate wind resistance as we reach top speed
-            this.accel *= utils_1.normalizeQuadIn(this.speed, FF91.MaxVel, FF91.MaxVel - 10);
+            this.accel *= utils_1.normalizeQuadIn(this.speed, this.vehicle.MaxVel, this.vehicle.MaxVel - 10);
             this.braking = 0;
         }
         else {
-            this.accel = this.joyVec.y * -FF91.Decel;
+            this.accel = this.joyVec.y * -this.vehicle.Decel;
             this.braking = 1;
         }
     };
@@ -121,11 +122,11 @@ var CarProps = (function () {
         }
         this.frameDist = this.speed * this.time.delta;
         // Limit turn angle as speed increases
-        this.wAngleTarg *= utils_1.normalizeQuadIn(this.speed, FF91.MaxVel + 10.0, 3.0);
+        this.wAngleTarg *= utils_1.normalizeQuadIn(this.speed, this.vehicle.MaxVel + 10.0, 3.0);
         this.wAngleInner = utils_1.zTween(this.wAngleInner, this.wAngleTarg, this.time.delta * 2);
         this.wAngleSign = this.wAngleInner > 0.001 ? 1 : this.wAngleInner < -0.001 ? -1 : 0;
         // Theta is based on speed, wheelbase & wheel angle
-        this.omega = this.wAngleInner * this.speed / FF91.WheelBase;
+        this.omega = this.wAngleInner * this.speed / this.vehicle.WheelBase;
         this.theta += this.omega * this.time.delta;
         // Calc this frame's XY velocity
         this.velocity.set(Math.cos(this.theta) * this.frameDist, -Math.sin(this.theta) * this.frameDist);
@@ -136,11 +137,11 @@ var CarProps = (function () {
         this.lateralMomentum = this.omega * this.speed;
         if (this.wAngleSign) {
             // Calculate 4 wheel turning radius if angle
-            this.radFrontIn = FF91.WheelBase / Math.sin(this.wAngleInner);
-            this.radBackIn = FF91.WheelBase / Math.tan(this.wAngleInner);
-            this.radBackOut = this.radBackIn + (FF91.WheelTrack * this.wAngleSign);
-            this.wAngleOuter = Math.atan(FF91.WheelBase / this.radBackOut);
-            this.radFrontOut = FF91.WheelBase / Math.sin(this.wAngleOuter);
+            this.radFrontIn = this.vehicle.WheelBase / Math.sin(this.wAngleInner);
+            this.radBackIn = this.vehicle.WheelBase / Math.tan(this.wAngleInner);
+            this.radBackOut = this.radBackIn + (this.vehicle.WheelTrack * this.wAngleSign);
+            this.wAngleOuter = Math.atan(this.vehicle.WheelBase / this.radBackOut);
+            this.radFrontOut = this.vehicle.WheelBase / Math.sin(this.wAngleOuter);
         }
         else {
             // Otherwise, just assign a very large radius.

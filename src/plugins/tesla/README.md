@@ -1,6 +1,6 @@
 # Tesla 声浪实验室
 
-从 EV Engine Lab 移植的独立 TvT.js 案例。仅使用宿主已有的 Vue 和浏览器原生 Web Audio、Geolocation API；未新增 npm 依赖，也不依赖其他插件。
+从 EV Engine Lab 移植的 TvT.js 案例，并新增基于 `ff91Drive` 的 Model Y 三维试驾。使用宿主已有依赖；声浪页面使用 Vue 和浏览器原生 Web Audio、Geolocation API，三维页面使用 Three.js 和 `ff91Drive` 的通用模块，未新增 npm 依赖。
 
 ## 入口
 
@@ -11,15 +11,27 @@
 | `/plugins/tesla/index` | 仪表盘：12 套声浪、音量/强度、换挡音效、GPS 与桌面演示 |
 | `/plugins/tesla/index?view=diagnostics` | 浏览器能力、提示音、定位信号与诊断结果导出 |
 | `/plugins/tesla/index?view=tesla` | 车机展示：GPS 时速、模拟转速与挡位 |
+| `/plugins/tesla/drive` | Model Y Performance 三维试驾 |
+
+## Model Y 三维页面
+
+模型使用 `public/plugins/tesla/models/modely-2025-performance.glb`，保留车身材质和节点层级，通过模型现有的 `Wheel_*_Spatial`、`Wheel_*_Assembly` 实现前轮转向和四轮滚动，轴距、轮距和轮胎半径从模型读取。点击「开始试驾」后以演示车速行驶；方向键加速、制动、转向，拖拽环绕，滚轮缩放。触屏左侧驾驶、右侧转动镜头，双指缩放；「重置」恢复视角并停车。
+
+前大灯与日行灯常亮，尾部示宽灯保持低亮度；按下方向键「下」制动时，后部灯带和高位刹车灯变亮；左右转向时，同侧前后琥珀色转向灯按 1 秒周期闪烁，松开后关闭。灯光使用 GLB 原有灯罩/灯带几何；光晕复用 `ff91Drive/textures/flareHead.jpg`，按观察角度衰减并进行深度测试。阴影材质关闭色调映射，保持贴图白边在乘法混合中为中性色，避免整块矩形变暗。
+
+相机、驾驶状态、键鼠/触屏输入和 GPU 地面波纹通过 `PLS/ff91Drive` 复用。Roboto 字体、天空盒、反射环境、接触阴影、地面点阵和操作图标直接引用 `public/plugins/ff91Drive/`；没有复制 FF 91 模型、轮胎纹理、车灯光晕资源及专用车灯着色器。GLB 自带贴图，无需额外解码器。页面隐藏或缓存停用时暂停，卸载时释放模型、贴图、渲染目标及监听。
+
+`config.js.require` 声明 `ff91Drive`，单插件资源保留依赖该字段；安装 Tesla 插件时也需保留该插件。新入口先使用文字预览卡片，后续获准截图后可替换为真实场景图。三维驾驶目前独立运行，尚未连接声浪控制器。共享场景与贴图来源说明见 `src/plugins/ff91Drive/NOTICE.md`，Roboto 许可见同目录 `OFL.txt`。
 
 ## 文件边界
 
-- `pages/index.vue`：唯一的 Fes 路由适配入口。
+- `pages/index.vue`：声浪实验室的 Fes 路由适配入口。
+- `pages/drive.vue`、`lib/drive-*.js`、`lib/model-y.js`：三维页面、最小资源加载、场景生命周期与 Model Y 适配。
 - `components/EngineApp.vue`：应用组件，负责视图切换和生命周期。
 - `views/`、`components/`：三个视图和原生 SVG 仪表、图标、波形。
 - `engine/`：声音、运动估算、动力总成、定位与诊断；不引用宿主路由或其他插件。
 - `data/profiles.json`：12 套配置；`assets/`：本地字体。
-- `public/plugins/tesla/`：12 张音色图片及案例预览图。
+- `public/plugins/tesla/`：12 张音色图片、案例预览图及用户提供的 GLB 模型。
 - 声浪音频：87 个 WAV 从 `https://opensource.cdn.icegl.cn/sound/tesla/` 加载，仓库不包含 `sounds` 目录。
 
 音频 CDN 根目录集中在 `engine/assets.ts`。配置中保留 `sounds/<音色>/<文件>.wav` 相对路径，解析时去掉 `sounds/` 前缀，例如 `sounds/amg-gt3/idle.wav` 对应 `https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/idle.wav`；分层采样和换挡音效使用相同规则。
