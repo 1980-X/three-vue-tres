@@ -15,13 +15,20 @@
 
 ## Model Y 三维页面
 
-模型使用 `public/plugins/tesla/models/modely-2025-performance.glb`，保留车身材质和节点层级，通过模型现有的 `Wheel_*_Spatial`、`Wheel_*_Assembly` 实现前轮转向和四轮滚动，轴距、轮距和轮胎半径从模型读取。点击「开始试驾」后以演示车速行驶；方向键加速、制动、转向，拖拽环绕，滚轮缩放。触屏左侧驾驶、右侧转动镜头，双指缩放；「重置」恢复视角并停车。
+模型从 [Model Y CDN 地址](https://opensource.cdn.icegl.cn/plugins/industry4/model/modely-2025-performance.glb) 加载，地址集中在 `lib/drive-assets.js` 的 `modelUrl`，运行时不再依赖本地 `models/` 目录。保留车身材质和节点层级，通过模型现有的 `Wheel_*_Spatial`、`Wheel_*_Assembly` 实现前轮转向和四轮滚动，轴距、轮距和轮胎半径从模型读取。点击「开始试驾」后以演示车速行驶；方向键加速、制动、转向，拖拽环绕，滚轮缩放。触屏左侧驾驶、右侧转动镜头，双指缩放；「重置」恢复视角并停车。
 
 前大灯与日行灯常亮，尾部示宽灯保持低亮度；按下方向键「下」制动时，后部灯带和高位刹车灯变亮；左右转向时，同侧前后琥珀色转向灯按 1 秒周期闪烁，松开后关闭。灯光使用 GLB 原有灯罩/灯带几何；光晕复用 `ff91Drive/textures/flareHead.jpg`，按观察角度衰减并进行深度测试。阴影材质关闭色调映射，保持贴图白边在乘法混合中为中性色，避免整块矩形变暗。
 
 开场和地面共用 `public/plugins/tesla/textures/tesla-mark.svg` 的 T 形矢量标识；开场为大幅地面标识，开始后淡出，行驶地面使用统一方向的红色 T 字纹样，保留移动和波纹。深红天空、酒红山脉、霓虹地平线与扫描光带由 Tesla 专属环境着色器生成，山脉轮廓来自原天空盒，并同步生成车辆的环境反射；红色和洋红轮廓光与界面配色保持一致。主题代码仅在 `tesla` 内，不修改 `ff91Drive` 原场景。
 
-相机、驾驶状态、键鼠/触屏输入和 GPU 地面波纹通过 `PLS/ff91Drive` 复用。Roboto 字体、天空盒源图、接触阴影、车灯光晕和操作图标直接引用 `public/plugins/ff91Drive/`；不再加载 FF 点阵贴图和独立的旧反射贴图。GLB 自带贴图，无需额外解码器。页面隐藏或缓存停用时暂停，卸载时释放模型、贴图、环境反射目标、波纹渲染目标及监听。
+相机、驾驶状态、键鼠/触屏输入和 GPU 地面波纹通过 `PLS/ff91Drive` 复用。Roboto 字体、天空盒源图、接触阴影、车灯光晕和操作图标直接引用 `public/plugins/ff91Drive/`；不再加载 FF 点阵贴图和独立的旧反射贴图。GLB 自带贴图，几何使用 Draco 压缩；加载器复用 `public/draco/` 的现有解码器，解析完成后释放解码工作线程。页面隐藏或缓存停用时暂停，卸载时释放模型、贴图、环境反射目标、波纹渲染目标及监听。
+
+两个模型保持原文件名及全部节点名称、顺序、层级、变换、网格和材质绑定；贴图原始字节、Model Y 的动画通道和采样数据保持一致。压缩清理了未被材质使用的 UV，未对有效表面减面；Model Y 另外移除了 14,532 个零面积退化三角形。位置、法线和有效 UV 分别使用 16 / 12 / 16 bit 量化，属于有损几何压缩。
+
+| 模型 | 原始字节 | 压缩后字节 | 节点数 |
+| --- | ---: | ---: | ---: |
+| `model3-2024-performance.glb` | 4,499,332 | 628,700 | 155 |
+| `modely-2025-performance.glb` | 8,821,956 | 994,316 | 137 |
 
 `config.js.require` 声明 `ff91Drive`，单插件资源保留依赖该字段；安装 Tesla 插件时也需保留该插件。新入口先使用文字预览卡片，后续获准截图后可替换为真实场景图。三维驾驶目前独立运行，尚未连接声浪控制器。共享场景与贴图来源说明见 `src/plugins/ff91Drive/NOTICE.md`，Roboto 许可见同目录 `OFL.txt`。
 
@@ -33,7 +40,7 @@
 - `views/`、`components/`：三个视图和原生 SVG 仪表、图标、波形。
 - `engine/`：声音、运动估算、动力总成、定位与诊断；不引用宿主路由或其他插件。
 - `data/profiles.json`：12 套配置；`assets/`：本地字体。
-- `public/plugins/tesla/`：12 张音色图片、案例预览图及用户提供的 GLB 模型。
+- `public/plugins/tesla/`：12 张音色图片、案例预览图和 T 形标识；Model Y 模型从上述 CDN 地址加载。
 - 声浪音频：87 个 WAV 从 `https://opensource.cdn.icegl.cn/sound/tesla/` 加载，仓库不包含 `sounds` 目录。
 
 音频 CDN 根目录集中在 `engine/assets.ts`。配置中保留 `sounds/<音色>/<文件>.wav` 相对路径，解析时去掉 `sounds/` 前缀，例如 `sounds/amg-gt3/idle.wav` 对应 `https://opensource.cdn.icegl.cn/sound/tesla/amg-gt3/idle.wav`；分层采样和换挡音效使用相同规则。

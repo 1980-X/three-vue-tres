@@ -1,4 +1,13 @@
+/*
+ * @Description: 
+ * @Version: 1.668
+ * @Autor: 地虎降天龙
+ * @Date: 2026-10-16 09:19:24
+ * @LastEditors: 地虎降天龙
+ * @LastEditTime: 2026-10-16 10:10:11
+ */
 import { CubeTextureLoader, SRGBColorSpace, TextureLoader } from 'three'
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
 export function resolvePluginBase(name) {
@@ -42,7 +51,7 @@ export function loadDriveAssets(onProgress = () => {}) {
         texture('envSkybox', true), texture('shadow'), texture('flareHead'),
         texture('teslaMark', false, `${resolvePluginBase('tesla')}textures/tesla-mark.svg`),
     ]
-    const modelUrl = `${resolvePluginBase('tesla')}models/modely-2025-performance.glb`
+    const modelUrl = 'https://opensource.cdn.icegl.cn/model/industry4/tesla/modely-2025-performance.glb'
     const model = fetch(modelUrl, { signal: controller.signal })
         .then((response) => {
             if (!response.ok) throw new Error(`无法加载 Model Y 模型（${response.status}）`)
@@ -50,7 +59,10 @@ export function loadDriveAssets(onProgress = () => {}) {
         })
         .then((buffer) => {
             if (disposed) throw abort()
-            return new GLTFLoader().parseAsync(buffer, new URL('.', modelUrl).href)
+            const dracoLoader = new DRACOLoader().setDecoderPath(new URL('../../draco/', resolvePluginBase('tesla')).href)
+            return new GLTFLoader().setDRACOLoader(dracoLoader)
+                .parseAsync(buffer, new URL('.', modelUrl).href)
+                .finally(() => dracoLoader.dispose())
         })
         .then(({ scene }) => {
             if (disposed) {
