@@ -1,7 +1,8 @@
 FROM node:22-alpine AS build
 WORKDIR /app
+RUN corepack enable && corepack prepare yarn@1.22.22 --activate
 COPY package.json ./
-RUN yarn install --frozen-lockfile=false
+RUN yarn install
 COPY . .
 RUN yarn build
 

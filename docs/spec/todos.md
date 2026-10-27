@@ -8,13 +8,13 @@
 
 ## M0
 
-- [ ] (M0) 创建 `apps/api` Fastify 空服务与 `/health` — 验收：容器内可访问 health JSON
-- [ ] (M0) 创建 `apps/admin` React+Vite+Ant Design 壳，`basename=/admin` — 验收：构建产物可被 nginx 以 `/admin/` 打开
-- [ ] (M0) 创建 `apps/viewer` React+Vite 壳，路由 `/v/:publicId` — 验收：占位页经 nginx `/v/demo` 可打开
-- [ ] (M0) 编写 `deploy/gpu001/docker-compose.yml`（五服务 + 标签 + 仅 `18700:80`） — 验收：`docker compose -p dtv-saas config` 通过且无其它 ports
-- [ ] (M0) 编写 `deploy/gpu001/nginx/default.conf` 路由 `/admin` `/v` `/api` `/health` — 验收：compose up 后三路径非 502
-- [ ] (M0) 添加 `deploy/gpu001/.env.example`（含 `HOST_PORT=18700`、`DATABASE_URL`、`STORAGE_ROOT` 等） — 验收：无密钥；键名覆盖架构清单
-- [ ] (M0) 挂载 `/mnt/storage/dtv-saas`（或文档等价本地 data）到 api — 验收：容器内路径可写探测文件
+- [x] (M0) 创建 `apps/api` Fastify 空服务与 `/health` — 验收：容器内可访问 health JSON
+- [x] (M0) 创建 `apps/admin` React+Vite+Ant Design 壳，`basename=/admin` — 验收：构建产物可被 nginx 以 `/admin/` 打开
+- [x] (M0) 创建 `apps/viewer` React+Vite 壳，路由 `/v/:publicId` — 验收：占位页经 nginx `/v/demo` 可打开
+- [x] (M0) 编写 `deploy/gpu001/docker-compose.yml`（五服务 + 标签 + 仅 `18700:80`） — 验收：`docker compose -p dtv-saas config` 通过且无其它 ports
+- [x] (M0) 编写 `deploy/gpu001/nginx/default.conf` 路由 `/admin` `/v` `/api` `/health` — 验收：compose up 后三路径非 502
+- [x] (M0) 添加 `deploy/gpu001/.env.example`（含 `HOST_PORT=18700`、`DATABASE_URL`、`STORAGE_ROOT` 等） — 验收：无密钥；键名覆盖架构清单
+- [x] (M0) 挂载 `/mnt/storage/dtv-saas`（或文档等价本地 data）到 api — 验收：容器内路径可写探测文件
 
 ## M1
 
