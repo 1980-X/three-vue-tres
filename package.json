@@ -5,6 +5,10 @@
     "node": ">=18.18"
   },
   "type": "module",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
   "description": "An open-source framework for rapid implementation of 3D visualization projects",
   "scripts": {
     "dev": "fes dev",
