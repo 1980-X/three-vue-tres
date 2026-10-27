@@ -10,6 +10,13 @@
       {
         "command": ".cursor/hooks/git-shell-guard.sh"
       }
+    ],
+    "stop": [
+      {
+        "command": ".cursor/hooks/continual-learning-stop.sh",
+        "description": "按节奏触发本仓 continual-learning",
+        "loop_limit": 1
+      }
     ]
   }
 }
