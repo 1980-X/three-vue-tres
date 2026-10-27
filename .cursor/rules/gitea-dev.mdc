@@ -1,0 +1,13 @@
+---
+description: joy-x Gitea Git/SSH 操作约束；涉及 Gitea、joy-x、git push 时遵守
+alwaysApply: true
+---
+
+# Gitea / joy-x 开发约束
+
+- 业务仓 Git 操作走 **SSH** `git@joy-x:owner/repo.git`（Port **18622**）；配置见 ops-hub `knowledge/services/gitea/developer/01-git-and-ssh.md`。
+- **不要**默认 `cd ~/service/gitea` 或对 Gitea 运维栈 `docker compose`（除非用户明确运维）。
+- **禁止**提交 `.env`、私钥、Deploy Key、Gitea 密码到 Git。
+- **禁止** `docker system prune`、改他项 compose/端口/NPM。
+- `git push --force` / `-f` 到 `main` 或 `master` 须用户显式确认。
+- 运维 Gitea 栈时遵循 skill `gitea-ops`（仅 `~/service/gitea`）；业务仓用 skill `gitea-dev`。

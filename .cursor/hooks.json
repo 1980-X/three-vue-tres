@@ -5,6 +5,11 @@
       {
         "command": "./.cursor/hooks/session-start"
       }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/git-shell-guard.sh"
+      }
     ]
   }
 }
