@@ -1,0 +1,80 @@
+name: dtv-saas
+
+services:
+  saas-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - dtv_pg:/var/lib/postgresql/data
+    networks: [dtv_saas_net]
+    labels:
+      com.joyx.project: dtv-saas
+      com.joyx.stack: digital-twin-venue-saas
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  saas-api:
+    build:
+      context: ../../apps/api
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      STORAGE_ROOT: ${STORAGE_ROOT}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL}
+      NODE_ENV: ${NODE_ENV}
+      SESSION_COOKIE_NAME: ${SESSION_COOKIE_NAME:-dtv_session}
+      PORT: "3000"
+    volumes:
+      - /mnt/storage/dtv-saas:${STORAGE_ROOT:-/data}
+    depends_on:
+      saas-db:
+        condition: service_healthy
+    networks: [dtv_saas_net]
+    labels:
+      com.joyx.project: dtv-saas
+      com.joyx.stack: digital-twin-venue-saas
+
+  saas-admin:
+    build:
+      context: ../../apps/admin
+    networks: [dtv_saas_net]
+    labels:
+      com.joyx.project: dtv-saas
+      com.joyx.stack: digital-twin-venue-saas
+
+  saas-viewer:
+    build:
+      context: ../../apps/viewer
+    networks: [dtv_saas_net]
+    labels:
+      com.joyx.project: dtv-saas
+      com.joyx.stack: digital-twin-venue-saas
+
+  saas-nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "${HOST_PORT:-18700}:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on: [saas-api, saas-admin, saas-viewer]
+    networks: [dtv_saas_net]
+    labels:
+      com.joyx.project: dtv-saas
+      com.joyx.stack: digital-twin-venue-saas
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+networks:
+  dtv_saas_net:
+    name: dtv_saas_net
+
+volumes:
+  dtv_pg:
