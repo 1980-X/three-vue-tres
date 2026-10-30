@@ -85,6 +85,28 @@ describe('auth', () => {
     await app.close();
   });
 
+  it('accepts localhost Origin when PUBLIC_BASE_URL is 127.0.0.1', async () => {
+    await resetDb();
+    const seed = await seedTenantWithOwner({ slug: 'loopback' });
+    const app = await makeApp();
+    const res = await app.inject({
+      method: 'POST',
+      url: '/auth/login',
+      headers: {
+        origin: 'http://localhost:18700',
+        'content-type': 'application/json',
+      },
+      payload: {
+        email: seed.owner.email,
+        password: seed.ownerPassword,
+        tenantSlug: seed.tenant.slug,
+      },
+    });
+    assert.equal(res.statusCode, 200);
+    assert.ok(cookieFrom(res).includes('dtv_session='));
+    await app.close();
+  });
+
   it('rate limits login', async () => {
     process.env.LOGIN_RATE_LIMIT_MAX = '3';
     await resetDb();

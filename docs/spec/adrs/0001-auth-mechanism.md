@@ -23,7 +23,7 @@
 | Cookie | 名 **`dtv_session`**；**HttpOnly**；`Path=/`；`SameSite=Lax`；一期局域网 HTTP **可不设 Secure**；若日后 HTTPS 必须 Secure |
 | 密码 | **argon2id** 哈希存储 |
 | 有效期 | **7 天**；滑动续期（活跃请求刷新 `expires_at`）；`POST /auth/logout` **删除**会话行 |
-| CSRF | 同源 `:18700` + SameSite=Lax；对管理端写操作校验 **Origin/Referer** 白名单（仅本 host:18700） |
+| CSRF | 同源 `:18700` + SameSite=Lax；对管理端写操作校验 **Origin/Referer** 白名单（`PUBLIC_BASE_URL` 的 host:port；**localhost / 127.0.0.1 / ::1 同端口互认**） |
 | 租户成员登录 | `POST /auth/login` |
 | 平台超管登录 | **`POST /auth/platform/login`**（与成员分离，查 `PlatformAdmin`） |
 | Viewer 公开页 | **不要求**登录 |
@@ -38,4 +38,5 @@
 
 ## 修订
 
+- 2026-10-30：CSRF 明确环回别名互认（避免 `localhost` 开页、`PUBLIC_BASE_URL=127.0.0.1` 时登录 403）。  
 - 2026-10-27：全部按推荐 Accepted。
