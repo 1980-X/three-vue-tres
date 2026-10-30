@@ -9,7 +9,7 @@
 ## 进度总览
 
 - [x] **M0** 同仓脚手架 + Compose（单端口 `18700`）
-- [ ] **M1** 租户 / 成员 / RBAC + 认证 ADR 落地 + 代建租户
+- [x] **M1** 租户 / 成员 / RBAC + 认证 ADR 落地 + 代建租户
 - [ ] **M2** 展馆草稿 + 资产 + VenueTrack 双轨编辑
 - [ ] **M3** 发布 / 下架 + 访客 Viewer（PC / 手机 / WebXR 降级）
 - [ ] **M4** Gitea Actions 自动部署 + 生产 env 无遗漏 + port-map 登记

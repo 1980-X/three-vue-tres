@@ -25,3 +25,5 @@
 - [x] 主节已起草：architecture / deploy / data-model / api / admin-viewer / milestones / todos / ADR0001  
 - [x] Spec 经 Reader Testing（歧义已回写钉死）  
 - [x] 可进入 writing-plans / 开工实现（2026-10-27 用户确认）  
+- [x] 实现计划已写：[`../superpowers/plans/2026-10-27-digital-twin-venue-saas.md`](../superpowers/plans/2026-10-27-digital-twin-venue-saas.md)  
+

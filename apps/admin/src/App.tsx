@@ -1,13 +1,34 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
+import { AuthGate } from './auth/AuthGate';
+import { Login } from './pages/Login';
+import { Projects } from './pages/Projects';
+import { PlatformTenants } from './pages/platform/Tenants';
 
 export function App() {
   return (
     <ConfigProvider locale={zhCN}>
       <BrowserRouter basename="/admin">
         <Routes>
-          <Route path="/" element={<div>展馆管理</div>} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              <AuthGate>
+                <Projects />
+              </AuthGate>
+            }
+          />
+          <Route
+            path="/platform/tenants"
+            element={
+              <AuthGate>
+                <PlatformTenants />
+              </AuthGate>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </ConfigProvider>

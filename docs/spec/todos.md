@@ -18,13 +18,13 @@
 
 ## M1
 
-- [ ] (M1) 完成并合并 [ADR0001 认证机制](adrs/0001-auth-mechanism.md) 为 Accepted — 验收：Decision 节非空且与实现一致
-- [ ] (M1) Prisma schema：Tenant、Member、PlatformAdmin、Project、ProjectMember — 验收：`migrate deploy` 成功
-- [ ] (M1) 实现 `/auth/login|logout|me` + 登录限流 — 验收：错误凭据 401；超频 429；登出后 `/auth/me` 401
-- [ ] (M1) 实现 `/platform/tenants` 代建 — 验收：超管可建租户+owner；非超管 403
-- [ ] (M1) 实现 `/api/projects` CRUD 与成员角色 API — 验收：viewer 只读；跨 tenant 403
-- [ ] (M1) AuditLog 写入：登录失败、角色变更 — 验收：库中可见对应行
-- [ ] (M1) Admin 登录页 + 项目列表（接真实 API） — 验收：未登录跳转登录并回跳
+- [x] (M1) 完成并合并 [ADR0001 认证机制](adrs/0001-auth-mechanism.md) 为 Accepted — 验收：Decision 节非空且与实现一致
+- [x] (M1) Prisma schema：Tenant、Member、PlatformAdmin、Project、ProjectMember — 验收：`migrate deploy` 成功
+- [x] (M1) 实现 `/auth/login|logout|me` + 登录限流 — 验收：错误凭据 401；超频 429；登出后 `/auth/me` 401
+- [x] (M1) 实现 `/platform/tenants` 代建 — 验收：超管可建租户+owner；非超管 403
+- [x] (M1) 实现 `/api/projects` CRUD 与成员角色 API — 验收：viewer 只读；跨 tenant 403
+- [x] (M1) AuditLog 写入：登录失败、角色变更 — 验收：库中可见对应行
+- [x] (M1) Admin 登录页 + 项目列表（接真实 API） — 验收：未登录跳转登录并回跳
 
 ## M2
 
