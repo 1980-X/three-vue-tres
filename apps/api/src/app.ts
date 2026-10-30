@@ -6,6 +6,8 @@ import { healthRoutes } from './routes/health.js';
 import { authRoutes } from './routes/auth.js';
 import { platformRoutes } from './routes/platform.js';
 import { projectRoutes } from './routes/projects.js';
+import { assetRoutes } from './routes/assets.js';
+import { venueRoutes } from './routes/venues.js';
 
 export async function buildApp(opts: FastifyServerOptions = {}) {
   const app = Fastify(opts);
@@ -31,5 +33,7 @@ export async function buildApp(opts: FastifyServerOptions = {}) {
   await app.register(authRoutes);
   await app.register(platformRoutes);
   await app.register(projectRoutes);
+  await app.register(assetRoutes);
+  await app.register(venueRoutes);
   return app;
 }

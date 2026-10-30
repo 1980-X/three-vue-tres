@@ -5,6 +5,9 @@ import { AuthGate } from './auth/AuthGate';
 import { Login } from './pages/Login';
 import { Projects } from './pages/Projects';
 import { PlatformTenants } from './pages/platform/Tenants';
+import { Assets } from './pages/Assets';
+import { Venues } from './pages/Venues';
+import { VenueEditor } from './pages/VenueEditor';
 
 export function App() {
   return (
@@ -25,6 +28,30 @@ export function App() {
             element={
               <AuthGate>
                 <PlatformTenants />
+              </AuthGate>
+            }
+          />
+          <Route
+            path="/projects/:projectId/assets"
+            element={
+              <AuthGate>
+                <Assets />
+              </AuthGate>
+            }
+          />
+          <Route
+            path="/projects/:projectId/venues"
+            element={
+              <AuthGate>
+                <Venues />
+              </AuthGate>
+            }
+          />
+          <Route
+            path="/projects/:projectId/venues/:venueId"
+            element={
+              <AuthGate>
+                <VenueEditor />
               </AuthGate>
             }
           />

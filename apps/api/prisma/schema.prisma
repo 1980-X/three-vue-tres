@@ -73,6 +73,8 @@ model Project {
   updatedAt DateTime        @updatedAt @map("updated_at")
   tenant    Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   members   ProjectMember[]
+  assets    Asset[]
+  venues    Venue[]
 
   @@index([tenantId])
   @@map("projects")
@@ -115,4 +117,110 @@ model AuditLog {
   createdAt    DateTime  @default(now()) @map("created_at")
 
   @@map("audit_logs")
+}
+
+enum AssetKind {
+  panorama_image
+  panorama_video
+  scene_package
+  audio
+  other
+}
+
+enum VenueStatus {
+  draft
+}
+
+enum TrackKind {
+  panorama
+  scene3d
+}
+
+model Asset {
+  id         String    @id @default(uuid()) @db.Uuid
+  tenantId   String    @map("tenant_id") @db.Uuid
+  projectId  String    @map("project_id") @db.Uuid
+  kind       AssetKind
+  title      String
+  storageKey String    @map("storage_key")
+  mime       String
+  byteSize   BigInt    @map("byte_size")
+  sha256     String
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  project    Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  coverVenues Venue[]  @relation("VenueCover")
+  entryTracks VenueTrack[] @relation("TrackEntry")
+
+  @@index([projectId])
+  @@index([sha256])
+  @@map("assets")
+}
+
+model Venue {
+  id           String       @id @default(uuid()) @db.Uuid
+  tenantId     String       @map("tenant_id") @db.Uuid
+  projectId    String       @map("project_id") @db.Uuid
+  title        String
+  coverAssetId String?      @map("cover_asset_id") @db.Uuid
+  primaryTrackId String?    @map("primary_track_id") @db.Uuid
+  status       VenueStatus  @default(draft)
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  coverAsset   Asset?       @relation("VenueCover", fields: [coverAssetId], references: [id], onDelete: SetNull)
+  tracks       VenueTrack[]
+  hotspots     Hotspot[]
+  tours        Tour[]
+
+  @@index([projectId])
+  @@map("venues")
+}
+
+model VenueTrack {
+  id           String    @id @default(uuid()) @db.Uuid
+  venueId      String    @map("venue_id") @db.Uuid
+  tenantId     String    @map("tenant_id") @db.Uuid
+  trackKind    TrackKind @map("track_kind")
+  title        String
+  sortOrder    Int       @default(0) @map("sort_order")
+  isPrimary    Boolean   @default(false) @map("is_primary")
+  entryAssetId String?   @map("entry_asset_id") @db.Uuid
+  configJson   Json      @default("{}") @map("config_json")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  venue        Venue     @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  entryAsset   Asset?    @relation("TrackEntry", fields: [entryAssetId], references: [id], onDelete: SetNull)
+  hotspots     Hotspot[]
+  tours        Tour[]
+
+  @@index([venueId, sortOrder])
+  @@map("venue_tracks")
+}
+
+model Hotspot {
+  id          String     @id @default(uuid()) @db.Uuid
+  venueId     String     @map("venue_id") @db.Uuid
+  trackId     String     @map("track_id") @db.Uuid
+  tenantId    String     @map("tenant_id") @db.Uuid
+  title       String
+  payloadJson Json       @default("{}") @map("payload_json")
+  sortOrder   Int        @default(0) @map("sort_order")
+  venue       Venue      @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  track       VenueTrack @relation(fields: [trackId], references: [id], onDelete: Cascade)
+
+  @@map("hotspots")
+}
+
+model Tour {
+  id        String     @id @default(uuid()) @db.Uuid
+  venueId   String     @map("venue_id") @db.Uuid
+  trackId   String     @map("track_id") @db.Uuid
+  tenantId  String     @map("tenant_id") @db.Uuid
+  title     String
+  stepsJson Json       @default("[]") @map("steps_json")
+  venue     Venue      @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  track     VenueTrack @relation(fields: [trackId], references: [id], onDelete: Cascade)
+
+  @@map("tours")
 }

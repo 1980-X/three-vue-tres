@@ -52,14 +52,19 @@ export function Projects() {
           dataSource={items}
           pagination={false}
           columns={[
+            { title: '名称', dataIndex: 'name' },
+            { title: '角色', dataIndex: 'role' },
             {
-              title: '名称',
-              dataIndex: 'name',
-              render: (name: string, row) => (
-                <Link to={`/projects/${row.id}`}>{name}</Link>
+              title: '操作',
+              render: (_, row) => (
+                <>
+                  <Link to={`/projects/${row.id}/venues`} style={{ marginRight: 12 }}>
+                    展馆
+                  </Link>
+                  <Link to={`/projects/${row.id}/assets`}>资产</Link>
+                </>
               ),
             },
-            { title: '角色', dataIndex: 'role' },
           ]}
         />
       </Layout.Content>

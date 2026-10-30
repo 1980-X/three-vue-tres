@@ -28,13 +28,13 @@
 
 ## M2
 
-- [ ] (M2) Prisma：Asset、Venue、VenueTrack、Hotspot、Tour — 验收：迁移成功
-- [ ] (M2) LocalFs StoragePort + `POST/GET/DELETE` assets multipart — 验收：字段含 mime/size/sha256/storage_key；删库后文件不在
-- [ ] (M2) Venue + VenueTrack CRUD API（含 primary 约束） — 验收：双轨可建；非 primary 可删
-- [ ] (M2) Hotspot / Tour CRUD API（挂 track） — 验收：级联随 venue/track 删除
-- [ ] (M2) Admin 资产库页（上传列表删除） — 验收：编辑角色可操作
-- [ ] (M2) Admin 展馆编辑页（轨/热点/导览表单列表） — 验收：无拖拽画布也能完成录入
-- [ ] (M2) Admin 内嵌草稿预览（调登录态草稿 API） — 验收：预览与保存数据一致
+- [x] (M2) Prisma：Asset、Venue、VenueTrack、Hotspot、Tour — 验收：迁移成功
+- [x] (M2) LocalFs StoragePort + `POST/GET/DELETE` assets multipart — 验收：字段含 mime/size/sha256/storage_key；删库后文件不在
+- [x] (M2) Venue + VenueTrack CRUD API（含 primary 约束） — 验收：双轨可建；非 primary 可删
+- [x] (M2) Hotspot / Tour CRUD API（挂 track） — 验收：级联随 venue/track 删除
+- [x] (M2) Admin 资产库页（上传列表删除） — 验收：编辑角色可操作
+- [x] (M2) Admin 展馆编辑页（轨/热点/导览表单列表） — 验收：无拖拽画布也能完成录入
+- [x] (M2) Admin 内嵌草稿预览（调登录态草稿 API） — 验收：预览与保存数据一致
 
 ## M3
 

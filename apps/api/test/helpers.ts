@@ -17,6 +17,11 @@ export function csrfHeaders(extra: Record<string, string> = {}) {
 }
 
 export async function resetDb() {
+  await prisma.hotspot.deleteMany();
+  await prisma.tour.deleteMany();
+  await prisma.venueTrack.deleteMany();
+  await prisma.venue.deleteMany();
+  await prisma.asset.deleteMany();
   await prisma.auditLog.deleteMany();
   await prisma.session.deleteMany();
   await prisma.projectMember.deleteMany();
@@ -24,6 +29,20 @@ export async function resetDb() {
   await prisma.member.deleteMany();
   await prisma.platformAdmin.deleteMany();
   await prisma.tenant.deleteMany();
+}
+
+export async function seedProjectWithOwner() {
+  const seed = await seedTenantWithOwner();
+  const project = await prisma.project.create({
+    data: {
+      tenantId: seed.tenant.id,
+      name: 'P1',
+      members: {
+        create: { memberId: seed.owner.id, role: 'owner' },
+      },
+    },
+  });
+  return { ...seed, project };
 }
 
 export async function seedPlatformAdmin(
