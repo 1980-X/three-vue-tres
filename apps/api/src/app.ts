@@ -8,6 +8,7 @@ import { platformRoutes } from './routes/platform.js';
 import { projectRoutes } from './routes/projects.js';
 import { assetRoutes } from './routes/assets.js';
 import { venueRoutes } from './routes/venues.js';
+import { publicRoutes } from './routes/public.js';
 
 export async function buildApp(opts: FastifyServerOptions = {}) {
   const app = Fastify(opts);
@@ -35,5 +36,6 @@ export async function buildApp(opts: FastifyServerOptions = {}) {
   await app.register(projectRoutes);
   await app.register(assetRoutes);
   await app.register(venueRoutes);
+  await app.register(publicRoutes);
   return app;
 }

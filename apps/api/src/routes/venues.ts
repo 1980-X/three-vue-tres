@@ -5,6 +5,11 @@ import { AppError } from '../lib/errors.js';
 import { prisma } from '../lib/prisma.js';
 import { requireMember } from '../lib/auth-context.js';
 import { requireProjectRole } from '../lib/rbac.js';
+import {
+  assertVenueDeletable,
+  publishVenue,
+  unpublishVenue,
+} from '../services/publish.js';
 
 const trackKindSchema = z.nativeEnum(TrackKind);
 
@@ -101,8 +106,57 @@ export async function venueRoutes(app: FastifyInstance) {
     const user = requireMember(req);
     const { venueId } = req.params as { venueId: string };
     await loadVenueForMember(venueId, user.tenantId, user.memberId, 'admin');
+    await assertVenueDeletable(venueId);
     await prisma.venue.delete({ where: { id: venueId } });
     return { ok: true };
+  });
+
+  app.post('/api/venues/:venueId/publish', async (req) => {
+    const user = requireMember(req);
+    const { venueId } = req.params as { venueId: string };
+    await loadVenueForMember(venueId, user.tenantId, user.memberId, 'editor');
+    const pub = await publishVenue({
+      venueId,
+      tenantId: user.tenantId,
+      actorId: user.memberId,
+    });
+    const base = process.env.PUBLIC_BASE_URL ?? 'http://127.0.0.1:18700';
+    return {
+      ...pub,
+      viewerUrl: `${base}/v/${pub.publicId}`,
+    };
+  });
+
+  app.post('/api/venues/:venueId/unpublish', async (req) => {
+    const user = requireMember(req);
+    const { venueId } = req.params as { venueId: string };
+    await loadVenueForMember(venueId, user.tenantId, user.memberId, 'editor');
+    const pub = await unpublishVenue({
+      venueId,
+      tenantId: user.tenantId,
+      actorId: user.memberId,
+    });
+    return { ok: true, publication: pub };
+  });
+
+  app.get('/api/venues/:venueId/publications', async (req) => {
+    const user = requireMember(req);
+    const { venueId } = req.params as { venueId: string };
+    await loadVenueForMember(venueId, user.tenantId, user.memberId, 'viewer');
+    const items = await prisma.publication.findMany({
+      where: { venueId },
+      orderBy: { version: 'desc' },
+      select: {
+        id: true,
+        publicId: true,
+        status: true,
+        version: true,
+        publishedAt: true,
+        unpublishedAt: true,
+        createdAt: true,
+      },
+    });
+    return { items, total: items.length };
   });
 
   app.get('/api/venues/:venueId/tracks', async (req) => {

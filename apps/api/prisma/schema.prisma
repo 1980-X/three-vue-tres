@@ -172,9 +172,32 @@ model Venue {
   tracks       VenueTrack[]
   hotspots     Hotspot[]
   tours        Tour[]
+  publications Publication[]
 
   @@index([projectId])
   @@map("venues")
+}
+
+enum PublicationStatus {
+  published
+  unpublished
+}
+
+model Publication {
+  id             String            @id @default(uuid()) @db.Uuid
+  tenantId       String            @map("tenant_id") @db.Uuid
+  venueId        String            @map("venue_id") @db.Uuid
+  publicId       String            @unique @map("public_id")
+  status         PublicationStatus
+  snapshot       Json
+  version        Int
+  publishedAt    DateTime?         @map("published_at")
+  unpublishedAt  DateTime?         @map("unpublished_at")
+  createdAt      DateTime          @default(now()) @map("created_at")
+  venue          Venue             @relation(fields: [venueId], references: [id], onDelete: Cascade)
+
+  @@index([venueId, version])
+  @@map("publications")
 }
 
 model VenueTrack {

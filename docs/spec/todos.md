@@ -38,14 +38,14 @@
 
 ## M3
 
-- [ ] (M3) Prisma Publication + `publish`/`unpublish` 幂等 — 验收：重复 publish 不乱增 version；重复 unpublish 成功
-- [ ] (M3) `GET /public/venues/:publicId` 仅 published — 验收：草稿/下架不可读内容
-- [ ] (M3) Viewer 接公开 API + 统一下架页文案 — 验收：下架见固定中文页
-- [ ] (M3) Viewer 全景轨：`@photo-sphere-viewer/core` — 验收：published 全景可看
-- [ ] (M3) Viewer 3D 轨：同仓别名加载 TvT 场景包 — 验收：published 3D 可漫游
-- [ ] (M3) hybrid：`?track=` 切轨可分享 — 验收：刷新保持当前轨
-- [ ] (M3) WebXR 入口按钮 + 降级 — 验收：无 XR 时按钮隐藏仍可桌面浏览
-- [ ] (M3) 手机窄屏冒烟（微信内置浏览器可选） — 验收：可打开并浏览已发布馆
+- [x] (M3) Prisma Publication + `publish`/`unpublish` 幂等 — 验收：重复 publish 不乱增 version；重复 unpublish 成功
+- [x] (M3) `GET /public/venues/:publicId` 仅 published — 验收：草稿/下架不可读内容
+- [x] (M3) Viewer 接公开 API + 统一下架页文案 — 验收：下架见固定中文页
+- [x] (M3) Viewer 全景轨：`@photo-sphere-viewer/core` — 验收：published 全景可看
+- [x] (M3) Viewer 3D 轨：同仓别名加载 TvT 场景包 — 验收：published 3D 可漫游
+- [x] (M3) hybrid：`?track=` 切轨可分享 — 验收：刷新保持当前轨
+- [x] (M3) WebXR 入口按钮 + 降级 — 验收：无 XR 时按钮隐藏仍可桌面浏览
+- [x] (M3) 手机窄屏冒烟（微信内置浏览器可选） — 验收：可打开并浏览已发布馆
 
 ## M4
 

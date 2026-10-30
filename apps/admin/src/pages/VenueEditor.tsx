@@ -40,12 +40,20 @@ export function VenueEditor() {
   const [trackOpen, setTrackOpen] = useState(false);
   const [hotspotOpen, setHotspotOpen] = useState(false);
   const [tourOpen, setTourOpen] = useState(false);
+  const [viewerUrl, setViewerUrl] = useState('');
 
   async function load() {
     try {
       const data = await api<Venue>(`/api/venues/${venueId}`);
       setVenue(data);
       setTrackId((prev) => prev ?? data.tracks.find((t) => t.isPrimary)?.id ?? data.tracks[0]?.id);
+      const pubs = await api<{
+        items: { publicId: string; status: string }[];
+      }>(`/api/venues/${venueId}/publications`);
+      const live = pubs.items.find((p) => p.status === 'published');
+      if (live) {
+        setViewerUrl(`${window.location.origin}/v/${live.publicId}`);
+      }
     } catch (e) {
       message.error((e as ApiError).message);
     }
@@ -159,6 +167,33 @@ export function VenueEditor() {
     await load();
   }
 
+  async function onPublish() {
+    try {
+      const pub = await api<{ viewerUrl: string; publicId: string }>(
+        `/api/venues/${venueId}/publish`,
+        { method: 'POST', body: '{}' },
+      );
+      setViewerUrl(pub.viewerUrl);
+      message.success('已发布');
+      await load();
+    } catch (e) {
+      message.error((e as ApiError).message);
+    }
+  }
+
+  async function onUnpublish() {
+    try {
+      await api(`/api/venues/${venueId}/unpublish`, {
+        method: 'POST',
+        body: '{}',
+      });
+      message.success('已下架');
+      await load();
+    } catch (e) {
+      message.error((e as ApiError).message);
+    }
+  }
+
   if (!venue) {
     return <Layout style={{ padding: 24 }}>加载中…</Layout>;
   }
@@ -174,7 +209,7 @@ export function VenueEditor() {
         layout="inline"
         initialValues={{ title: venue.title }}
         onFinish={saveTitle}
-        style={{ marginBottom: 24 }}
+        style={{ marginBottom: 16 }}
       >
         <Form.Item name="title" rules={[{ required: true }]}>
           <Input style={{ width: 280 }} />
@@ -183,6 +218,17 @@ export function VenueEditor() {
           保存标题
         </Button>
       </Form>
+      <Space style={{ marginBottom: 24 }} wrap>
+        <Button type="primary" onClick={onPublish}>
+          发布
+        </Button>
+        <Button onClick={onUnpublish}>下架</Button>
+        {viewerUrl && (
+          <Typography.Link href={viewerUrl} target="_blank" rel="noreferrer">
+            访客链接：{viewerUrl}
+          </Typography.Link>
+        )}
+      </Space>
 
       <Tabs
         items={[

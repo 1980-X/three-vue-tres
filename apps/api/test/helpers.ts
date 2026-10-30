@@ -17,6 +17,7 @@ export function csrfHeaders(extra: Record<string, string> = {}) {
 }
 
 export async function resetDb() {
+  await prisma.publication.deleteMany();
   await prisma.hotspot.deleteMany();
   await prisma.tour.deleteMany();
   await prisma.venueTrack.deleteMany();
