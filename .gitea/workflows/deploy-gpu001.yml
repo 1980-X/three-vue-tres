@@ -1,0 +1,61 @@
+# CD SSOT：joy-x `wilber/three-vue-tres` master → gpu001 本机构建部署
+# Runner：`docker` label（docker:24-cli + host docker.sock）
+# 密钥仅读宿主机 deploy/gpu001/.env；禁止打印 .env 内容
+name: deploy-gpu001
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: docker
+    steps:
+      - name: Compose up on host tree
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          HOST_REPO=/home/wilber/project/three-vue-tres
+          echo "deploy target sha=${EXPECTED_SHA}"
+
+          # Bind mounts 必须走宿主机路径（docker.sock → host daemon）
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "${HOST_REPO}:${HOST_REPO}" \
+            -w "${HOST_REPO}" \
+            -e EXPECTED_SHA="${EXPECTED_SHA}" \
+            docker:24-cli \
+            sh -eu -c '
+              test -f deploy/gpu001/.env || {
+                echo "missing deploy/gpu001/.env on host (bootstrap first)" >&2
+                exit 1
+              }
+              if ! git cat-file -e "${EXPECTED_SHA}^{commit}" 2>/dev/null; then
+                git fetch --all --prune
+              fi
+              git checkout -B master "${EXPECTED_SHA}"
+              docker compose -p dtv-saas \
+                -f deploy/gpu001/docker-compose.yml \
+                --env-file deploy/gpu001/.env \
+                up -d --build
+            '
+
+      - name: Smoke host port mapping
+        run: |
+          set -euo pipefail
+          # 仅校验本栈标签与唯一宿主机口；不 curl、不打印密钥
+          mapped="$(docker ps --filter label=com.joyx.project=dtv-saas --format '{{.Names}} {{.Ports}}')"
+          echo "$mapped"
+          echo "$mapped" | grep -q '18700->80' || {
+            echo "expected HOST_PORT 18700 on saas-nginx" >&2
+            exit 1
+          }
+          # 禁止本栈其它容器出现 0.0.0.0 宿主机映射
+          bad="$(docker ps --filter label=com.joyx.project=dtv-saas --format '{{.Names}} {{.Ports}}' | grep '0.0.0.0:' | grep -v '18700->80' || true)"
+          if [ -n "$bad" ]; then
+            echo "unexpected published ports:" >&2
+            echo "$bad" >&2
+            exit 1
+          fi

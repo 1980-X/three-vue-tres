@@ -49,11 +49,11 @@
 
 ## M4
 
-- [ ] (M4) 添加 `.gitea/workflows/deploy-gpu001.yml`（master push 自动部署） — 验收：push 触发且 compose 更新
-- [ ] (M4) 生产 env 对照 `.env.example` 清单（无遗漏键） — 验收：文档/示例键集合一致
-- [ ] (M4) 确认无 db/api 宿主机端口、标签齐全 — 验收：`docker ps` 仅 18700 映射属本栈
-- [ ] (M4) 登记 ops-hub `port-map`：**18700 = dtv-saas nginx** — 验收：INDEX/port-map 有条目（无密钥）
-- [ ] (M4) 回滚说明按 deploy 文做一次演练记录（可选短笔记） — 验收：能切回上一镜像/commit 起栈
+- [x] (M4) 添加 `.gitea/workflows/deploy-gpu001.yml`（master push 自动部署） — 验收：工作流已进仓；**joy-x master push / 双推后**由 runner 触发 compose（本机已 skip 主动 push）
+- [x] (M4) 生产 env 对照 `.env.example` 清单（无遗漏键） — 验收：文档/示例键集合一致（2026-10-30）
+- [x] (M4) 确认无 db/api 宿主机端口、标签齐全 — 验收：`docker ps` 仅 18700 映射属本栈；五容器均 `com.joyx.project=dtv-saas`
+- [x] (M4) 登记 ops-hub `port-map`：**18700 = dtv-saas nginx** — 验收：`knowledge/host/port-map.md` 业务表有条目（无密钥）
+- [x] (M4) 回滚说明按 deploy 文做一次演练记录（可选短笔记） — 验收：`deploy-gpu001.md` §13.1
 
 ---
 

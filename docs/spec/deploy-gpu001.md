@@ -89,17 +89,19 @@ admin/viewer：**内网静态容器**（compose 服务 `saas-admin` / `saas-view
 
 ## 9. 环境变量：开发 / 生产对照（生产无遗漏）
 
-文档与 `.env.example` 必须列出同一套键；生产不得缺开发已用能力键。
+文档与 `deploy/gpu001/.env.example` 必须列出同一套键；生产不得缺开发已用能力键。  
+**核对日：2026-10-30** — 生产 `.env` 与 `.env.example` 键集合一致（无遗漏、无额外键）。
 
-| 类别 | 示例键（名） | 说明 |
+| 类别 | 键（名） | 说明 |
 | --- | --- | --- |
-| 入口 | `HOST_PORT=18700` | 仅 nginx |
+| 入口 | `HOST_PORT` | 钉 `18700`；仅 nginx |
+| DB 引导 | `POSTGRES_USER` / `POSTGRES_PASSWORD` / `POSTGRES_DB` | 仅 `saas-db` 容器用 |
 | DB | `DATABASE_URL` | 指向 `saas-db`，非宿主机 |
-| 会话/认证 | （ADR0001 选定后填） | |
-| 存储 | `STORAGE_ROOT=/data` 或等价 | 对应 bind |
-| COS 预留 | `COS_*` 可空 | 一期 Local 实现 |
+| 会话/认证 | `SESSION_COOKIE_NAME` | ADR0001；默认 `dtv_session` |
+| 存储 | `STORAGE_ROOT` | 容器内路径（如 `/data`）；宿主机 bind `/mnt/storage/dtv-saas` |
+| COS 预留 | `COS_SECRET_ID` / `COS_SECRET_KEY` / `COS_BUCKET` / `COS_REGION` | 可空；一期 LocalFs |
 | 公开 URL | `PUBLIC_BASE_URL` | 如 `http://<gpu001-ip>:18700` |
-| Node | `NODE_ENV=production` | 生产必开 |
+| Node | `NODE_ENV` | 生产 `production` |
 
 开发同样只经 **18700**；不为 HMR 增加宿主机端口（见 architecture §8）。
 
@@ -136,6 +138,22 @@ admin/viewer：**内网静态容器**（compose 服务 `saas-admin` / `saas-view
 - 回滚：检出上一成功 commit / 镜像 tag 后再次 `compose up -d`  
 - **不**在本期要求自动异地备份或定时 dump  
 
+### 13.1 演练记录（2026-10-30）
+
+手工救急（与 Actions 同命令）：
+
+```bash
+cd /home/wilber/project/three-vue-tres
+git log --oneline -5   # 选上一成功 commit
+git checkout -B master <good-sha>
+docker compose -p dtv-saas -f deploy/gpu001/docker-compose.yml \
+  --env-file deploy/gpu001/.env up -d --build
+```
+
+验收口诀：`docker ps --filter label=com.joyx.project=dtv-saas` 仅 nginx 映 `18700`；`saas-api` 启动时已 `prisma migrate deploy`。  
+（本次未刻意切坏再切回；命令与 CD 工作流一致，可随时按上表执行。）
+
 ## 修订
 
+- 2026-10-30：M4 — Actions 工作流、env 键表对齐 ADR0001、回滚演练笔记。  
 - 2026-10-27：初稿；端口仅 18700；Prisma；无备份/无 curl 清单。

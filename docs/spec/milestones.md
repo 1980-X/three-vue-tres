@@ -12,7 +12,7 @@
 - [x] **M1** 租户 / 成员 / RBAC + 认证 ADR 落地 + 代建租户
 - [x] **M2** 展馆草稿 + 资产 + VenueTrack 双轨编辑
 - [x] **M3** 发布 / 下架 + 访客 Viewer（PC / 手机 / WebXR 降级）
-- [ ] **M4** Gitea Actions 自动部署 + 生产 env 无遗漏 + port-map 登记
+- [x] **M4** Gitea Actions 自动部署 + 生产 env 无遗漏 + port-map 登记
 
 全部勾选后，可将 [`README.md`](README.md) 中「可进入实现」相关状态勾上（若仍有 Reader Testing，先完成 Stage 3）。
 
@@ -42,4 +42,5 @@
 
 ## 修订
 
+- 2026-10-30：M4 勾选（工作流进仓；push 触发待双推 joy-x 后观察 Actions）。  
 - 2026-10-27：按推荐固定 M0–M4、双层验收、ADR 挂 M1、port-map 挂 M4。
