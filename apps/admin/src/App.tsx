@@ -5,6 +5,7 @@ import { AuthGate } from './auth/AuthGate';
 import { Login } from './pages/Login';
 import { Projects } from './pages/Projects';
 import { PlatformTenants } from './pages/platform/Tenants';
+import { AiProviders } from './pages/platform/AiProviders';
 import { Assets } from './pages/Assets';
 import { Venues } from './pages/Venues';
 import { VenueEditor } from './pages/VenueEditor';
@@ -28,6 +29,14 @@ export function App() {
             element={
               <AuthGate>
                 <PlatformTenants />
+              </AuthGate>
+            }
+          />
+          <Route
+            path="/platform/ai-providers"
+            element={
+              <AuthGate>
+                <AiProviders />
               </AuthGate>
             }
           />

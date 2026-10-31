@@ -9,7 +9,7 @@ import {
   Typography,
   message,
 } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { api, type ApiError } from '../../api/client';
 
 type Tenant = {
@@ -68,7 +68,10 @@ export function PlatformTenants() {
     <Layout style={{ minHeight: '100vh' }}>
       <Layout.Header style={{ background: '#001529' }}>
         <Typography.Title level={4} style={{ color: '#fff', margin: 0 }}>
-          平台 · 租户代建
+          平台 · 租户代建{' '}
+          <Link to="/platform/ai-providers" style={{ color: '#91d5ff', fontSize: 14 }}>
+            AI 厂商
+          </Link>
         </Typography.Title>
       </Layout.Header>
       <Layout.Content style={{ padding: 24 }}>

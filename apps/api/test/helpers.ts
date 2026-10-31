@@ -30,6 +30,7 @@ export async function resetDb() {
   await prisma.member.deleteMany();
   await prisma.platformAdmin.deleteMany();
   await prisma.tenant.deleteMany();
+  await prisma.aiProviderConfig.deleteMany();
 }
 
 export async function seedProjectWithOwner() {
