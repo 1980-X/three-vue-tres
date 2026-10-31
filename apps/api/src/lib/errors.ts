@@ -7,6 +7,8 @@ export type ErrorCode =
   | 'validation_error'
   | 'conflict'
   | 'rate_limited'
+  | 'provider_error'
+  | 'timeout'
   | 'internal_error';
 
 export class AppError extends Error {

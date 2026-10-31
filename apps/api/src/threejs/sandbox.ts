@@ -12,6 +12,31 @@ import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
 import type { SceneGraph } from './scene-graph.js';
 import { AppError } from '../lib/errors.js';
 
+/** Node 无 DOM FileReader；three GLTFExporter binary 路径需要 */
+function ensureFileReaderPolyfill() {
+  if (typeof globalThis.FileReader !== 'undefined') return;
+  class FileReaderPolyfill {
+    result: ArrayBuffer | string | null = null;
+    onloadend: ((this: FileReaderPolyfill, ev: ProgressEvent) => void) | null =
+      null;
+    onerror: ((this: FileReaderPolyfill, ev: ProgressEvent) => void) | null =
+      null;
+    readAsArrayBuffer(blob: Blob) {
+      void blob
+        .arrayBuffer()
+        .then((ab) => {
+          this.result = ab;
+          this.onloadend?.call(this, {} as ProgressEvent);
+        })
+        .catch(() => {
+          this.onerror?.call(this, {} as ProgressEvent);
+        });
+    }
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (globalThis as any).FileReader = FileReaderPolyfill;
+}
+
 function geometryFor(
   primitive: SceneGraph['nodes'][number]['primitive'],
 ): BufferGeometry {
@@ -30,6 +55,7 @@ function geometryFor(
 }
 
 export async function exportSceneGraphToGlb(graph: SceneGraph): Promise<Buffer> {
+  ensureFileReaderPolyfill();
   const scene = new Scene();
   for (const node of graph.nodes) {
     const mat = new MeshStandardMaterial({ color: node.color });

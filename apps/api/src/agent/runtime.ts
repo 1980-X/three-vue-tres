@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client';
 import { prisma } from '../lib/prisma.js';
 import { getDecryptedProvider } from '../llm/registry.js';
 import { chatWithTools } from '../llm/gateway.js';
@@ -126,7 +127,7 @@ export async function runAgentTurn(input: {
               toolCallId: call.id,
               name: call.function.name,
               toolResult: result,
-            },
+            } as Prisma.InputJsonValue,
           },
         });
         messages.push({
