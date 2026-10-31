@@ -2,11 +2,11 @@
 
 > 语法：`- [ ]` / `- [x]`  
 > **仅实现或验证完成才勾选**；文档润色不算。  
-> 任务明细见 [`todos.md`](todos.md)。冲突以 [`architecture.md`](architecture.md) 为准。
+> 展馆任务明细见 [`todos.md`](todos.md)；AI 出模见 [`todos-ai-mesh.md`](todos-ai-mesh.md)。冲突以 [`architecture.md`](architecture.md) / AI design 为准。
 
 ---
 
-## 进度总览
+## 进度总览 — 展馆 SaaS
 
 - [x] **M0** 同仓脚手架 + Compose（单端口 `18700`）
 - [x] **M1** 租户 / 成员 / RBAC + 认证 ADR 落地 + 代建租户
@@ -14,7 +14,15 @@
 - [x] **M3** 发布 / 下架 + 访客 Viewer（PC / 手机 / WebXR 降级）
 - [x] **M4** Gitea Actions 自动部署 + 生产 env 无遗漏 + port-map 登记
 
-全部勾选后，可将 [`README.md`](README.md) 中「可进入实现」相关状态勾上（若仍有 Reader Testing，先完成 Stage 3）。
+## 进度总览 — AI 出模 Agent
+
+- [ ] **P1** LLM 多厂商 Registry + 超管配置 / 测连通
+- [ ] **P2** Agent SSE + **Three.js JSON→GLB**（硬性）+ 工作台预览
+- [ ] **P3** 混元轨 A + MeshProvider 预留 + `mesh_jobs`
+- [ ] **P4** Asset 入库 + 挂 VenueTrack 闭环
+- [ ] **P5** MCP/CLI 薄封装（可选）
+
+指针：[`ai-mesh-agent.md`](ai-mesh-agent.md)。
 
 ---
 
@@ -40,7 +48,18 @@
 
 ---
 
+## AI Mesh — 分期验收摘要
+
+| 阶段 | 总验收 |
+| --- | --- |
+| P1 | 智谱/Kimi/DS（+兼容代理）可并存配置；Key 脱敏；probe 中文错误 |
+| P2 | 无混元 Key 亦可经 Agent 出草模 GLB 并预览 |
+| P3 | MOCK/真机混元出 GLB；可与轨 B 交替 |
+| P4 | 入库后 Assets 可见并可挂轨 |
+| P5 | Cursor MCP 调同一 Tool；无第二套业务逻辑 |
+
 ## 修订
 
+- 2026-10-31：追加 AI Mesh P1–P5（设计已批准；实现计划已写）。  
 - 2026-10-30：M4 勾选（工作流进仓；push 触发待双推 joy-x 后观察 Actions）。  
 - 2026-10-27：按推荐固定 M0–M4、双层验收、ADR 挂 M1、port-map 挂 M4。
