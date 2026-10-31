@@ -61,7 +61,10 @@ export function Projects() {
                   <Link to={`/projects/${row.id}/venues`} style={{ marginRight: 12 }}>
                     展馆
                   </Link>
-                  <Link to={`/projects/${row.id}/assets`}>资产</Link>
+                  <Link to={`/projects/${row.id}/assets`} style={{ marginRight: 12 }}>
+                    资产
+                  </Link>
+                  <Link to={`/projects/${row.id}/ai`}>AI 出模</Link>
                 </>
               ),
             },

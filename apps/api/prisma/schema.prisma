@@ -123,6 +123,7 @@ enum AssetKind {
   panorama_image
   panorama_video
   scene_package
+  model_glb
   audio
   other
 }
@@ -268,4 +269,48 @@ model AiProviderConfig {
 
   @@index([kind, enabled])
   @@map("ai_provider_configs")
+}
+
+model AgentSession {
+  id                       String         @id @default(uuid()) @db.Uuid
+  tenantId                 String         @map("tenant_id") @db.Uuid
+  projectId                String         @map("project_id") @db.Uuid
+  llmProviderId            String         @map("llm_provider_id") @db.Uuid
+  model                    String
+  createdByMemberId        String?        @map("created_by_member_id") @db.Uuid
+  createdByPlatformAdminId String?        @map("created_by_platform_admin_id") @db.Uuid
+  createdAt                DateTime       @default(now()) @map("created_at")
+  messages                 AgentMessage[]
+
+  @@index([projectId])
+  @@map("agent_sessions")
+}
+
+model AgentMessage {
+  id        String       @id @default(uuid()) @db.Uuid
+  sessionId String       @map("session_id") @db.Uuid
+  role      String
+  content   Json
+  createdAt DateTime     @default(now()) @map("created_at")
+  session   AgentSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@map("agent_messages")
+}
+
+model MeshJob {
+  id           String   @id @default(uuid()) @db.Uuid
+  tenantId     String   @map("tenant_id") @db.Uuid
+  projectId    String   @map("project_id") @db.Uuid
+  sessionId    String?  @map("session_id") @db.Uuid
+  providerId   String   @map("provider_id") @db.Uuid
+  remoteTaskId String   @map("remote_task_id")
+  status       String
+  glbTempKey   String?  @map("glb_temp_key")
+  errorMessage String?  @map("error_message")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([sessionId])
+  @@map("mesh_jobs")
 }

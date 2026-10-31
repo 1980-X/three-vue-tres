@@ -9,6 +9,7 @@ import { AiProviders } from './pages/platform/AiProviders';
 import { Assets } from './pages/Assets';
 import { Venues } from './pages/Venues';
 import { VenueEditor } from './pages/VenueEditor';
+import { AiWorkbench } from './pages/AiWorkbench';
 
 export function App() {
   return (
@@ -37,6 +38,14 @@ export function App() {
             element={
               <AuthGate>
                 <AiProviders />
+              </AuthGate>
+            }
+          />
+          <Route
+            path="/projects/:projectId/ai"
+            element={
+              <AuthGate>
+                <AiWorkbench />
               </AuthGate>
             }
           />

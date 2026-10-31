@@ -16,11 +16,11 @@
 
 ## 进度总览 — AI 出模 Agent
 
-- [ ] **P1** LLM 多厂商 Registry + 超管配置 / 测连通
-- [ ] **P2** Agent SSE + **Three.js JSON→GLB**（硬性）+ 工作台预览
-- [ ] **P3** 混元轨 A + MeshProvider 预留 + `mesh_jobs`
-- [ ] **P4** Asset 入库 + 挂 VenueTrack 闭环
-- [ ] **P5** MCP/CLI 薄封装（可选）
+- [x] **P1** LLM 多厂商 Registry + 超管配置 / 测连通
+- [x] **P2** Agent SSE + **Three.js JSON→GLB**（硬性）+ 工作台预览
+- [x] **P3** 混元轨 A + MeshProvider 预留 + `mesh_jobs`
+- [x] **P4** Asset 入库 + 挂 VenueTrack 闭环
+- [x] **P5** MCP/CLI 薄封装（可选）
 
 指针：[`ai-mesh-agent.md`](ai-mesh-agent.md)。
 

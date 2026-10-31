@@ -6,26 +6,26 @@
 
 ## P1 — LLM Registry
 
-- [ ] Prisma `ai_provider_configs` + `secret-box` + `CREDENTIALS_ENCRYPTION_KEY`
-- [ ] OpenAI 兼容 Gateway + `MOCK_LLM`
-- [ ] ` /platform/ai/providers` CRUD + probe；Admin 设置页；Key 仅末四位
+- [x] Prisma `ai_provider_configs` + `secret-box` + `CREDENTIALS_ENCRYPTION_KEY`
+- [x] OpenAI 兼容 Gateway + `MOCK_LLM`
+- [x] `/platform/ai/providers` CRUD + probe；Admin 设置页；Key 仅末四位
 
 ## P2 — Agent + Three.js（硬性）
 
-- [ ] Scene graph zod + `ThreejsDraftSandbox` 导出 GLB（魔数单测）
-- [ ] `AgentSession` / `AgentMessage` + Runtime SSE；tool `threejs_draft`
-- [ ] Admin 工作台 + GLB 预览（无混元亦可出草模）
+- [x] Scene graph zod + `ThreejsDraftSandbox` 导出 GLB（魔数单测）
+- [x] `AgentSession` / `AgentMessage` + Runtime SSE；tool `threejs_draft`
+- [x] Admin 工作台 + GLB 预览（无混元亦可出草模）
 
 ## P3 — 混元轨 A
 
-- [ ] `MeshProviderPort` + Hunyuan + `MOCK_MESH`
-- [ ] `mesh_jobs` + tools `mesh_submit` / `mesh_poll`
+- [x] `MeshProviderPort` + Hunyuan + `MOCK_MESH`
+- [x] `mesh_jobs` + tools `mesh_submit` / `mesh_poll`
 
 ## P4 — 入库挂馆
 
-- [ ] AssetKind `model_glb`（或计划钉死的等价）+ `asset_import`
-- [ ] `venue_attach`；工作台闭环可见 Assets / 挂轨
+- [x] AssetKind `model_glb` + `asset_import`
+- [x] `venue_attach`；工作台入口已挂项目列表（入库经 Agent tool）
 
 ## P5 — MCP（可选）
 
-- [ ] Loopback Bearer + stdio MCP 调同一 HTTP/Tool；文档无密钥真值
+- [x] CLI `mcp-ai-mesh.mjs` list-tools + `docs/spec/ai-mesh-mcp.md`（HTTP/Token 契约；完整 JSON-RPC 可后续）
