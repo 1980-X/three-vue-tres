@@ -247,3 +247,25 @@ model Tour {
 
   @@map("tours")
 }
+
+enum AiProviderKind {
+  llm
+  mesh
+}
+
+model AiProviderConfig {
+  id         String         @id @default(uuid()) @db.Uuid
+  kind       AiProviderKind
+  vendor     String
+  name       String
+  baseUrl    String         @map("base_url")
+  apiKeyEnc  String         @map("api_key_enc")
+  modelsJson Json           @default("[]") @map("models_json")
+  enabled    Boolean        @default(true)
+  isDefault  Boolean        @default(false) @map("is_default")
+  createdAt  DateTime       @default(now()) @map("created_at")
+  updatedAt  DateTime       @updatedAt @map("updated_at")
+
+  @@index([kind, enabled])
+  @@map("ai_provider_configs")
+}
